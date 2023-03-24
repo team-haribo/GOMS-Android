@@ -1,3 +1,8 @@
+buildscript {
+    dependencies {
+        classpath(Dependency.Hilt.HILT_ANDROID_GRADLE)
+    }
+}
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id(Dependency.GradlePlugins.ANDROID_APPLICATION) version Versions.Android apply false

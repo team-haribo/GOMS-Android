@@ -6,8 +6,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
+import com.example.presentation.R
 import com.example.presentation.databinding.ActivitySignInBinding
 import com.example.presentation.viewmodel.SignInViewModel
 import com.msg.gauthsignin.GAuthSigninWebView
@@ -27,17 +38,41 @@ class SignInActivity : AppCompatActivity() {
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.loginMainText.setContent { 
+            SignInMainText()
+        }
+        
         binding.signInBtn.setContent {
             GAuthButton(
                 style = Types.Style.DEFAULT,
                 actionType = Types.ActionType.CONTINUE,
-                colors = Types.Colors.OUTLINE,
+                colors = Types.Colors.COLORED,
                 horizontalPaddingValue = 50.dp
             ) {
                 binding.gauthWebView.visibility = View.VISIBLE
                 setGAuthWebViewComponent()
             }
         }
+    }
+
+    @Composable
+    private fun SignInMainText() {
+        Text(
+            buildAnnotatedString {
+                append("간편한 ")
+                withStyle(style = SpanStyle(
+                    color = colorResource(id = R.color.goms_main_color_student),
+                    fontWeight = FontWeight.SemiBold
+                )) {
+                    append("수요 외출제")
+                }
+                append(" 서비스")
+            },
+            style = TextStyle(
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        )
     }
 
     private fun setGAuthWebViewComponent() {

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <resources>
-      <color name="black">#FF000000</color>
-      <color name="white">#FFFFFFFF</color>
-  </resources>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="goms_main_color_student">#FF731D</color>
+    <color name="goms_main_color_admin">#5F9DF7</color>
+    <color name="goms_nav_item_click_false">#959595</color>
+</resources>

@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="앱으로 간편하게 GSM의 \n 수요 외출제를 이용해 보세요!"
-        android:textColor="@color/goms_nav_item_click_false"
+        android:textColor="@color/goms_main_color_gray"
         android:textAlignment="center"
         android:textFontWeight="@integer/material_motion_duration_medium_1"
         android:textSize="16sp"

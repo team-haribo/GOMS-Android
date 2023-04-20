@@ -1,14 +1,13 @@
 package com.example.presentation.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -60,10 +59,9 @@ class SignInActivity : AppCompatActivity() {
         Text(
             buildAnnotatedString {
                 append("간편한 ")
-                withStyle(style = SpanStyle(
-                    color = colorResource(id = R.color.goms_main_color_student),
-                    fontWeight = FontWeight.SemiBold
-                )) {
+                withStyle(
+                    style = SpanStyle(color = colorResource(id = R.color.goms_main_color_student))
+                ) {
                     append("수요 외출제")
                 }
                 append(" 서비스")

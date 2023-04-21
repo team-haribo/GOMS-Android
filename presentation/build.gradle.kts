@@ -55,6 +55,9 @@ dependencies {
     implementation(Dependency.Hilt.HILT_ANDROID)
     kapt(Dependency.Hilt.HILT_ANDROID_COMPILER)
 
+    // coil
+    implementation(Dependency.Coil.COIL)
+
     // retrofit
     implementation(Dependency.Retrofit.RETROFIT_KT)
     implementation(Dependency.Retrofit.RETROFIT_GSON_CONVERTER)

@@ -65,4 +65,8 @@ object Dependency {
         const val TEST_JUNIT = "androidx.test.ext:junit:${Versions.TestJunit}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.Espresso}"
     }
+
+    object Coil {
+        const val COIL = "com.github.skydoves:landscapist-coil:${Versions.Coil}"
+    }
 }

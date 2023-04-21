@@ -12,6 +12,8 @@ object Versions {
     const val TestJunit = "1.1.5"
     const val Espresso = "3.5.1"
 
+    const val Coil = "2.1.10"
+
     const val ActivityCompose = "1.3.1"
     const val Compose = "1.2.0"
     const val ComposeNav = "2.5.1"

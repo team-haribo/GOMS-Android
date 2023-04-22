@@ -37,8 +37,7 @@ fun HomeItemCard() {
         modifier = Modifier
             .width(110.dp)
             .fillMaxHeight()
-            .clip(RoundedCornerShape(10.dp))
-            .shadow(elevation = 5.dp),
+            .clip(RoundedCornerShape(10.dp)),
         onClick = { /*TODO*/ }
     ) {
         Column(

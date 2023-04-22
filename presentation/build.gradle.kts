@@ -15,9 +15,6 @@ android {
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        vectorDrawables {
-//            useSupportLibrary = true
-//        }
     }
 
     buildTypes {
@@ -57,6 +54,9 @@ dependencies {
     // hilt
     implementation(Dependency.Hilt.HILT_ANDROID)
     kapt(Dependency.Hilt.HILT_ANDROID_COMPILER)
+
+    // coil
+    implementation(Dependency.Coil.COIL)
 
     // retrofit
     implementation(Dependency.Retrofit.RETROFIT_KT)

@@ -4,10 +4,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
-import com.goms.presentation.view.fragment.HomeFragment
-import com.goms.presentation.view.fragment.OutingFragment
-import com.goms.presentation.view.fragment.QrScanFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.goms.presentation.view.home.HomeFragment
+import com.goms.presentation.view.outing.OutingFragment
+import com.goms.presentation.view.qr_scan.QrScanFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,19 +25,17 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.home_fragment -> {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
-                    return@setOnItemSelectedListener true
                 }
                 R.id.qr_scan_fragment -> {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, QrScanFragment()).commit()
-                    return@setOnItemSelectedListener true
                 }
                 R.id.outing_fragment -> {
                     supportFragmentManager.beginTransaction().replace(R.id.fragment_container, OutingFragment()).commit()
-                    return@setOnItemSelectedListener true
                 }
+                else -> return@setOnItemSelectedListener false
             }
 
-            return@setOnItemSelectedListener false
+            return@setOnItemSelectedListener true
         }
     }
 }

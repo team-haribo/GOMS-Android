@@ -14,5 +14,5 @@
         android:id="@+id/outing_fragment"
         android:icon="@drawable/outing_icon"
         android:enabled="true"
-        android:title="외출 현황"/>
+        android:title="외출현황"/>
 </menu>

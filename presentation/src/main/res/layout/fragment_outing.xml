@@ -9,10 +9,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="외출 현황"
-        android:fontFamily="@font/sf_pro_text_semibold"
+        android:text="외출현황"
+        android:fontFamily="@font/sf_pro_text_bold"
         android:textSize="24sp"
-        android:layout_margin="25dp"/>
+        android:textColor="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp" />
 
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/outing_student_list_lazy_column"

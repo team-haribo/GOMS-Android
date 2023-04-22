@@ -1,4 +1,4 @@
-package com.goms.presentation.view.component
+package com.goms.presentation.view.home.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,8 +27,8 @@ import com.skydoves.landscapist.coil.CoilImage
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MainItemCard() {
-    val mainCardFont = FontFamily(
+fun HomeItemCard() {
+    val homeCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal),
         Font(R.font.sf_pro_text_medium, FontWeight.Medium)
     )
@@ -55,7 +55,7 @@ fun MainItemCard() {
                 modifier = Modifier.padding(top = 15.dp),
                 text = "선민재",
                 style = TextStyle(
-                    fontFamily = mainCardFont,
+                    fontFamily = homeCardFont,
                     fontWeight = FontWeight.Medium,
                     fontSize = 14.sp
                 )
@@ -65,7 +65,7 @@ fun MainItemCard() {
                 modifier = Modifier.padding(top = 7.dp),
                 text = "3111",
                 style = TextStyle(
-                    fontFamily = mainCardFont,
+                    fontFamily = homeCardFont,
                     fontWeight = FontWeight.Normal,
                     fontSize = 12.sp
                 )

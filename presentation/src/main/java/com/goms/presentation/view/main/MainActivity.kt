@@ -1,4 +1,4 @@
-package com.goms.presentation.view
+package com.goms.presentation.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

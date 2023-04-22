@@ -15,7 +15,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginStart="25dp"
@@ -47,7 +47,6 @@
                     android:textColor="@color/white"
                     android:fontFamily="@font/sf_pro_text_semibold"
                     android:background="@drawable/goms_buttom_background"
-                    android:layout_marginBottom="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/goms_main_title_text"
                     app:layout_constraintStart_toStartOf="@+id/goms_main_title_text" />
@@ -55,9 +54,10 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="centerCrop"
             android:src="@drawable/shopping_bags_tdby"
             android:layout_marginEnd="25dp"/>
     </LinearLayout>

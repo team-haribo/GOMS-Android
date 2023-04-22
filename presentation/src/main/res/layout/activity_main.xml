@@ -61,12 +61,12 @@
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:layout_marginBottom="15dp"
-                    app:layout_constraintBottom_toTopOf="@+id/appCompatButton"
+                    app:layout_constraintBottom_toTopOf="@+id/main_outing_button"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/appCompatButton"
+                    android:id="@+id/main_outing_button"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:text="외출하기"

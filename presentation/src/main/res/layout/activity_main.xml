@@ -32,183 +32,22 @@
             android:layout_marginEnd="25dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginStart="25dp"
-            android:gravity="start|center"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/goms_main_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:text="간편하게\n수요 외출제를\n이용해 보세요!"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="15dp"
-                    app:layout_constraintBottom_toTopOf="@+id/main_outing_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/main_outing_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:text="외출하기"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sf_pro_text_semibold"
-                    android:background="@drawable/goms_buttom_background"
-                    android:layout_marginBottom="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/goms_main_title_text"
-                    app:layout_constraintStart_toStartOf="@+id/goms_main_title_text" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-        
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/shopping_bags_tdby"
-            android:layout_marginEnd="25dp"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center|start"
-            android:background="@drawable/main_horizontal_card_background"
-            android:elevation="5dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/total_student_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="현재 183명의 학생 중에서"
-                android:fontFamily="@font/sf_pro_text_regular"
-                android:layout_marginStart="15dp"
-                android:textSize="12sp"/>
-
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/current_student_outing_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="15dp"/>
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="0.3"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지각의 전당"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:textSize="20sp"
-            android:layout_marginStart="25dp"
-            android:textColor="#787878"/>
-
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/late_ranking_lazy_row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/main_horizontal_card_background"
-            android:elevation="5dp"
-            android:gravity="center|start"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/user_profile" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/main_user_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:text="김성길"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/main_student_number_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:text="3학년 4반 2번"
-                    android:textColor="@color/goms_main_color_gray"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/main_go_to_profile_back_arrow_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/backarrow" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_weight="1"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/goms_bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:menu="@menu/bottom_navi_item"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemRippleColor="@color/goms_main_color_gray"
+        app:itemTextAppearanceActive="@style/BottomNavigationViewTextStyle"
+        app:itemTextAppearanceInactive="@style/BottomNavigationViewTextStyle"
+        app:itemIconTint="@color/bottom_navi_item_selector"
+        app:itemTextColor="@color/bottom_navi_item_selector"/>
 </LinearLayout>

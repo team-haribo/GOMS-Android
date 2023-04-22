@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                     .fillMaxWidth()
                     .padding(start = 25.dp, end = 25.dp)
             ) {
-                items(10) {
+                items(5) {
                     Box(modifier = Modifier.padding(end = 10.dp)) {
                         MainItemCard()
                     }

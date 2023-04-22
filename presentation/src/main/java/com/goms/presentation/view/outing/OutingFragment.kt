@@ -37,7 +37,7 @@ class OutingFragment : Fragment() {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp, end = 25.dp, top = 7.dp),
+                        .padding(start = 25.dp, end = 25.dp, top = 7.dp, bottom = 15.dp),
                     verticalArrangement = Arrangement.spacedBy(15.dp),
                     contentPadding = PaddingValues(vertical = 10.dp)
                 ) {

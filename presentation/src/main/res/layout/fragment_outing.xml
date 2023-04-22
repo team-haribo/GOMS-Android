@@ -1,13 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goms.presentation.view.fragment.OutingFragment">
+    tools:context="com.goms.presentation.view.outing.OutingFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="outing" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="외출 현황"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:textSize="24sp"
+        android:layout_margin="25dp"/>
 
-</FrameLayout>
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/outing_student_list_lazy_column"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

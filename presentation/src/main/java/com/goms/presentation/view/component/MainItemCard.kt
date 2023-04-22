@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -36,7 +37,8 @@ fun MainItemCard() {
         modifier = Modifier
             .width(110.dp)
             .fillMaxHeight()
-            .clip(RoundedCornerShape(10.dp)),
+            .clip(RoundedCornerShape(10.dp))
+            .shadow(elevation = 5.dp),
         onClick = { /*TODO*/ }
     ) {
         Column(
@@ -46,11 +48,11 @@ fun MainItemCard() {
         ) {
             CoilImage(
                 modifier = Modifier.size(40.dp),
-                imageModel = { /*TODO*/ }
+                imageModel = { R.drawable.user_profile }
             )
 
             Text(
-                modifier = Modifier.padding(top = 20.dp),
+                modifier = Modifier.padding(top = 15.dp),
                 text = "선민재",
                 style = TextStyle(
                     fontFamily = mainCardFont,
@@ -60,7 +62,7 @@ fun MainItemCard() {
             )
 
             Text(
-                modifier = Modifier.padding(top = 10.dp),
+                modifier = Modifier.padding(top = 7.dp),
                 text = "3111",
                 style = TextStyle(
                     fontFamily = mainCardFont,

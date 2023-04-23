@@ -42,7 +42,8 @@ class OutingFragment : Fragment() {
                     contentPadding = PaddingValues(vertical = 10.dp)
                 ) {
                     items(list) {
-                        Box(modifier = Modifier.shadow(
+                        Box(
+                            modifier = Modifier.shadow(
                             elevation = 5.dp,
                             shape = RoundedCornerShape(10.dp)
                         )) {

@@ -1,11 +1,13 @@
 package com.goms.presentation.view.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
 import com.goms.presentation.view.home.HomeFragment
 import com.goms.presentation.view.outing.OutingFragment
+import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.view.qr_scan.QrScanFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +38,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             return@setOnItemSelectedListener true
+        }
+
+        binding.mainProfileIcon.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
         }
     }
 }

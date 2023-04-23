@@ -42,7 +42,7 @@ fun EmptyScreen() {
                 fontWeight = FontWeight.Normal,
                 fontSize = 18.sp
             ),
-            color = colorResource(id = R.color.goms_empty_page_color)
+            color = colorResource(id = R.color.goms_second_color_gray)
         )
     }
 }

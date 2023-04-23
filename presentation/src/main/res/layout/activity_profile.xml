@@ -76,7 +76,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/profile_user_name_text"
+                android:id="@+id/profile_card_user_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="선민재"
@@ -114,7 +114,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/profile_user_grade_text"
+                android:id="@+id/profile_card_user_grade_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="3"
@@ -152,7 +152,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/profile_user_class_text"
+                android:id="@+id/profile_card_user_class_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
@@ -190,7 +190,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/profile_user_number_text"
+                android:id="@+id/profile_card_user_number_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11"
@@ -228,7 +228,7 @@
                 android:layout_weight="1"/>
 
             <TextView
-                android:id="@+id/profile_user_late_count_text"
+                android:id="@+id/profile_card_user_late_count_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11"

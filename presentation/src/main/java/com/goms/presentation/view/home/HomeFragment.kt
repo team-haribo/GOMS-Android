@@ -1,5 +1,6 @@
 package com.goms.presentation.view.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.presentation.view.home.component.HomeItemCard
+import com.goms.presentation.view.profile.ProfileActivity
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -61,6 +63,10 @@ class HomeFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.mainGoToProfileBackArrowIcon.setOnClickListener {
+            startActivity(Intent(context, ProfileActivity::class.java))
         }
 
         return binding.root

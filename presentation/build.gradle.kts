@@ -64,6 +64,9 @@ dependencies {
     implementation(Dependency.Retrofit.OKHTTP)
     implementation(Dependency.Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
+    // splash
+    implementation(Dependency.AndroidX.SPLASH_CORE)
+
     // compose
     implementation(Dependency.Compose.ACTIVITY_COMPOSE)
     implementation(Dependency.Compose.COMPOSE)

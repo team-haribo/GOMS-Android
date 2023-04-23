@@ -10,6 +10,7 @@ object Dependency {
         const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.Appcompat}"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.Constraint}"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:${Versions.ActivityKtx}"
+        const val SPLASH_CORE = "androidx.core:core-splashscreen:${Versions.Splash}"
     }
 
     object Compose {

@@ -1,4 +1,4 @@
-package com.goms.presentation.view.fragment
+package com.goms.presentation.view.qr_scan
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

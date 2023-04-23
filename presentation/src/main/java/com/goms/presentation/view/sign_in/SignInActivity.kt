@@ -1,4 +1,4 @@
-package com.goms.presentation.view
+package com.goms.presentation.view.sign_in
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivitySignInBinding
+import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.SignInViewModel
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton

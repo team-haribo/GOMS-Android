@@ -1,4 +1,4 @@
-package com.goms.presentation.view.fragment
+package com.goms.presentation.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
-import com.goms.presentation.view.component.MainItemCard
+import com.goms.presentation.view.home.component.HomeItemCard
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -57,7 +57,7 @@ class HomeFragment : Fragment() {
                         elevation = 3.dp,
                         shape = RoundedCornerShape(10.dp)
                     )) {
-                        MainItemCard()
+                        HomeItemCard()
                     }
                 }
             }

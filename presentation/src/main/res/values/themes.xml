@@ -10,6 +10,6 @@
   <style name="Theme.GSM_GOMS" parent="Base.Theme.GSM_GOMS" />
   
   <style name="BottomNavigationViewTextStyle">
-    <item name="fontFamily">@font/sf_pro_text_medium</item>
+    <item name="fontFamily">@font/sf_pro_text_regular</item>
   </style>
 </resources>

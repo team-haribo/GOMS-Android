@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/goms_main_background"
     android:orientation="vertical"
-    tools:context="com.goms.presentation.view.MainActivity">
+    tools:context="com.goms.presentation.view.main.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/goms_bottom_navigation_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@color/white"
         app:menu="@menu/bottom_navi_item"
         app:itemActiveIndicatorStyle="@null"

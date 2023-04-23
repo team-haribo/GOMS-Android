@@ -44,7 +44,7 @@ class OutingFragment : Fragment() {
                     items(list) {
                         Box(
                             modifier = Modifier.shadow(
-                            elevation = 5.dp,
+                            elevation = 2.dp,
                             shape = RoundedCornerShape(10.dp)
                         )) {
                             OutingStudentCard()

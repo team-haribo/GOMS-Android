@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivitySignInBinding
@@ -33,6 +34,7 @@ class SignInActivity : AppCompatActivity() {
     private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
 
         binding = ActivitySignInBinding.inflate(layoutInflater)

@@ -68,6 +68,7 @@
         android:layout_weight="0.18">
 
         <LinearLayout
+            android:id="@+id/home_outing_student_card_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="25dp"
@@ -77,23 +78,38 @@
             android:gravity="center|start"
             android:background="@drawable/main_horizontal_card_background"
             android:elevation="2dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/total_student_text"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="현재 183명의 학생 중에서"
-                android:fontFamily="@font/sf_pro_text_regular"
                 android:layout_marginStart="15dp"
-                android:textSize="12sp"/>
+                android:orientation="vertical">
 
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/current_student_outing_text"
+                <TextView
+                    android:id="@+id/total_student_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="현재 183명의 학생 중에서"
+                    android:fontFamily="@font/sf_pro_text_regular"
+                    android:textSize="12sp"/>
+
+                <androidx.compose.ui.platform.ComposeView
+                    android:id="@+id/current_student_outing_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginStart="15dp"/>
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/backarrow" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -125,6 +141,7 @@
         android:layout_weight="0.18">
 
         <LinearLayout
+            android:id="@+id/main_profile_card_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="25dp"
@@ -173,7 +190,6 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:id="@+id/main_go_to_profile_back_arrow_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"

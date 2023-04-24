@@ -28,8 +28,12 @@ class QrCodeActivity : AppCompatActivity() {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 123)
-        } else {
-            scanningLogic()
+        } else scanningLogic()
+
+        binding.qrScanQuitScanner.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java)
+                .putExtra("scanAble", false))
+            finish()
         }
     }
 
@@ -89,13 +93,5 @@ class QrCodeActivity : AppCompatActivity() {
         if (::codeScanner.isInitialized)
             codeScanner.releaseResources()
         super.onPause()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-
-        startActivity(Intent(this, MainActivity::class.java)
-            .putExtra("scanAble", false))
-        finish()
     }
 }

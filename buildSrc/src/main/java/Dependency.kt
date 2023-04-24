@@ -11,6 +11,8 @@ object Dependency {
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.Constraint}"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:${Versions.ActivityKtx}"
         const val SPLASH_CORE = "androidx.core:core-splashscreen:${Versions.Splash}"
+        const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.Navigation}"
+        const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.Navigation}"
     }
 
     object Compose {

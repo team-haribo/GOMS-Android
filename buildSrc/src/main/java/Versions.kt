@@ -7,6 +7,7 @@ object Versions {
     const val Constraint = "2.1.4"
     const val ActivityKtx = "1.2.3"
     const val Splash = "1.0.0-beta01"
+    const val Navigation = "2.5.3"
 
     const val Material = "1.8.0"
     const val Junit = "4.13.2"

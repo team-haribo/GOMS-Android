@@ -25,8 +25,8 @@
 
         <ImageView
             android:id="@+id/main_profile_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@drawable/profile_icon"
             android:layout_gravity="end"
             android:layout_marginEnd="25dp" />

@@ -15,6 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var navHostFragment: NavHostFragment
+    private lateinit var navController: NavController
+    private lateinit var navGraph: NavGraph
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
-    private lateinit var navHostFragment: NavHostFragment
-    private lateinit var navController: NavController
-    private lateinit var navGraph: NavGraph
     private fun setNavigation() {
         val scanAble = intent.getBooleanExtra("scanAble", false)
 

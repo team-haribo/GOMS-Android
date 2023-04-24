@@ -21,7 +21,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, HomeFragment()).commit()
+        val scanAble = intent.getBooleanExtra("scanAble", false)
+        if (scanAble) supportFragmentManager.beginTransaction().add(R.id.fragment_container, OutingFragment()).commit()
+        else supportFragmentManager.beginTransaction().add(R.id.fragment_container, HomeFragment()).commit()
 
         binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
             when(item.itemId) {

@@ -82,6 +82,9 @@ dependencies {
 
     // splash
     implementation(Dependency.AndroidX.SPLASH_CORE)
+    // navigation
+    implementation(Dependency.AndroidX.NAVIGATION_FRAGMENT)
+    implementation(Dependency.AndroidX.NAVIGATION_UI_KTX)
 
     implementation(Dependency.AndroidX.KOTLIN_CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)

@@ -2,9 +2,11 @@ object Versions {
     const val Android = "7.4.2"
     const val AndroidKotlin = "1.7.0"
 
-    const val Kotlin = "1.7.0"
+    const val Kotlin = "1.9.0"
     const val Appcompat = "1.6.1"
     const val Constraint = "2.1.4"
+    const val ActivityKtx = "1.2.3"
+    const val Splash = "1.0.0-beta01"
 
     const val Material = "1.8.0"
     const val Junit = "4.13.2"
@@ -26,8 +28,6 @@ object Versions {
     const val Gauth = "v1.0.7"
 
     const val Hilt = "2.44"
-
-    const val ActivityKtx = "1.2.3"
 
     const val Retrofit = "2.7.1"
     const val Okhttp = "3.14.9"

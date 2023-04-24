@@ -64,9 +64,6 @@ dependencies {
     implementation(Dependency.Retrofit.OKHTTP)
     implementation(Dependency.Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
-    // splash
-    implementation(Dependency.AndroidX.SPLASH_CORE)
-
     // compose
     implementation(Dependency.Compose.ACTIVITY_COMPOSE)
     implementation(Dependency.Compose.COMPOSE)
@@ -77,14 +74,17 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_ICON)
     implementation(Dependency.Compose.COMPOSE_PAGER)
     implementation(Dependency.Compose.PAGER_INDICATORS)
-    testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_MANIFEST)
+    testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
+
+    // splash
+    implementation(Dependency.AndroidX.SPLASH_CORE)
 
     implementation(Dependency.AndroidX.KOTLIN_CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)
-    implementation(Dependency.Google.MATERIAL)
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Dependency.Google.MATERIAL)
     testImplementation(Dependency.Test.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.TEST_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO)

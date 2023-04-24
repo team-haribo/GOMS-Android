@@ -3,12 +3,11 @@ package com.goms.presentation.view.main
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
-import com.goms.presentation.view.home.HomeFragment
-import com.goms.presentation.view.outing.OutingFragment
 import com.goms.presentation.view.profile.ProfileActivity
-import com.goms.presentation.view.qr_scan.QrScanFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,29 +20,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val scanAble = intent.getBooleanExtra("scanAble", false)
-        if (scanAble) supportFragmentManager.beginTransaction().add(R.id.fragment_container, OutingFragment()).commit()
-        else supportFragmentManager.beginTransaction().add(R.id.fragment_container, HomeFragment()).commit()
-
-        binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.home_fragment -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment()).commit()
-                }
-                R.id.qr_scan_fragment -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, QrScanFragment()).commit()
-                }
-                R.id.outing_fragment -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, OutingFragment()).commit()
-                }
-                else -> return@setOnItemSelectedListener false
-            }
-
-            return@setOnItemSelectedListener true
-        }
+        setNavigation()
 
         binding.mainProfileIcon.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
+    }
+
+    private fun setNavigation() {
+        val scanAble = intent.getBooleanExtra("scanAble", false)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
+        val navController = navHostFragment.navController
+        val navGraph = navController.navInflater.inflate(R.navigation.bottom_navigation)
+
+        // start destination 설정하기
+        if (scanAble) navGraph.setStartDestination(R.id.outingFragment)
+        else navGraph.setStartDestination(R.id.homeFragment)
+
+        // start destination 적용하기
+        navController.setGraph(navGraph, null)
+
+        binding.gomsBottomNavigationView.setupWithNavController(navController)
     }
 }

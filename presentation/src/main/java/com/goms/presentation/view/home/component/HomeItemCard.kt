@@ -38,7 +38,6 @@ fun HomeItemCard() {
             .width(110.dp)
             .fillMaxHeight()
             .clip(RoundedCornerShape(10.dp)),
-        onClick = { /*TODO*/ }
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),

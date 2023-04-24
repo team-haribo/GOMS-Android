@@ -37,8 +37,7 @@ fun OutingStudentCard() {
         modifier = Modifier
             .fillMaxWidth()
             .height(100.dp)
-            .clip(RoundedCornerShape(10.dp)),
-        onClick = { /*TODO*/ }
+            .clip(RoundedCornerShape(10.dp))
     ) {
         Row(
             modifier = Modifier

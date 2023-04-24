@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.34"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:orientation="horizontal">
@@ -65,7 +65,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.18">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                 android:id="@+id/current_student_outing_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+
                 android:layout_marginStart="15dp"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -122,7 +122,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2">
+        android:layout_weight="0.18">
 
         <LinearLayout
             android:layout_width="match_parent"

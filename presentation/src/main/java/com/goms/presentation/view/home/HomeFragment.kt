@@ -32,6 +32,7 @@ import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.profile.ProfileActivity
+import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -44,6 +45,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         binding.currentStudentOutingText.setContent {
             StudentOutingText()
+        }
+
+        binding.mainOutingButton.setOnClickListener {
+            startActivity(Intent(context, QrCodeActivity::class.java))
         }
 
         binding.lateRankingLazyRow.setContent {

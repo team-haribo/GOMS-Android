@@ -33,6 +33,7 @@ object Dependency {
 
     object Libraries {
         const val GAUTH =  "com.github.GSM-MSG:GAuth-Signin-Android:${Versions.Gauth}"
+        const val CODE_SCANNER = "com.github.yuriy-budiyev:code-scanner:${Versions.CodeScanner}"
     }
 
     object Hilt {

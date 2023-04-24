@@ -26,6 +26,7 @@ object Versions {
     const val TargetSdk = 33
 
     const val Gauth = "v1.0.7"
+    const val CodeScanner = "2.3.2"
 
     const val Hilt = "2.44"
 

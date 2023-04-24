@@ -45,6 +45,8 @@ dependencies {
 
     // gauth
     implementation(Dependency.Libraries.GAUTH)
+    // code scanner
+    implementation(Dependency.Libraries.CODE_SCANNER)
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)

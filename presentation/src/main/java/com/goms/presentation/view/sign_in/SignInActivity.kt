@@ -2,7 +2,6 @@ package com.goms.presentation.view.sign_in
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -87,12 +86,19 @@ class SignInActivity : AppCompatActivity() {
 
                 viewModel.signInLogic(code)
                 lifecycleScope.launch {
-                    viewModel.signIn.collect { signInResponse ->
-                        Log.d("TAG", "setGAuthWebViewComponent: $signInResponse")
-                        if (signInResponse != null) {
-                            startActivity(Intent(this@SignInActivity, MainActivity::class.java)
-                                .putExtra("accessToken", signInResponse.accessToken)
-                                .putExtra("refreshToken", signInResponse.refreshToken))
+                    viewModel.isLoading.collect { loading ->
+                        if (loading) {
+                            binding.signInScreenView.visibility = View.GONE
+                            binding.signInProgressBar.visibility = View.VISIBLE
+                        } else {
+                            binding.signInProgressBar.visibility = View.GONE
+                            viewModel.signIn.collect { signInResponse ->
+                                if (signInResponse != null) {
+                                    startActivity(Intent(this@SignInActivity, MainActivity::class.java)
+                                        .putExtra("accessToken", signInResponse.accessToken)
+                                        .putExtra("refreshToken", signInResponse.refreshToken))
+                                }
+                            }
                         }
                     }
                 }

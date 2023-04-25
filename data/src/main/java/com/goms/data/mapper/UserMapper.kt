@@ -9,7 +9,8 @@ object UserMapper {
             accessToken = signInResponse.accessToken,
             refreshToken = signInResponse.refreshToken,
             accessTokenExpiredAt = signInResponse.accessTokenExpiredAt,
-            refreshTokenExpiredAt = signInResponse.refreshTokenExpiredAt
+            refreshTokenExpiredAt = signInResponse.refreshTokenExpiredAt,
+            authority = signInResponse.authority
         )
     }
 }

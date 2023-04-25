@@ -56,13 +56,13 @@ class HomeFragment : Fragment() {
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, end = 20.dp, top = 5.dp, bottom = 5.dp),
+                    .padding(start = 25.dp, end = 25.dp, top = 5.dp, bottom = 5.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp),
-                contentPadding = PaddingValues(horizontal = 5.dp)
+                contentPadding = PaddingValues(horizontal = 1.dp)
             ) {
                 items(5) {
                     Box(modifier = Modifier.shadow(
-                        elevation = 3.dp,
+                        elevation = 1.dp,
                         shape = RoundedCornerShape(10.dp)
                     )) {
                         HomeItemCard()

@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
+import com.example.presentation.BuildConfig
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivitySignInBinding
 import com.goms.presentation.view.main.MainActivity
@@ -47,7 +48,7 @@ class SignInActivity : AppCompatActivity() {
         binding.signInBtn.setContent {
             GAuthButton(
                 style = Types.Style.DEFAULT,
-                actionType = Types.ActionType.CONTINUE,
+                actionType = Types.ActionType.SIGNIN,
                 colors = Types.Colors.COLORED,
                 horizontalPaddingValue = 50.dp
             ) {
@@ -79,8 +80,8 @@ class SignInActivity : AppCompatActivity() {
     private fun setGAuthWebViewComponent() {
         binding.gauthWebView.setContent {
             GAuthSigninWebView(
-                clientId = "c6731e83059f4decaaa5b6a79c75320c306471f896da4284811f02bdcfeb7f94",
-                redirectUri = "https://port-0-goms-backend-nx562olfamh7iw.sel3.cloudtype.app/",
+                clientId = BuildConfig.CLIENT_ID,
+                redirectUri = BuildConfig.REDIRECT_URL,
             ) { code ->
                 binding.gauthWebView.visibility = View.INVISIBLE
 

@@ -21,11 +21,14 @@ class SignInViewModel @Inject constructor(
     private val _signIn = MutableStateFlow<SignInResponseData?>(null)
     val signIn: StateFlow<SignInResponseData?> = _signIn
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     fun signInLogic(code: String) = viewModelScope.launch {
-        signInUseCase(code).onStart { 
-            // loading start logic
-        }.onCompletion { 
-            // loading complete logic
+        signInUseCase(code).onStart {
+            _isLoading.value = true
+        }.onCompletion {
+            _isLoading.value = false
         }.catch { error ->
             Log.e("TAG", "signInLogic: ${error.printStackTrace()}", error.cause)
         }.collect { response ->

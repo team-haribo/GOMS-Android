@@ -32,7 +32,7 @@ object Versions {
     const val Hilt = "2.44"
 
     const val Retrofit = "2.7.1"
-    const val Okhttp = "3.14.9"
+    const val Okhttp = "4.9.2"
     const val Gson = "2.9.0"
 
     const val Lifecycle = "2.3.1"

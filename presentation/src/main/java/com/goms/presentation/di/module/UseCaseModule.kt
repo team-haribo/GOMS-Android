@@ -1,9 +1,11 @@
 package com.goms.presentation.di.module
 
 import com.goms.domain.repository.AuthRepository
+import com.goms.domain.repository.ProfileRepository
 import com.goms.domain.usecase.auth.CheckLoginUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
+import com.goms.domain.usecase.profile.ProfileUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +30,11 @@ object UseCaseModule {
     @Singleton
     fun provideSaveTokenUseCase(authRepository: AuthRepository) =
         SetTokenUseCase(authRepository)
+
+    @Provides
+    @Singleton
+    fun provideProfileUseCase(
+        profileRepository: ProfileRepository,
+        authRepository: AuthRepository
+    ) = ProfileUseCase(profileRepository, authRepository)
 }

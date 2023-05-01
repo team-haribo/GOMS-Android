@@ -154,6 +154,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/main_profile_card_user_image"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
@@ -166,7 +167,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/main_user_name_text"
+                    android:id="@+id/main_profile_card_user_name_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_text_medium"
@@ -175,7 +176,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/main_student_number_text"
+                    android:id="@+id/main_profile_card_student_number_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sf_pro_text_regular"

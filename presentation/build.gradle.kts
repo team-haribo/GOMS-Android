@@ -69,7 +69,8 @@ dependencies {
     kapt(Dependency.Hilt.HILT_ANDROID_COMPILER)
 
     // coil
-    implementation(Dependency.Coil.COIL)
+    implementation(Dependency.Coil.COIL_COMPOSE)
+    implementation(Dependency.Coil.COIL_VIEW)
 
     // retrofit
     implementation(Dependency.Retrofit.RETROFIT_KT)

@@ -71,6 +71,7 @@ object Dependency {
     }
 
     object Coil {
-        const val COIL = "com.github.skydoves:landscapist-coil:${Versions.Coil}"
+        const val COIL_COMPOSE = "com.github.skydoves:landscapist-coil:${Versions.CoilCompose}"
+        const val COIL_VIEW = "io.coil-kt:coil:${Versions.CoilView}"
     }
 }

@@ -2,18 +2,25 @@ package com.goms.presentation.view.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
 import com.goms.presentation.view.profile.ProfileActivity
+import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val profileViewModel by viewModels<ProfileViewModel>()
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navController: NavController
@@ -28,9 +35,18 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setNavigation()
-
+        setProfile()
         binding.mainProfileIcon.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
+        }
+    }
+
+    private fun setProfile() {
+        lifecycleScope.launch {
+            profileViewModel.getProfileLogic()
+            profileViewModel.profile.collect { response ->
+                binding.mainProfileIcon.load(response?.profileUrl ?: R.drawable.user_profile)
+            }
         }
     }
 

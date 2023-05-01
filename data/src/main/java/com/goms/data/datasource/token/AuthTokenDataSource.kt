@@ -1,6 +1,6 @@
 package com.goms.data.datasource.token
 
-interface ManageTokenDataSource {
+interface AuthTokenDataSource {
     fun getAccessToken(): String
     fun getRefreshToken(): String
     fun getAccessTokenExp(): String

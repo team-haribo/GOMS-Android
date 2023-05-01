@@ -5,9 +5,9 @@ import android.content.Context.MODE_PRIVATE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class ManageTokenDataSourceImpl @Inject constructor(
+class AuthTokenDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context
-): ManageTokenDataSource {
+): AuthTokenDataSource {
     companion object {
         const val NAME = "token"
         const val ACCESS_TOKEN = "accessToken"

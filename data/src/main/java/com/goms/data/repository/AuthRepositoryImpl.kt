@@ -2,7 +2,7 @@ package com.goms.data.repository
 
 import android.util.Log
 import com.goms.data.datasource.auth.AuthDataSource
-import com.goms.data.datasource.token.ManageTokenDataSource
+import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.data.mapper.AuthMapper
 import com.goms.domain.data.signin.response.SignInResponseData
 import com.goms.domain.exception.NeedLoginException
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
-    private val manageTokenDataSource: ManageTokenDataSource
+    private val authTokenDataSource: AuthTokenDataSource
 ) : AuthRepository {
     override suspend fun signIn(code: String): Flow<SignInResponseData> {
         return flow {
@@ -28,23 +28,25 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun checkLoginStatus() {
-        val accessToken = manageTokenDataSource.getAccessToken()
+        val accessToken = authTokenDataSource.getAccessToken()
         if (accessToken.isBlank()) throw NeedLoginException()
 
-        val refreshTokenExp = manageTokenDataSource.getRefreshTokenExp()
+        val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
         val koreaZone = ZoneId.of("Asia/Seoul")
         val expireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
         val koreaTime = expireDate.atZone(ZoneId.of("UTC")).withZoneSameInstant(koreaZone).toLocalDateTime()
 
+        Log.d("TAG", "checkLoginStatus ${LocalDateTime.now().isAfter(koreaTime)}")
         // 현재 시간이 만료 시간보다 미래인가요?(만료시간보다 시간이 지남)
         if (LocalDateTime.now().isAfter(koreaTime)) throw NeedLoginException()
-        val refreshToken = manageTokenDataSource.getRefreshToken()
+        val refreshToken = authTokenDataSource.getRefreshToken()
         authDataSource.refreshToken("Bearer $refreshToken").catch {
+            Log.d("TAG", "checkLoginStatus catch: $it")
             throw NeedLoginException()
         }.collect { result ->
             Log.d("TAG", "checkLoginStatus: $result")
-            manageTokenDataSource.setToken(
+            authTokenDataSource.setToken(
                 accessToken = result.accessToken,
                 refreshToken = result.refreshToken,
                 accessTokenExp = result.accessTokenExpiredAt.toString(),
@@ -53,10 +55,10 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getRefreshToken(): String = manageTokenDataSource.getRefreshToken()
-    override fun getAccessToken(): String = manageTokenDataSource.getAccessToken()
-    override fun getAccessTokenExp(): String = manageTokenDataSource.getAccessTokenExp()
-    override fun getRefreshTokenExp(): String = manageTokenDataSource.getRefreshTokenExp()
+    override fun getRefreshToken(): String = authTokenDataSource.getRefreshToken()
+    override fun getAccessToken(): String = authTokenDataSource.getAccessToken()
+    override fun getAccessTokenExp(): String = authTokenDataSource.getAccessTokenExp()
+    override fun getRefreshTokenExp(): String = authTokenDataSource.getRefreshTokenExp()
 
     override suspend fun setToken(
         accessToken: String,
@@ -64,6 +66,6 @@ class AuthRepositoryImpl @Inject constructor(
         accessTokenExp: String,
         refreshTokenExp: String
     ) {
-        manageTokenDataSource.setToken(accessToken, refreshToken, accessTokenExp, refreshTokenExp)
+        authTokenDataSource.setToken(accessToken, refreshToken, accessTokenExp, refreshTokenExp)
     }
 }

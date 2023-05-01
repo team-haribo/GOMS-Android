@@ -2,6 +2,8 @@ package com.goms.presentation.di.module
 
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.auth.AuthDataSourceImpl
+import com.goms.data.datasource.profile.ProfileDataSource
+import com.goms.data.datasource.profile.ProfileDataSourceImpl
 import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.data.datasource.token.AuthTokenDataSourceImpl
 import dagger.Binds
@@ -22,4 +24,9 @@ abstract class DataSourceModule {
     abstract fun bindManageTokenDataSource(
         manageTokenDataSourceImpl: AuthTokenDataSourceImpl
     ): AuthTokenDataSource
+
+    @Binds
+    abstract fun bindProfileDataSource(
+        profileDataSourceImpl: ProfileDataSourceImpl
+    ): ProfileDataSource
 }

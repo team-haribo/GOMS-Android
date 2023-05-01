@@ -1,15 +1,15 @@
 package com.goms.data.mapper
 
-import com.goms.data.model.signin.response.SignInResponse
+import com.goms.data.model.auth.response.SignInResponse
 import com.goms.domain.data.signin.response.SignInResponseData
 
-object UserMapper {
+object AuthMapper {
     fun signInResponseToData(signInResponse: SignInResponse): SignInResponseData {
         return SignInResponseData(
             accessToken = signInResponse.accessToken,
             refreshToken = signInResponse.refreshToken,
-            accessTokenExpiredAt = signInResponse.accessTokenExpiredAt,
-            refreshTokenExpiredAt = signInResponse.refreshTokenExpiredAt,
+            accessTokenExp = signInResponse.accessTokenExpiredAt,
+            refreshTokenExp = signInResponse.refreshTokenExpiredAt,
             authority = signInResponse.authority
         )
     }

@@ -1,6 +1,7 @@
 package com.goms.data.api.interceptor
 
 import android.util.Log
+import com.example.data.BuildConfig
 import com.goms.data.datasource.token.ManageTokenDataSource
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -23,6 +24,7 @@ class LoginInterceptor @Inject constructor(
             401 -> {
                 val currentRefreshToken = manageTokenDataSource.getRefreshToken()
                 val newRequest = chain.request().newBuilder()
+                    .url(BuildConfig.BASE_URL+"auth")
                     .addHeader("refreshToken", "Bearer $currentRefreshToken")
                     .build()
                 val newResponse = chain.proceed(newRequest)
@@ -30,7 +32,6 @@ class LoginInterceptor @Inject constructor(
                 if (newResponse.isSuccessful) {
                     val jsonParser = JsonParser()
                     val token = jsonParser.parse(response.body?.string()) as JsonObject
-                    Log.d("TAG", "intercept token: $token")
                     manageTokenDataSource.setToken(
                         accessToken = token["accessToken"].toString(),
                         refreshToken = token["refreshToken"].toString(),

@@ -34,7 +34,8 @@ class LoginInterceptor @Inject constructor(
                     manageTokenDataSource.setToken(
                         accessToken = token["accessToken"].toString(),
                         refreshToken = token["refreshToken"].toString(),
-                        accessTokenExp = token["accessTokenExp"].toString()
+                        accessTokenExp = token["accessTokenExp"].toString(),
+                        refreshTokenExp = token["refreshTokenExp"].toString()
                     )
                 } else Log.d("TAG", "intercept newResponse fail")
             }

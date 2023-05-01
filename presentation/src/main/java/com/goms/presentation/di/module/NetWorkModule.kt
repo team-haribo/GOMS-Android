@@ -1,7 +1,8 @@
 package com.goms.presentation.di.module
 
 import com.example.presentation.BuildConfig
-import com.goms.data.api.AuthService
+import com.goms.data.api.AuthApi
+import com.goms.data.api.ProfileService
 import com.goms.data.api.interceptor.LoginInterceptor
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -55,7 +56,7 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideSignInService(retrofit: Retrofit): AuthService {
-        return retrofit.create(AuthService::class.java)
+    fun provideSignInService(retrofit: Retrofit): AuthApi {
+        return retrofit.create(AuthApi::class.java)
     }
 }

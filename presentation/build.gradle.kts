@@ -20,6 +20,7 @@ android {
 
         buildConfigField("String", "CLIENT_ID", getKey("CLIENT_ID"))
         buildConfigField("String", "REDIRECT_URL", getKey("REDIRECT_URL"))
+        buildConfigField("String", "BASE_URL", getKey("BASE_URL"))
     }
 
     buildTypes {
@@ -59,6 +60,7 @@ dependencies {
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation(Dependency.LifeCycle.LIFECYCLE_RUNTIME)
     implementation(Dependency.LifeCycle.LIFECYCLE_VIEWMODEL_KTX)
 

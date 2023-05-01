@@ -51,7 +51,8 @@ class SignInViewModel @Inject constructor(
             setTokenUseCase(
                 accessToken = response.accessToken,
                 refreshToken = response.refreshToken,
-                accessTokenExp = response.accessTokenExp.toString()
+                accessTokenExp = response.accessTokenExp.toString(),
+                refreshTokenExp = response.refreshTokenExp.toString()
             )
             _signIn.value = response
         }

@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.goms.presentation" >
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -19,6 +22,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
+            android:name="com.goms.presentation.view.splash.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name="com.goms.presentation.view.qr_scan.capture.QrCodeActivity"
             android:exported="false" />
         <activity
@@ -28,17 +40,11 @@
         <activity
             android:name="com.goms.presentation.view.sign_in.SignInActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting" />
+            android:theme="@style/Theme.GSM_GOMS" />
         <activity
             android:name="com.goms.presentation.view.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.GSM_GOMS" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.GSM_GOMS" />
     </application>
 
 </manifest>

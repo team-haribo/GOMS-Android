@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (intent.getStringExtra("authority") == "ROLE_ADMIN") super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -61,5 +63,10 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (intent.getStringExtra("authority") == "ROLE_ADMIN") super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
     }
 }

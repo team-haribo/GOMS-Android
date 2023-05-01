@@ -1,13 +1,15 @@
 package com.goms.presentation.di.module
 
-import com.goms.data.api.SignInService
+import com.example.presentation.BuildConfig
+import com.goms.data.api.AuthApi
+import com.goms.data.api.ProfileService
+import com.goms.data.api.interceptor.LoginInterceptor
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -16,13 +18,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
-    const val BASE_URL = "http://10.82.20.18:8080/"
-
     @Provides
     @Singleton
-    fun provideOkhttpClient(): OkHttpClient {
+    fun provideOkhttpClient(
+        loginInterceptor: LoginInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(loginInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
@@ -46,7 +48,7 @@ object NetWorkModule {
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
@@ -54,7 +56,7 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideSignInService(retrofit: Retrofit): SignInService {
-        return retrofit.create(SignInService::class.java)
+    fun provideSignInService(retrofit: Retrofit): AuthApi {
+        return retrofit.create(AuthApi::class.java)
     }
 }

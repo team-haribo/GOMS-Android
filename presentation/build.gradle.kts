@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -15,6 +17,10 @@ android {
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "CLIENT_ID", getKey("CLIENT_ID"))
+        buildConfigField("String", "REDIRECT_URL", getKey("REDIRECT_URL"))
+        buildConfigField("String", "BASE_URL", getKey("BASE_URL"))
     }
 
     buildTypes {
@@ -39,6 +45,10 @@ android {
     }
 }
 
+fun getKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
+}
+
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
@@ -50,6 +60,7 @@ dependencies {
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
     implementation(Dependency.LifeCycle.LIFECYCLE_RUNTIME)
     implementation(Dependency.LifeCycle.LIFECYCLE_VIEWMODEL_KTX)
 

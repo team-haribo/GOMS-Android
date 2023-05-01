@@ -31,10 +31,10 @@ class AuthRepositoryImpl @Inject constructor(
         val accessToken = manageTokenDataSource.getAccessToken()
         if (accessToken.isBlank()) throw NeedLoginException()
 
-        val accessTokenExp = manageTokenDataSource.getAccessTokenExp()
+        val refreshTokenExp = manageTokenDataSource.getRefreshTokenExp()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
         val koreaZone = ZoneId.of("Asia/Seoul")
-        val expireDate = LocalDateTime.parse(accessTokenExp, parsePattern)
+        val expireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
         val koreaTime = expireDate.atZone(ZoneId.of("UTC")).withZoneSameInstant(koreaZone).toLocalDateTime()
 
         // 현재 시간이 만료 시간보다 미래인가요?(만료시간보다 시간이 지남)
@@ -47,7 +47,8 @@ class AuthRepositoryImpl @Inject constructor(
             manageTokenDataSource.setToken(
                 accessToken = result.accessToken,
                 refreshToken = result.refreshToken,
-                accessTokenExp = result.accessTokenExpiredAt.toString()
+                accessTokenExp = result.accessTokenExpiredAt.toString(),
+                refreshTokenExp = result.refreshTokenExpiredAt.toString()
             )
         }
     }
@@ -55,12 +56,14 @@ class AuthRepositoryImpl @Inject constructor(
     override fun getRefreshToken(): String = manageTokenDataSource.getRefreshToken()
     override fun getAccessToken(): String = manageTokenDataSource.getAccessToken()
     override fun getAccessTokenExp(): String = manageTokenDataSource.getAccessTokenExp()
+    override fun getRefreshTokenExp(): String = manageTokenDataSource.getRefreshTokenExp()
 
     override suspend fun setToken(
         accessToken: String,
         refreshToken: String,
-        accessTokenExp: String
+        accessTokenExp: String,
+        refreshTokenExp: String
     ) {
-        manageTokenDataSource.setToken(accessToken, refreshToken, accessTokenExp)
+        manageTokenDataSource.setToken(accessToken, refreshToken, accessTokenExp, refreshTokenExp)
     }
 }

@@ -13,10 +13,12 @@ interface AuthRepository {
     fun getAccessToken(): String
     fun getRefreshToken(): String
     fun getAccessTokenExp(): String
+    fun getRefreshTokenExp(): String
 
     suspend fun setToken(
         accessToken: String,
         refreshToken: String,
-        accessTokenExp: String
+        accessTokenExp: String,
+        refreshTokenExp: String
     )
 }

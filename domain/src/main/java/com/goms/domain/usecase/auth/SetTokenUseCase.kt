@@ -9,8 +9,9 @@ class SetTokenUseCase @Inject constructor(
     suspend operator fun invoke(
         accessToken: String,
         refreshToken: String,
-        accessTokenExp: String
+        accessTokenExp: String,
+        refreshTokenExp: String
     ) {
-        authRepository.setToken(accessToken, refreshToken, accessTokenExp)
+        authRepository.setToken(accessToken, refreshToken, accessTokenExp, refreshTokenExp)
     }
 }

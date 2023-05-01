@@ -14,7 +14,7 @@ import dagger.hilt.components.SingletonComponent
 abstract class DataSourceModule {
 
     @Binds
-    abstract fun provideSignInDataSource(
+    abstract fun bindSignInDataSource(
         signInDataSourceImpl: AuthDataSourceImpl
     ): AuthDataSource
 

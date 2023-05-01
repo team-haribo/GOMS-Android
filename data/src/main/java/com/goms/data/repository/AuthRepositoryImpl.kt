@@ -1,6 +1,5 @@
 package com.goms.data.repository
 
-import android.util.Log
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.data.mapper.AuthMapper
@@ -37,15 +36,12 @@ class AuthRepositoryImpl @Inject constructor(
         val expireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
         val koreaTime = expireDate.atZone(ZoneId.of("UTC")).withZoneSameInstant(koreaZone).toLocalDateTime()
 
-        Log.d("TAG", "checkLoginStatus ${LocalDateTime.now().isAfter(koreaTime)}")
         // 현재 시간이 만료 시간보다 미래인가요?(만료시간보다 시간이 지남)
         if (LocalDateTime.now().isAfter(koreaTime)) throw NeedLoginException()
         val refreshToken = authTokenDataSource.getRefreshToken()
         authDataSource.refreshToken("Bearer $refreshToken").catch {
-            Log.d("TAG", "checkLoginStatus catch: $it")
             throw NeedLoginException()
         }.collect { result ->
-            Log.d("TAG", "checkLoginStatus: $result")
             authTokenDataSource.setToken(
                 accessToken = result.accessToken,
                 refreshToken = result.refreshToken,

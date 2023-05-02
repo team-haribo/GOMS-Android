@@ -41,10 +41,10 @@ class LoginInterceptor @Inject constructor(
                 .addHeader("refreshToken", "Bearer $currentRefreshToken")
                 .method("PATCH", "".toRequestBody(null))
                 .build()
-            val newResponse = chain.proceed(newRequest)
-            if (newResponse.isSuccessful) {
+            val refreshResponse = chain.proceed(newRequest)
+            if (refreshResponse.isSuccessful) {
                 val jsonParser = JsonParser()
-                val token = jsonParser.parse(newResponse.body?.string()) as JsonObject
+                val token = jsonParser.parse(refreshResponse.body?.string()) as JsonObject
                 authTokenDataSource.setToken(
                     accessToken = token["accessToken"].toString().deleteDot(),
                     refreshToken = token["refreshToken"].toString().deleteDot(),

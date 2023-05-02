@@ -33,6 +33,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
+import com.goms.domain.data.profile.response.ProfileResponseData
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.profile.ProfileActivity
@@ -45,6 +46,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private lateinit var binding: FragmentHomeBinding
+
+    private var response: ProfileResponseData? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +75,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.mainProfileCardView.setOnClickListener {
-            startActivity(Intent(context, ProfileActivity::class.java))
+            startActivity(Intent(context, ProfileActivity::class.java)
+                .putExtra("profile", response))
         }
 
         return binding.root
@@ -101,11 +105,13 @@ class HomeFragment : Fragment() {
     private fun setProfile() {
         lifecycleScope.launch {
             profileViewModel.getProfileLogic()
-            profileViewModel.profile.collect { response ->
-                binding.mainProfileCardUserNameText.text = response?.name
+            profileViewModel.profile.collect { data ->
+                response = data
+
+                binding.mainProfileCardUserNameText.text = data?.name
                 binding.mainProfileCardStudentNumberText.text =
-                    "${response?.studentNum?.grade}학년 ${response?.studentNum?.classNum}반 ${response?.studentNum?.number}번"
-                binding.mainProfileCardUserImage.load(response?.profileUrl ?: R.drawable.user_profile)
+                    "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
+                binding.mainProfileCardUserImage.load(data?.profileUrl ?: R.drawable.user_profile)
             }
         }
     }

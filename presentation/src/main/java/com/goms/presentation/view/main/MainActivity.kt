@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
+import com.goms.domain.data.profile.response.ProfileResponseData
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navGraph: NavGraph
 
+    private var response: ProfileResponseData? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,15 +40,17 @@ class MainActivity : AppCompatActivity() {
         setNavigation()
         setProfile()
         binding.mainProfileIcon.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            startActivity(Intent(this, ProfileActivity::class.java)
+                .putExtra("profile", response))
         }
     }
 
     private fun setProfile() {
         lifecycleScope.launch {
             profileViewModel.getProfileLogic()
-            profileViewModel.profile.collect { response ->
-                binding.mainProfileIcon.load(response?.profileUrl ?: R.drawable.user_profile)
+            profileViewModel.profile.collect { data ->
+                response = data
+                binding.mainProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.goms.domain.data.profile.response
 
+import java.io.Serializable
 import java.util.UUID
 
 data class ProfileResponseData(
@@ -8,4 +9,4 @@ data class ProfileResponseData(
     val studentNum: StudentInfoData,
     val profileUrl: String?,
     val lateCount: Int
-)
+): Serializable

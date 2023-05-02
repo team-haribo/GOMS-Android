@@ -5,8 +5,6 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -25,12 +23,10 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (checkIsInterConnected()) {
-                splashViewModel.checkIsLogin()
-                observeLogin()
-            } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
-        }, 1000)
+        if (checkIsInterConnected()) {
+            splashViewModel.checkIsLogin()
+            observeLogin()
+        } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
     }
 
     private fun observeLogin() {

@@ -46,7 +46,7 @@ class SignInViewModel @Inject constructor(
                         message = message
                     )
                 }
-            } else Log.e("TAG", "signInLogic: ${error.printStackTrace()}", error.cause)
+            } else Log.d("TAG", "signInLogic: $error")
         }.collect { response ->
             setTokenUseCase(
                 accessToken = response.accessToken,

@@ -34,7 +34,6 @@ object UseCaseModule {
     @Provides
     @Singleton
     fun provideProfileUseCase(
-        profileRepository: ProfileRepository,
-        authRepository: AuthRepository
-    ) = ProfileUseCase(profileRepository, authRepository)
+        profileRepository: ProfileRepository) =
+        ProfileUseCase(profileRepository)
 }

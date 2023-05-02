@@ -18,23 +18,25 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideSignInUseCase(authRepository: AuthRepository) =
-        SignInUseCase(authRepository)
+    fun provideSignInUseCase(authRepository: AuthRepository): SignInUseCase {
+        return SignInUseCase(authRepository)
+    }
 
     @Provides
     @Singleton
-    fun provideCheckLoginUseCase(authRepository: AuthRepository) =
-        CheckLoginUseCase(authRepository)
+    fun provideCheckLoginUseCase(authRepository: AuthRepository): CheckLoginUseCase {
+        return CheckLoginUseCase(authRepository)
+    }
 
     @Provides
     @Singleton
-    fun provideSaveTokenUseCase(authRepository: AuthRepository) =
-        SetTokenUseCase(authRepository)
+    fun provideSaveTokenUseCase(authRepository: AuthRepository): SetTokenUseCase {
+        return SetTokenUseCase(authRepository)
+    }
 
     @Provides
     @Singleton
-    fun provideProfileUseCase(
-        profileRepository: ProfileRepository,
-        authRepository: AuthRepository
-    ) = ProfileUseCase(profileRepository, authRepository)
+    fun provideProfileUseCase(profileRepository: ProfileRepository): ProfileUseCase {
+        return ProfileUseCase(profileRepository)
+    }
 }

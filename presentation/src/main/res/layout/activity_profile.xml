@@ -1,295 +1,282 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/goms_main_background"
-    tools:context="com.goms.presentation.view.profile.ProfileActivity">
+    tools:context="com.goms.presentation.view.profile.ProfileActivity"
+    android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/profile_progress_bar"
+    <ImageView
+        android:id="@+id/back_to_main_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/back_arrow_black"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="15dp"/>
+
+    <ImageView
+        android:id="@+id/profile_user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/user_profile"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/profile_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminateTint="@color/goms_main_color_student"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/profile_student_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textSize="14sp"
+        android:layout_gravity="center"/>
 
     <LinearLayout
-        android:id="@+id/profile_activity_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:elevation="2dp"
+        android:layout_weight="0.8"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:background="@drawable/profile_card_background"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/back_to_main_image"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/back_arrow_black"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginBottom="15dp"/>
-
-        <ImageView
-            android:id="@+id/profile_user_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/user_profile"
-            android:layout_gravity="center" />
-
-        <TextView
-            android:id="@+id/profile_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_medium"
-            android:textSize="18sp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/profile_student_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/sf_pro_text_regular"
-            android:textSize="14sp"
-            android:layout_gravity="center"/>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:elevation="2dp"
-            android:layout_weight="0.8"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:background="@drawable/profile_card_background"
-            android:orientation="vertical">
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이름"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"
-                    android:layout_marginStart="25dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/profile_card_user_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="25dp"/>
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이름"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="25dp"/>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/goms_profile_background"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
+                android:layout_weight="1"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="학년"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"
-                    android:layout_marginStart="25dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/profile_card_user_grade_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="25dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/goms_profile_background"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="반"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"
-                    android:layout_marginStart="25dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/profile_card_user_class_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="25dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/goms_profile_background"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="번호"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"
-                    android:layout_marginStart="25dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/profile_card_user_number_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="25dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/goms_profile_background"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="지각횟수"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"
-                    android:layout_marginStart="25dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/profile_card_user_late_count_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="14sp"
-                    android:layout_marginEnd="25dp"/>
-            </LinearLayout>
+            <TextView
+                android:id="@+id/profile_card_user_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/goms_second_color_gray"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textSize="14sp"
+                android:layout_marginEnd="25dp"/>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/goms_profile_background"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.3"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical">
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="25dp"
-                android:elevation="2dp"
-                android:background="@drawable/profile_card_background"
-                android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="학년"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="25dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="로그아웃"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="25dp"
-                    android:textColor="@color/goms_color_red"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/profile_card_user_grade_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:layout_gravity="center"
+                android:textColor="@color/goms_second_color_gray"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textSize="14sp"
+                android:layout_marginEnd="25dp"/>
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/profile_logout_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/outing_icon"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="25dp"
-                    app:tint="@color/goms_color_red" />
-            </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/goms_profile_background"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="반"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="25dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/profile_card_user_class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:layout_gravity="center"
+                android:textColor="@color/goms_second_color_gray"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textSize="14sp"
+                android:layout_marginEnd="25dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/goms_profile_background"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="번호"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="25dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/profile_card_user_number_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11"
+                android:layout_gravity="center"
+                android:textColor="@color/goms_second_color_gray"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textSize="14sp"
+                android:layout_marginEnd="25dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/goms_profile_background"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지각횟수"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"
+                android:layout_marginStart="25dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/profile_card_user_late_count_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11"
+                android:layout_gravity="center"
+                android:textColor="@color/goms_second_color_gray"
+                android:fontFamily="@font/sf_pro_text_regular"
+                android:textSize="14sp"
+                android:layout_marginEnd="25dp"/>
         </LinearLayout>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.3"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:elevation="2dp"
+            android:background="@drawable/profile_card_background"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그아웃"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:textColor="@color/goms_color_red"
+                android:fontFamily="@font/sf_pro_text_medium"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/profile_logout_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/outing_icon"
+                android:layout_gravity="center"
+                android:layout_marginEnd="25dp"
+                app:tint="@color/goms_color_red" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

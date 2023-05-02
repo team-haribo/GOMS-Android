@@ -4,7 +4,5 @@ import com.goms.data.model.profile.response.ProfileResponse
 import kotlinx.coroutines.flow.Flow
 
 interface ProfileDataSource {
-    suspend fun getProfile(
-        accessToken: String
-    ): Flow<ProfileResponse>
+    suspend fun getProfile(): Flow<ProfileResponse>
 }

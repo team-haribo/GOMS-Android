@@ -11,9 +11,9 @@ import javax.inject.Inject
 class ProfileRepositoryImpl @Inject constructor(
     private val profileDataSource: ProfileDataSource
 ): ProfileRepository {
-    override suspend fun getProfile(accessToken: String): Flow<ProfileResponseData> {
+    override suspend fun getProfile(): Flow<ProfileResponseData> {
         return flow {
-            profileDataSource.getProfile(accessToken).collect {
+            profileDataSource.getProfile().collect {
                 emit(ProfileMapper.profileResponseToData(it))
             }
         }

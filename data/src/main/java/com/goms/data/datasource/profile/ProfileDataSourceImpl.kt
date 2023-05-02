@@ -9,9 +9,9 @@ import javax.inject.Inject
 class ProfileDataSourceImpl @Inject constructor(
     private val profileApi: ProfileApi
 ): ProfileDataSource {
-    override suspend fun getProfile(accessToken: String): Flow<ProfileResponse> {
+    override suspend fun getProfile(): Flow<ProfileResponse> {
         return flow {
-            emit(profileApi.getProfile(accessToken))
+            emit(profileApi.getProfile())
         }
     }
 }

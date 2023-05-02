@@ -1,13 +1,17 @@
 package com.goms.data.api.interceptor
 
-import android.util.Log
 import com.example.data.BuildConfig
 import com.goms.data.datasource.token.AuthTokenDataSource
+import com.goms.domain.exception.NeedLoginException
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.Interceptor
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 class LoginInterceptor @Inject constructor(
@@ -17,33 +21,57 @@ class LoginInterceptor @Inject constructor(
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val response = chain.proceed(request)
-        when(response.code) {
-            200 -> Log.d("TAG", "intercept: success")
-            400 -> Log.d("TAG", "intercept: 토큰을 요청하지 않음")
-            401 -> {
-                val currentRefreshToken = authTokenDataSource.getRefreshToken()
-                val newRequest = chain.request().newBuilder()
-                    .url(BuildConfig.BASE_URL+"auth")
-                    .addHeader("refreshToken", "Bearer $currentRefreshToken")
-                    .build()
-                val newResponse = chain.proceed(newRequest)
 
-                if (newResponse.isSuccessful) {
-                    val jsonParser = JsonParser()
-                    val token = jsonParser.parse(response.body?.string()) as JsonObject
-                    authTokenDataSource.setToken(
-                        accessToken = token["accessToken"].toString(),
-                        refreshToken = token["refreshToken"].toString(),
-                        accessTokenExp = token["accessTokenExp"].toString(),
-                        refreshTokenExp = token["refreshTokenExp"].toString()
-                    )
-                } else Log.d("TAG", "intercept newResponse fail")
-            }
-            500 -> Log.d("TAG", "intercept: server error")
-            else -> Log.d("TAG", "intercept error: ${response.code}, ${response.body}")
+        // 토큰 갱신 요청인지, 로그인 요청인지 확인해 따로 리턴한다.
+        val ignorePath = listOf("/api/v1/auth", "/api/v1/auth/signin")
+        val ignoreMethod = listOf("PATCH", "POST")
+        if (ignorePath[0] == request.url.encodedPath && ignoreMethod[0] == request.method) {
+            return chain.proceed(request)
         }
 
-        return response
+        if (ignorePath[1] == request.url.encodedPath && ignoreMethod[1] == request.method) {
+            return chain.proceed(request)
+        }
+
+        if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getRefreshTokenExp()))) throw NeedLoginException()
+        if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getAccessTokenExp()))) {
+            val currentRefreshToken = authTokenDataSource.getRefreshToken()
+            val newRequest = chain.request().newBuilder()
+                .url(BuildConfig.BASE_URL+"auth")
+                .addHeader("refreshToken", "Bearer $currentRefreshToken")
+                .method("PATCH", "".toRequestBody(null))
+                .build()
+            val newResponse = chain.proceed(newRequest)
+            if (newResponse.isSuccessful) {
+                val jsonParser = JsonParser()
+                val token = jsonParser.parse(newResponse.body?.string()) as JsonObject
+                authTokenDataSource.setToken(
+                    accessToken = token["accessToken"].toString().deleteDot(),
+                    refreshToken = token["refreshToken"].toString().deleteDot(),
+                    accessTokenExp = token["accessTokenExp"].toString().deleteDot(),
+                    refreshTokenExp = token["refreshTokenExp"].toString().deleteDot()
+                )
+            } else throw NeedLoginException()
+        }
+
+        // 이 부분이 기존 요청에 token header를 붙여 return 하는 곳
+        val accessToken = authTokenDataSource.getAccessToken()
+        return chain.proceed(
+            request.newBuilder()
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
+        )
+    }
+
+    private fun parseToKoreaDateTime(refreshTokenExp: String): LocalDateTime? {
+        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
+        val koreaZone = ZoneId.of("Asia/Seoul")
+        val expireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
+
+        return expireDate.atZone(ZoneId.of("UTC")).withZoneSameInstant(koreaZone).toLocalDateTime()
+    }
+
+    private fun String.deleteDot(): String {
+        return this.substring(1, this.length-1)
     }
 }

@@ -3,7 +3,7 @@ package com.goms.presentation.viewmodel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goms.domain.data.signin.response.SignInResponseData
+import com.goms.domain.data.auth.response.SignInResponseData
 import com.goms.domain.exception.NotRequestParamException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException

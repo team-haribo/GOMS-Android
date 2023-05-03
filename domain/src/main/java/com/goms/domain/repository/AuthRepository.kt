@@ -1,6 +1,6 @@
 package com.goms.domain.repository
 
-import com.goms.domain.data.signin.response.SignInResponseData
+import com.goms.domain.data.auth.response.SignInResponseData
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {

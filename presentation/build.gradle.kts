@@ -60,7 +60,7 @@ dependencies {
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.3.1")
+    implementation(Dependency.LifeCycle.LIFECYCLE_LIVEDATA)
     implementation(Dependency.LifeCycle.LIFECYCLE_RUNTIME)
     implementation(Dependency.LifeCycle.LIFECYCLE_VIEWMODEL_KTX)
 
@@ -91,6 +91,9 @@ dependencies {
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_MANIFEST)
     testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
+
+    // permission
+    implementation (Dependency.Libraries.TEDPERMMISION)
 
     // splash
     implementation(Dependency.AndroidX.SPLASH_CORE)

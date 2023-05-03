@@ -1,4 +1,4 @@
-package com.goms.domain.data.signin.response
+package com.goms.domain.data.auth.response
 
 data class SignInResponseData(
     val accessToken: String,

@@ -3,7 +3,7 @@ package com.goms.data.repository
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.data.mapper.AuthMapper
-import com.goms.domain.data.signin.response.SignInResponseData
+import com.goms.domain.data.auth.response.SignInResponseData
 import com.goms.domain.exception.NeedLoginException
 import com.goms.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow

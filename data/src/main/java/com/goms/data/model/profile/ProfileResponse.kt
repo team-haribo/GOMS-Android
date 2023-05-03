@@ -1,4 +1,4 @@
-package com.goms.data.model.profile.response
+package com.goms.data.model.profile
 
 import com.google.gson.annotations.SerializedName
 import java.util.UUID

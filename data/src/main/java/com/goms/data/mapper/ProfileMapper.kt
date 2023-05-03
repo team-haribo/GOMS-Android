@@ -1,7 +1,7 @@
 package com.goms.data.mapper
 
-import com.goms.data.model.profile.response.ProfileResponse
-import com.goms.data.model.profile.response.StudentInfo
+import com.goms.data.model.profile.ProfileResponse
+import com.goms.data.model.profile.StudentInfo
 import com.goms.domain.data.profile.response.ProfileResponseData
 import com.goms.domain.data.profile.response.StudentInfoData
 

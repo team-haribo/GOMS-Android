@@ -23,7 +23,7 @@
             android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/goms" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/main_profile_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"

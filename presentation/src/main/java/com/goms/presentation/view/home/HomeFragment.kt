@@ -38,6 +38,7 @@ import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
+import com.goms.presentation.viewmodel.OutingViewModel
 import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -45,6 +46,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
     private val profileViewModel by viewModels<ProfileViewModel>()
+    private val outingViewModel by viewModels<OutingViewModel>()
     private lateinit var binding: FragmentHomeBinding
 
     private var response: ProfileResponseData? = null
@@ -57,8 +59,14 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
 
         setProfile()
-        binding.currentStudentOutingText.setContent {
-            StudentOutingText()
+
+        lifecycleScope.launch {
+            outingViewModel.outingCount()
+            outingViewModel.outingCount.collect { people ->
+                binding.currentStudentOutingText.setContent {
+                    StudentOutingText(people!!.outingCount)
+                }
+            }
         }
 
         binding.mainOutingButton.setOnClickListener {
@@ -82,6 +90,39 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun setProfile() {
+        lifecycleScope.launch {
+            profileViewModel.getProfileLogic()
+            profileViewModel.profile.collect { data ->
+                response = data
+
+                binding.mainProfileCardUserNameText.text = data?.name
+                binding.mainProfileCardStudentNumberText.text =
+                    "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
+                binding.mainProfileCardUserImage.load(data?.profileUrl ?: R.drawable.user_profile)
+            }
+        }
+    }
+
+    @Composable
+    private fun StudentOutingText(outingCount: Int) {
+        Text(
+            text = buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(color = colorResource(id = R.color.goms_main_color_student))
+                ) {
+                    append(outingCount.toString())
+                }
+                append("명이 외출중이에요!")
+            },
+            style = TextStyle(
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontFamily = FontFamily(Font(R.font.sf_pro_text_medium, FontWeight.Medium))
+            )
+        )
+    }
+
     @Composable
     private fun LateLazyRow() {
         LazyRow(
@@ -100,38 +141,5 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun setProfile() {
-        lifecycleScope.launch {
-            profileViewModel.getProfileLogic()
-            profileViewModel.profile.collect { data ->
-                response = data
-
-                binding.mainProfileCardUserNameText.text = data?.name
-                binding.mainProfileCardStudentNumberText.text =
-                    "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
-                binding.mainProfileCardUserImage.load(data?.profileUrl ?: R.drawable.user_profile)
-            }
-        }
-    }
-
-    @Composable
-    private fun StudentOutingText() {
-        Text(
-            text = buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(color = colorResource(id = R.color.goms_main_color_student))
-                ) {
-                    append("48")
-                }
-                append("명이 외출중이에요!")
-            },
-            style = TextStyle(
-                color = Color.Black,
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.sf_pro_text_medium, FontWeight.Medium))
-            )
-        )
     }
 }

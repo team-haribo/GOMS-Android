@@ -36,12 +36,12 @@ class LoginInterceptor @Inject constructor(
         if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getRefreshTokenExp()))) throw NeedLoginException()
         if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getAccessTokenExp()))) {
             val currentRefreshToken = authTokenDataSource.getRefreshToken()
-            val newRequest = chain.request().newBuilder()
+            val refreshRequest = chain.request().newBuilder()
                 .url(BuildConfig.BASE_URL+"auth")
                 .addHeader("refreshToken", "Bearer $currentRefreshToken")
                 .method("PATCH", "".toRequestBody(null))
                 .build()
-            val refreshResponse = chain.proceed(newRequest)
+            val refreshResponse = chain.proceed(refreshRequest)
             if (refreshResponse.isSuccessful) {
                 val jsonParser = JsonParser()
                 val token = jsonParser.parse(refreshResponse.body?.string()) as JsonObject

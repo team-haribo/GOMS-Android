@@ -2,6 +2,8 @@ package com.goms.presentation.di.module
 
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.auth.AuthDataSourceImpl
+import com.goms.data.datasource.late.LateDataSource
+import com.goms.data.datasource.late.LateDataSourceImpl
 import com.goms.data.datasource.outing.OutingDataSource
 import com.goms.data.datasource.outing.OutingDataSourceImpl
 import com.goms.data.datasource.profile.ProfileDataSource
@@ -36,4 +38,9 @@ abstract class DataSourceModule {
     abstract fun bindOutingDataSource(
         outingDataSourceImpl: OutingDataSourceImpl
     ): OutingDataSource
+
+    @Binds
+    abstract fun bindLateDataSource(
+        lateDataSourceImpl: LateDataSourceImpl
+    ): LateDataSource
 }

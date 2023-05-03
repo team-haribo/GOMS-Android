@@ -1,9 +1,11 @@
 package com.goms.presentation.di.module
 
 import com.goms.data.repository.AuthRepositoryImpl
+import com.goms.data.repository.LateRepositoryImpl
 import com.goms.data.repository.OutingRepositoryImpl
 import com.goms.data.repository.ProfileRepositoryImpl
 import com.goms.domain.repository.AuthRepository
+import com.goms.domain.repository.LateRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
 import dagger.Binds
@@ -28,4 +30,9 @@ abstract class RepositoryModule {
     abstract fun bindOutingRepository(
         outingRepositoryImpl: OutingRepositoryImpl
     ): OutingRepository
+
+    @Binds
+    abstract fun bindLateRepository(
+        lateRepositoryImpl: LateRepositoryImpl
+    ): LateRepository
 }

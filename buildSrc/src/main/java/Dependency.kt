@@ -36,6 +36,7 @@ object Dependency {
     object Libraries {
         const val GAUTH =  "com.github.GSM-MSG:GAuth-Signin-Android:${Versions.Gauth}"
         const val CODE_SCANNER = "com.github.yuriy-budiyev:code-scanner:${Versions.CodeScanner}"
+        const val TEDPERMMISION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TedPermission}"
     }
 
     object Hilt {
@@ -53,6 +54,7 @@ object Dependency {
 
     object LifeCycle {
         const val LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.Lifecycle}"
+        const val LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.Lifecycle}"
         const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LifecycleRuntime}"
         const val LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.Lifecycle}"
     }

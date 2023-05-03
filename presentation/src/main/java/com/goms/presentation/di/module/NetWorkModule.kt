@@ -2,6 +2,7 @@ package com.goms.presentation.di.module
 
 import com.example.presentation.BuildConfig
 import com.goms.data.api.AuthApi
+import com.goms.data.api.OutingApi
 import com.goms.data.api.ProfileApi
 import com.goms.data.api.interceptor.LoginInterceptor
 import com.google.gson.GsonBuilder
@@ -64,5 +65,11 @@ object NetWorkModule {
     @Singleton
     fun provideProfileService(retrofit: Retrofit): ProfileApi {
         return retrofit.create(ProfileApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutingService(retrofit: Retrofit): OutingApi {
+        return retrofit.create(OutingApi::class.java)
     }
 }

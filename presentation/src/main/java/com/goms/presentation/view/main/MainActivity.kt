@@ -56,15 +56,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNavigation() {
-        val scanAble = intent.getBooleanExtra("scanAble", false)
-
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController
         navGraph = navController.navInflater.inflate(R.navigation.bottom_navigation)
 
         // start destination 설정하기
-        if (scanAble) navGraph.setStartDestination(R.id.outingFragment)
-        else navGraph.setStartDestination(R.id.homeFragment)
+        navGraph.setStartDestination(R.id.homeFragment)
 
         // start destination 적용하기
         navController.setGraph(navGraph, null)

@@ -1,10 +1,14 @@
 package com.goms.presentation.di.module
 
 import com.goms.domain.repository.AuthRepository
+import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
 import com.goms.domain.usecase.auth.CheckLoginUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
+import com.goms.domain.usecase.outing.OutingCountUseCase
+import com.goms.domain.usecase.outing.OutingListUseCase
+import com.goms.domain.usecase.outing.OutingUseCase
 import com.goms.domain.usecase.profile.ProfileUseCase
 import dagger.Module
 import dagger.Provides
@@ -38,5 +42,23 @@ object UseCaseModule {
     @Singleton
     fun provideProfileUseCase(profileRepository: ProfileRepository): ProfileUseCase {
         return ProfileUseCase(profileRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutingUseCase(outingRepository: OutingRepository): OutingUseCase {
+        return OutingUseCase(outingRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutingListUseCase(outingRepository: OutingRepository): OutingListUseCase {
+        return OutingListUseCase(outingRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOutingCountUseCase(outingRepository: OutingRepository): OutingCountUseCase {
+        return OutingCountUseCase(outingRepository)
     }
 }

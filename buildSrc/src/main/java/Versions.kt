@@ -30,6 +30,7 @@ object Versions {
     const val Gauth = "v1.0.7"
     const val CodeScanner = "2.3.2"
     const val TedPermission = "3.3.0"
+    const val CircleImageView = "3.1.0"
 
     const val Hilt = "2.44"
 

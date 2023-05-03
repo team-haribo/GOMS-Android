@@ -9,6 +9,6 @@ class OutingListUseCase @Inject constructor(
     private val outingRepository: OutingRepository
 ) {
     suspend operator fun invoke(): Flow<List<ProfileResponseData>>{
-        return outingRepository.outingList()
+        return outingRepository.getOutingList()
     }
 }

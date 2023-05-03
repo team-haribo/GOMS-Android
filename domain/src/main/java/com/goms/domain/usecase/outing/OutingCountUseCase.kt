@@ -9,6 +9,6 @@ class OutingCountUseCase @Inject constructor(
     private val outingRepository: OutingRepository
 ) {
     suspend operator fun invoke(): Flow<OutingCountResponseData> {
-        return outingRepository.outingCount()
+        return outingRepository.getOutingCount()
     }
 }

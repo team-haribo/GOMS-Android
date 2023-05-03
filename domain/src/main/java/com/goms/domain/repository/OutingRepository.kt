@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface OutingRepository {
     suspend fun outing()
 
-    suspend fun outingList(): Flow<List<ProfileResponseData>>
+    suspend fun getOutingList(): Flow<List<ProfileResponseData>>
 
-    suspend fun outingCount(): Flow<OutingCountResponseData>
+    suspend fun getOutingCount(): Flow<OutingCountResponseData>
 }

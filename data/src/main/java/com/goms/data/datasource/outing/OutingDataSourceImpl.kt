@@ -14,15 +14,15 @@ class OutingDataSourceImpl @Inject constructor(
         return outingApi.outing()
     }
 
-    override suspend fun outingList(): Flow<List<ProfileResponse>> {
+    override suspend fun getOutingList(): Flow<List<ProfileResponse>> {
         return flow {
-            emit(outingApi.outingList())
+            emit(outingApi.getOutingList())
         }
     }
 
-    override suspend fun outingCount(): Flow<OutingCountResponse> {
+    override suspend fun getOutingCount(): Flow<OutingCountResponse> {
         return flow {
-            emit(outingApi.outingCount())
+            emit(outingApi.getOutingCount())
         }
     }
 }

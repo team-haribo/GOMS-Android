@@ -17,17 +17,17 @@ class OutingRepositoryImpl @Inject constructor(
         return outingDataSource.outing()
     }
 
-    override suspend fun outingList(): Flow<List<ProfileResponseData>> {
+    override suspend fun getOutingList(): Flow<List<ProfileResponseData>> {
         return flow {
-            outingDataSource.outingList().collect { list ->
+            outingDataSource.getOutingList().collect { list ->
                 emit(list.map { ProfileMapper.profileResponseToData(it) })
             }
         }
     }
 
-    override suspend fun outingCount(): Flow<OutingCountResponseData> {
+    override suspend fun getOutingCount(): Flow<OutingCountResponseData> {
         return flow {
-            outingDataSource.outingCount().collect {
+            outingDataSource.getOutingCount().collect {
                 emit(OutingMapper.outingCountResponseToData(it))
             }
         }

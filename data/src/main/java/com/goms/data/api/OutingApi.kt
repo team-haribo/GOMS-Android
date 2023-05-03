@@ -10,8 +10,8 @@ interface OutingApi {
     suspend fun outing()
 
     @GET("outing")
-    suspend fun outingList(): List<ProfileResponse>
+    suspend fun getOutingList(): List<ProfileResponse>
 
     @GET("outing/count")
-    suspend fun outingCount(): OutingCountResponse
+    suspend fun getOutingCount(): OutingCountResponse
 }

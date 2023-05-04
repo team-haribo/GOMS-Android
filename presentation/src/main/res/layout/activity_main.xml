@@ -24,7 +24,7 @@
             android:text="@string/goms" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/main_profile_icon"
+            android:id="@+id/main_circle_profile_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/profile_icon"

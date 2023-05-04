@@ -1,5 +1,6 @@
 package com.goms.presentation.view.profile
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
@@ -8,6 +9,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityProfileBinding
 import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.presentation.view.sign_in.SignInActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +29,14 @@ class ProfileActivity : AppCompatActivity() {
         setView()
 
         binding.backToMainImage.setOnClickListener { finish() }
+
+        binding.logoutView.setOnClickListener {
+            val tokenInfo = this.getSharedPreferences("token", MODE_PRIVATE)
+            tokenInfo.edit().clear().apply()
+
+            startActivity(Intent(this, SignInActivity::class.java))
+            finish()
+        }
     }
 
     private fun setView() {
@@ -41,6 +51,6 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileCardUserClassText.text = classNum.toString()
         binding.profileCardUserNumberText.text = number.toString()
         binding.profileCardUserLateCountText.text = profileData?.lateCount.toString()
-        binding.profileUserImage.load(profileData?.profileUrl ?: R.drawable.user_profile)
+        binding.profileUserCircleImage.load(profileData?.profileUrl ?: R.drawable.user_profile)
     }
 }

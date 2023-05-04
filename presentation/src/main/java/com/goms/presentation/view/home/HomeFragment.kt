@@ -112,7 +112,7 @@ class HomeFragment : Fragment() {
                 binding.mainProfileCardUserNameText.text = data?.name
                 binding.mainProfileCardStudentNumberText.text =
                     "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
-                binding.mainProfileCardUserImage.load(data?.profileUrl ?: R.drawable.user_profile)
+                binding.mainProfileCardUserCircleImage.load(data?.profileUrl ?: R.drawable.user_profile)
             }
         }
     }

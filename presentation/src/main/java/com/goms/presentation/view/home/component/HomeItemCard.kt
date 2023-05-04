@@ -52,7 +52,7 @@ fun HomeItemCard(item: ProfileResponseData) {
 
             Text(
                 modifier = Modifier.padding(top = 15.dp),
-                text = item.name,
+                text = item.name ?: "❓❓❓",
                 style = TextStyle(
                     fontFamily = homeCardFont,
                     fontWeight = FontWeight.Medium,
@@ -63,7 +63,7 @@ fun HomeItemCard(item: ProfileResponseData) {
             val studentInfo = item.studentNum
             Text(
                 modifier = Modifier.padding(top = 7.dp),
-                text = "${studentInfo.grade}${studentInfo.classNum}${studentInfo.number}",
+                text = "${studentInfo.grade}${studentInfo.classNum}${studentInfo.number}" ?: "0000",
                 style = TextStyle(
                     fontFamily = homeCardFont,
                     fontWeight = FontWeight.Normal,

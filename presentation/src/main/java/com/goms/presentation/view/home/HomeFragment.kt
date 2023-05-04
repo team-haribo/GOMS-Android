@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +39,7 @@ import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
+import com.goms.presentation.viewmodel.LateViewModel
 import com.goms.presentation.viewmodel.OutingViewModel
 import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -47,6 +49,7 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val outingViewModel by viewModels<OutingViewModel>()
+    private val lateViewModel by viewModels<LateViewModel>()
     private lateinit var binding: FragmentHomeBinding
 
     private var response: ProfileResponseData? = null
@@ -73,9 +76,7 @@ class HomeFragment : Fragment() {
             startActivity(Intent(context, QrCodeActivity::class.java))
         }
 
-        binding.lateRankingLazyRow.setContent {
-            LateLazyRow()
-        }
+        setLateRankList()
 
         binding.homeOutingStudentCardView.setOnClickListener {
             val mainActivity = activity as MainActivity
@@ -90,6 +91,18 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun setLateRankList() {
+        lifecycleScope.launch {
+            lateViewModel.getLateRanking()
+            lateViewModel.lateRanking.collect { list ->
+                binding.lateRankingLazyRow.setContent {
+                    if (list != null)
+                        LateLazyRow(list)
+                }
+            }
+        }
+    }
+
     private fun setProfile() {
         lifecycleScope.launch {
             profileViewModel.getProfileLogic()
@@ -99,7 +112,7 @@ class HomeFragment : Fragment() {
                 binding.mainProfileCardUserNameText.text = data?.name
                 binding.mainProfileCardStudentNumberText.text =
                     "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
-                binding.mainProfileCardUserImage.load(data?.profileUrl ?: R.drawable.user_profile)
+                binding.mainProfileCardUserCircleImage.load(data?.profileUrl ?: R.drawable.user_profile)
             }
         }
     }
@@ -124,7 +137,7 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
-    private fun LateLazyRow() {
+    private fun LateLazyRow(list: List<ProfileResponseData>) {
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
@@ -132,12 +145,12 @@ class HomeFragment : Fragment() {
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             contentPadding = PaddingValues(horizontal = 1.dp)
         ) {
-            items(5) {
+            items(list) { item ->
                 Box(modifier = Modifier.shadow(
                     elevation = 1.dp,
                     shape = RoundedCornerShape(10.dp)
                 )) {
-                    HomeItemCard()
+                    HomeItemCard(item)
                 }
             }
         }

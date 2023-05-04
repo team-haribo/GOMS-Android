@@ -8,5 +8,5 @@ data class ProfileResponse(
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: StudentInfo,
     @SerializedName("profileUrl") val profileUrl: String?,
-    @SerializedName("rateCount") val lateCount: Int
+    @SerializedName("lateCount") val lateCount: Int
 )

@@ -18,8 +18,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="15dp"/>
 
-    <ImageView
-        android:id="@+id/profile_user_image"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_user_circle_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/user_profile"
@@ -246,6 +246,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/logout_view"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_marginStart="25dp"

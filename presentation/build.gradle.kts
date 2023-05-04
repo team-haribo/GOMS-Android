@@ -57,6 +57,10 @@ dependencies {
     implementation(Dependency.Libraries.GAUTH)
     // code scanner
     implementation(Dependency.Libraries.CODE_SCANNER)
+    // permission
+    implementation(Dependency.Libraries.TEDPERMMISION)
+    // circle image
+    implementation(Dependency.Libraries.CIRCLE_IMAGEVIEW)
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)
@@ -91,9 +95,6 @@ dependencies {
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_MANIFEST)
     testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
-
-    // permission
-    implementation (Dependency.Libraries.TEDPERMMISION)
 
     // splash
     implementation(Dependency.AndroidX.SPLASH_CORE)

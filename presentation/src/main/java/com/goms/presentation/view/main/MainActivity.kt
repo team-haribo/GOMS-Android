@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         setNavigation()
         setProfile()
-        binding.mainProfileIcon.setOnClickListener {
+        binding.mainCircleProfileIcon.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java)
                 .putExtra("profile", response))
         }
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             profileViewModel.getProfileLogic()
             profileViewModel.profile.collect { data ->
                 response = data
-                binding.mainProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
+                binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
             }
         }
     }

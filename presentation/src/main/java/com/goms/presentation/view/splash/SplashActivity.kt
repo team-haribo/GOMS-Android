@@ -2,6 +2,7 @@ package com.goms.presentation.view.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -20,10 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val splashViewModel by viewModels<SplashViewModel>()
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+        sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
+        if (sharedPreferences.contains("userOuting"))
+            setSharedPreference()
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
@@ -31,6 +37,12 @@ class SplashActivity : AppCompatActivity() {
                 observeLogin()
             } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
         }, 1000)
+    }
+
+    private fun setSharedPreference() {
+        sharedPreferences.edit()
+            .putBoolean("outingStatus", false)
+            .apply()
     }
 
     private fun observeLogin() {

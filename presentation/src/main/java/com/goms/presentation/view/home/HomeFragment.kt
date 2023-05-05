@@ -1,5 +1,6 @@
 package com.goms.presentation.view.home
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -72,6 +73,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+
+        val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
+        val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean
+        binding.mainOutingButton.text = if (outingStatus) "복귀하기" else "외출하기"
         binding.mainOutingButton.setOnClickListener {
             startActivity(Intent(context, QrCodeActivity::class.java))
         }

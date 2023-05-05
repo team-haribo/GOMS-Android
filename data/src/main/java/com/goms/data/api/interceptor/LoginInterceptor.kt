@@ -10,7 +10,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import java.io.IOException
 import java.time.LocalDateTime
-import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
@@ -23,23 +22,21 @@ class LoginInterceptor @Inject constructor(
         val request = chain.request()
 
         // 토큰 갱신 요청인지, 로그인 요청인지 확인해 따로 리턴한다.
-        val ignorePath = listOf("/api/v1/auth", "/api/v1/auth/signin")
-        val ignoreMethod = listOf("PATCH", "POST")
-        if (ignorePath[0] == request.url.encodedPath && ignoreMethod[0] == request.method) {
-            return chain.proceed(request)
-        }
+        if ("/api/v1/auth" == request.url.encodedPath && "PATCH" == request.method) return chain.proceed(request)
+        if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method) return chain.proceed(request)
 
-        if (ignorePath[1] == request.url.encodedPath && ignoreMethod[1] == request.method) {
-            return chain.proceed(request)
-        }
+        val now = LocalDateTime.now()
+        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
+        val accessTokenExp = authTokenDataSource.getAccessTokenExp()
+        val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
 
-        if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getRefreshTokenExp()))) throw NeedLoginException()
-        if (LocalDateTime.now().isAfter(parseToKoreaDateTime(authTokenDataSource.getAccessTokenExp()))) {
+        if (now.isAfter(LocalDateTime.parse(refreshTokenExp, parsePattern))) throw NeedLoginException()
+        if (now.isAfter(LocalDateTime.parse(accessTokenExp, parsePattern))) {
             val currentRefreshToken = authTokenDataSource.getRefreshToken()
             val refreshRequest = chain.request().newBuilder()
                 .url(BuildConfig.BASE_URL+"auth")
                 .addHeader("refreshToken", "Bearer $currentRefreshToken")
-                .method("PATCH", "".toRequestBody(null))
+                .patch("".toRequestBody(null))
                 .build()
             val refreshResponse = chain.proceed(refreshRequest)
             if (refreshResponse.isSuccessful) {
@@ -61,14 +58,6 @@ class LoginInterceptor @Inject constructor(
                 .addHeader("Authorization", "Bearer $accessToken")
                 .build()
         )
-    }
-
-    private fun parseToKoreaDateTime(refreshTokenExp: String): LocalDateTime? {
-        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
-        val koreaZone = ZoneId.of("Asia/Seoul")
-        val expireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
-
-        return expireDate.atZone(ZoneId.of("UTC")).withZoneSameInstant(koreaZone).toLocalDateTime()
     }
 
     private fun String.deleteDot(): String {

@@ -91,12 +91,7 @@ class SignInActivity : AppCompatActivity() {
                         } else {
                             binding.signInProgressBar.visibility = View.GONE
                             viewModel.signIn.collect { signInResponse ->
-                                if (signInResponse != null) {
-                                    startActivity(Intent(this@SignInActivity, MainActivity::class.java)
-                                        .putExtra("accessToken", signInResponse.accessToken)
-                                        .putExtra("refreshToken", signInResponse.refreshToken)
-                                        .putExtra("authority", signInResponse.authority))
-                                }
+                                if (signInResponse != null) startActivity(Intent(this@SignInActivity, MainActivity::class.java))
                             }
                         }
                     }

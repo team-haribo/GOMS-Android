@@ -5,7 +5,6 @@
 
     <color name="goms_main_color_student">#FF731D</color>
     <color name="goms_main_color_admin">#5F9DF7</color>
-    <color name="goms_main_color">?attr/mainColor</color>
     <color name="goms_main_color_gray">#959595</color>
     <color name="goms_main_background">#F7F7F9</color>
     <color name="goms_second_color_gray">#969696</color>

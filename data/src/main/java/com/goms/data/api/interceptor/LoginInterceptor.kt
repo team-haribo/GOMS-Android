@@ -22,8 +22,10 @@ class LoginInterceptor @Inject constructor(
         val request = chain.request()
 
         // 토큰 갱신 요청인지, 로그인 요청인지 확인해 따로 리턴한다.
-        if ("/api/v1/auth" == request.url.encodedPath && "PATCH" == request.method) return chain.proceed(request)
-        if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method) return chain.proceed(request)
+        if ("/api/v1/auth" == request.url.encodedPath && "PATCH" == request.method)
+            return chain.proceed(request)
+        if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method)
+            return chain.proceed(request)
 
         val now = LocalDateTime.now()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")

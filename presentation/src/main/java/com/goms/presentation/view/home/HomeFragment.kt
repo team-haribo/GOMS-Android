@@ -37,6 +37,7 @@ import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.domain.data.profile.response.ProfileResponseData
 import com.goms.presentation.view.home.component.HomeItemCard
+import com.goms.presentation.view.home.component.LateRankEmptyScreen
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
@@ -101,8 +102,10 @@ class HomeFragment : Fragment() {
             lateViewModel.getLateRanking()
             lateViewModel.lateRanking.collect { list ->
                 binding.lateRankingLazyRow.setContent {
-                    if (list != null)
-                        LateLazyRow(list)
+                    if (list != null) {
+                        if (list.isEmpty()) LateRankEmptyScreen()
+                        else LateLazyRow(list)
+                    }
                 }
             }
         }
@@ -158,6 +161,7 @@ class HomeFragment : Fragment() {
                     HomeItemCard(item)
                 }
             }
+
         }
     }
 }

@@ -43,7 +43,6 @@
                     android:id="@+id/main_outing_button"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:text="외출하기"
                     android:textColor="@color/white"
                     android:fontFamily="@font/sf_pro_text_semibold"
                     android:background="@drawable/goms_buttom_background"

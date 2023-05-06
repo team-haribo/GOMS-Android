@@ -1,5 +1,7 @@
 package com.goms.presentation.viewmodel
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
@@ -8,6 +10,7 @@ import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -16,6 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OutingViewModel @Inject constructor(
+    @ApplicationContext context: Context,
     private val outingUseCase: OutingUseCase,
     private val outingListUseCase: OutingListUseCase,
     private val outingCountUseCase: OutingCountUseCase
@@ -40,7 +44,6 @@ class OutingViewModel @Inject constructor(
                 }
             } else Log.d("TAG", "outingLogic error: $it")
         }.onSuccess {
-            Log.d("TAG", "outingLogic: success")
             _isOuting.value = true
         }
     }
@@ -55,7 +58,7 @@ class OutingViewModel @Inject constructor(
                 }
             } else Log.d("TAG", "outingListLogic: $it")
         }.collect {
-            Log.d("TAG", "outingListLogic: success $it")
+            manageOutingSharedPreference()
             _outingList.value = it
         }
     }
@@ -66,5 +69,15 @@ class OutingViewModel @Inject constructor(
         }.collect {
             _outingCount.value = it
         }
+    }
+
+    // 현재 외출 중인지 상태를 체크한다.
+    private val sharedPreferences = context.getSharedPreferences("userOuting", MODE_PRIVATE)
+    private val editor = sharedPreferences.edit()
+
+    private fun manageOutingSharedPreference() {
+        if (!sharedPreferences.getBoolean("userOuting", false))
+            editor.putBoolean("userOuting", true)
+        else editor.putBoolean("userOuting", false)
     }
 }

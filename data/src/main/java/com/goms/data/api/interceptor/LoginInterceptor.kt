@@ -27,13 +27,13 @@ class LoginInterceptor @Inject constructor(
         if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method)
             return chain.proceed(request)
 
-        val now = LocalDateTime.now()
+        val currentTime = LocalDateTime.now()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
         val accessTokenExp = authTokenDataSource.getAccessTokenExp()
         val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
 
-        if (now.isAfter(LocalDateTime.parse(refreshTokenExp, parsePattern))) throw NeedLoginException()
-        if (now.isAfter(LocalDateTime.parse(accessTokenExp, parsePattern))) {
+        if (currentTime.isAfter(LocalDateTime.parse(refreshTokenExp, parsePattern))) throw NeedLoginException()
+        if (currentTime.isAfter(LocalDateTime.parse(accessTokenExp, parsePattern))) {
             val currentRefreshToken = authTokenDataSource.getRefreshToken()
             val refreshRequest = chain.request().newBuilder()
                 .url(BuildConfig.BASE_URL+"auth")

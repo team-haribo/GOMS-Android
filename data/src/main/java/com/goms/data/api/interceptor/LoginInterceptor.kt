@@ -29,10 +29,10 @@ class LoginInterceptor @Inject constructor(
 
         val currentTime = LocalDateTime.now()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
-        val accessToken = authTokenDataSource.getAccessToken()
-        val refreshToken = authTokenDataSource.getRefreshToken()
-        val accessTokenExpireDate = LocalDateTime.parse(accessToken, parsePattern)
-        val refreshTokenExpireDate = LocalDateTime.parse(refreshToken, parsePattern)
+        val accessTokenExp = authTokenDataSource.getAccessTokenExp()
+        val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
+        val accessTokenExpireDate = LocalDateTime.parse(accessTokenExp, parsePattern)
+        val refreshTokenExpireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
 
         if (currentTime.isAfter(refreshTokenExpireDate)) throw NeedLoginException()
         if (currentTime.isAfter(accessTokenExpireDate)) {
@@ -56,6 +56,7 @@ class LoginInterceptor @Inject constructor(
         }
 
         // 이 부분이 기존 요청에 token header를 붙여 return 하는 곳
+        val accessToken = authTokenDataSource.getAccessToken()
         return chain.proceed(
             request.newBuilder()
                 .addHeader("Authorization", "Bearer $accessToken")

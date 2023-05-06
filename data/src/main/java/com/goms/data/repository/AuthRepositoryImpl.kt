@@ -31,6 +31,7 @@ class AuthRepositoryImpl @Inject constructor(
         val refreshToken = authTokenDataSource.getRefreshToken()
         if (accessToken.isBlank()) throw NeedLoginException()
 
+        val currentTime = LocalDateTime.now()
         val accessTokenExp = authTokenDataSource.getAccessTokenExp()
         val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
         val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
@@ -38,8 +39,8 @@ class AuthRepositoryImpl @Inject constructor(
         val accessExpireDate = LocalDateTime.parse(accessTokenExp, parsePattern)
 
         // 현재 시간이 만료 시간보다 미래인가요?(만료시간보다 시간이 지남)
-        if (LocalDateTime.now().isAfter(refreshExpireDate)) throw NeedLoginException()
-        if (LocalDateTime.now().isAfter(accessExpireDate)) {
+        if (currentTime.isAfter(refreshExpireDate)) throw NeedLoginException()
+        if (currentTime.isAfter(accessExpireDate)) {
             authDataSource.refreshToken("Bearer $refreshToken").catch {
                 throw NeedLoginException()
             }.collect { result ->

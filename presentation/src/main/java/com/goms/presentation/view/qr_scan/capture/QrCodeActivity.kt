@@ -54,9 +54,9 @@ class QrCodeActivity : AppCompatActivity() {
             isFlashEnabled = false
         }
 
-        codeScanner.decodeCallback = DecodeCallback { text ->
+        codeScanner.decodeCallback = DecodeCallback { resultUrl ->
             runOnUiThread {
-                outingLogic(text.text)
+                outingLogic(resultUrl.text)
             }
         }
 

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:textSize="20sp"
-            android:textColor="@color/goms_main_color_student"
+            android:textColor="?attr/mainColor"
             android:fontFamily="@font/sf_pro_text_bold"
             android:text="@string/goms" />
 

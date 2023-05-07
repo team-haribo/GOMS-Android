@@ -22,8 +22,8 @@ class LateViewModel @Inject constructor(
         lateUseCase().catch {
             if (it is HttpException) {
                 when(it.code()) {
-                    401 -> Log.d("TAG", "getLateRanking: 토큰 이슈")
-                    404 -> _lateRanking.value = null
+                    401 -> Log.d("TAG", "getLfiateRanking: 토큰 이슈")
+                    404 -> _lateRanking.value = emptyList()
                     500 -> Log.d("TAG", "getLateRanking: server error")
                 }
             } else Log.d("TAG", "getLateRanking: $it")

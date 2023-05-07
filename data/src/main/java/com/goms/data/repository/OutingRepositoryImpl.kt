@@ -8,13 +8,14 @@ import com.goms.domain.data.profile.response.ProfileResponseData
 import com.goms.domain.repository.OutingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.util.UUID
 import javax.inject.Inject
 
 class OutingRepositoryImpl @Inject constructor(
     private val outingDataSource: OutingDataSource
 ): OutingRepository {
-    override suspend fun outing() {
-        return outingDataSource.outing()
+    override suspend fun outing(outingUUID: UUID) {
+        return outingDataSource.outing(outingUUID)
     }
 
     override suspend fun getOutingList(): Flow<List<ProfileResponseData>> {

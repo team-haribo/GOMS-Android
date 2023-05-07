@@ -19,6 +19,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @AndroidEntryPoint
 class QrCodeActivity : AppCompatActivity() {
@@ -53,9 +54,9 @@ class QrCodeActivity : AppCompatActivity() {
             isFlashEnabled = false
         }
 
-        codeScanner.decodeCallback = DecodeCallback { text ->
+        codeScanner.decodeCallback = DecodeCallback { resultUrl ->
             runOnUiThread {
-                outingLogic()
+                outingLogic(resultUrl.text)
             }
         }
 
@@ -70,9 +71,12 @@ class QrCodeActivity : AppCompatActivity() {
         codeScanner.startPreview()
     }
 
-    private fun outingLogic() {
+    private fun outingLogic(text: String) {
         lifecycleScope.launch {
-            outingViewModel.outingLogic()
+            val qrUUID = text.split("/")
+            val resultUUID = UUID.fromString(qrUUID[qrUUID.lastIndex])
+
+            outingViewModel.outingLogic(resultUUID)
             outingViewModel.isOuting.collect { outAble ->
                 if (outAble == true) {
                     startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))

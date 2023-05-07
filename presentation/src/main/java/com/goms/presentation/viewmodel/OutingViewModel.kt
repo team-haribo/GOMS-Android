@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import retrofit2.HttpException
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,12 +34,15 @@ class OutingViewModel @Inject constructor(
     private val _outingCount: MutableStateFlow<OutingCountResponseData?> = MutableStateFlow(null)
     val outingCount: StateFlow<OutingCountResponseData?> = _outingCount
 
-    suspend fun outingLogic() {
-        outingUseCase().onFailure {
+    suspend fun outingLogic(outingUUID: UUID) {
+        outingUseCase(outingUUID).onFailure {
             _isOuting.value = false
             if (it is HttpException) {
                 when(it.code()) {
-                    400 -> _isOuting.value = null
+                    400 -> {
+                        _isOuting.value = null
+                        Log.d("TAG", "outingLogic: ${it.message()}")
+                    }
                     401 -> Log.d("TAG", "outingLogic: 유효하지 않은 토큰")
                     500 -> Log.d("TAG", "outingLogic: server error")
                 }

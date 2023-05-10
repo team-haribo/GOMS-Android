@@ -7,7 +7,7 @@
         android:title="홈"/>
     <item
         android:id="@+id/qrScanFragment"
-        android:icon="@drawable/qr_code_icon"
+        android:icon="@drawable/qr_code_scan_icon"
         android:enabled="true"
         android:title="외출하기"/>
     <item

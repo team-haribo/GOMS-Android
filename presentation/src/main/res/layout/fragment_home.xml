@@ -108,7 +108,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/backarrow" />
+                android:src="@drawable/backarrow"
+                app:tint="?attr/mainColor" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,7 +141,7 @@
         android:layout_weight="0.18">
 
         <LinearLayout
-            android:id="@+id/main_profile_card_view"
+            android:id="@+id/main_profile_card_view_student"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="25dp"
@@ -193,7 +194,59 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/backarrow" />
+                android:src="@drawable/backarrow"
+                app:tint="?attr/mainColor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/main_profile_card_view_admin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/main_horizontal_card_background"
+            android:elevation="2dp"
+            android:gravity="center|start"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="모든 학생들의 역할을 관리해보세요!"
+                    android:textColor="@color/goms_second_color_gray"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/sf_pro_text_regular"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="학생 관리하기"
+                    android:fontFamily="@font/sf_pro_text_medium"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/backarrow"
+                app:tint="?attr/mainColor"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

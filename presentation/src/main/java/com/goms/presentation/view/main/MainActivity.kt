@@ -13,7 +13,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
 import com.goms.domain.data.profile.response.ProfileResponseData
-import com.goms.presentation.utils.getUserIsAdmin
+import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (getUserIsAdmin(this)) {
+        if (checkUserIsAdmin(this)) {
             binding.gomsBottomNavigationView.menu.findItem(R.id.qrScanFragment).title = "생성하기"
             binding.gomsBottomNavigationView.menu.findItem(R.id.qrScanFragment).setIcon(R.drawable.qr_code_icon)
         }

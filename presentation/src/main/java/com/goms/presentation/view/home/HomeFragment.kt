@@ -38,7 +38,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.domain.data.profile.response.ProfileResponseData
-import com.goms.presentation.utils.getUserIsAdmin
+import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.home.component.LateRankEmptyScreen
 import com.goms.presentation.view.main.MainActivity
@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
         val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
         val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean
         binding.mainOutingButton.text =
-            if(getUserIsAdmin(requireContext())) {
+            if(checkUserIsAdmin(requireContext())) {
                 "QR 생성하기"
             } else if (outingStatus) "복귀하기" else "외출하기"
         binding.mainOutingButton.setOnClickListener {
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
 
         setLateRankList()
 
-        if(getUserIsAdmin(requireContext()))
+        if(checkUserIsAdmin(requireContext()))
             binding.gomsMainTitleText.text = "간편하게\n수요 외출제를\n관리해 보세요!"
         else binding.gomsMainTitleText.text = "간편하게\n수요 외출제를\n이용해 보세요!"
 
@@ -114,7 +114,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setBottomCard() {
-        if (getUserIsAdmin(requireContext())) {
+        if (checkUserIsAdmin(requireContext())) {
             binding.mainProfileCardViewStudent.visibility = View.GONE
             binding.mainProfileCardViewAdmin.visibility = View.VISIBLE
         } else {
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
 
     @Composable
     private fun StudentOutingText(outingCount: Int) {
-        val mainColor = if (getUserIsAdmin(requireContext()))
+        val mainColor = if (checkUserIsAdmin(requireContext()))
             colorResource(id = R.color.goms_main_color_admin)
         else colorResource(id = R.color.goms_main_color_student)
 

@@ -1,5 +1,7 @@
 package com.goms.presentation.viewmodel
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +12,7 @@ import com.goms.domain.exception.ServerException
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -21,6 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val signInUseCase: SignInUseCase,
     private val setTokenUseCase: SetTokenUseCase
 ): ViewModel() {
@@ -56,5 +60,12 @@ class SignInViewModel @Inject constructor(
             )
             _signIn.value = response
         }
+    }
+
+    fun setAuthority(authority: String) {
+        val sharedPreferences = context.getSharedPreferences("authority", MODE_PRIVATE)
+        sharedPreferences.edit()
+            .putString("role", authority)
+            .apply()
     }
 }

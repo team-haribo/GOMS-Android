@@ -42,6 +42,7 @@ import com.goms.presentation.utils.getUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.home.component.LateRankEmptyScreen
 import com.goms.presentation.view.main.MainActivity
+import com.goms.presentation.view.manage.StudentManageActivity
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
 import com.goms.presentation.viewmodel.LateViewModel
@@ -106,7 +107,7 @@ class HomeFragment : Fragment() {
                 .putExtra("profile", response))
         }
         binding.mainProfileCardViewAdmin.setOnClickListener {
-
+            startActivity(Intent(context, StudentManageActivity::class.java))
         }
 
         return binding.root

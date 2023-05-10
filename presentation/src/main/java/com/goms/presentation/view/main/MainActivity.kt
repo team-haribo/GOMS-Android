@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme()
 
-        if (intent.getStringExtra("authority") == "ROLE_ADMIN") super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -83,8 +83,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        if (intent.getStringExtra("authority") == "ROLE_ADMIN") super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
+    private fun setTheme() {
+        val authorityPreferences = getSharedPreferences("authority", MODE_PRIVATE)
+        val role = authorityPreferences.getString("role", "").toString()
+        if (role.isBlank() || role == "ROLE_STUDENT") super.setTheme(R.style.Theme_GSM_GOMS)
+        else super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
     }
 }

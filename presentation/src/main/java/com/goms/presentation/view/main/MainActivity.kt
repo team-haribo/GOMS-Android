@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     private fun setTheme() {
         val authorityPreferences = getSharedPreferences("authority", MODE_PRIVATE)
         val role = authorityPreferences.getString("role", "").toString()
-        if (role.isBlank() || role == "ROLE_STUDENT") super.setTheme(R.style.Theme_GSM_GOMS)
+        if (role == "ROLE_STUDENT") super.setTheme(R.style.Theme_GSM_GOMS)
         else super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
     }
 }

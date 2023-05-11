@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.FragmentOutingBinding
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
@@ -54,7 +54,7 @@ class OutingFragment : Fragment() {
     }
 
     @Composable
-    private fun OutingLazyColumn(list: List<ProfileResponseData>) {
+    private fun OutingLazyColumn(list: List<UserResponseData>) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()

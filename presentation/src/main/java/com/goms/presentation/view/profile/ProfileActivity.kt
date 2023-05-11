@@ -42,7 +42,9 @@ class ProfileActivity : AppCompatActivity() {
     private fun setView() {
         val grade = profileData?.studentNum?.grade
         val classNum = profileData?.studentNum?.classNum
-        val number = profileData?.studentNum?.number
+        val number =
+            if (profileData?.studentNum?.number!! < 10) "0${profileData?.studentNum?.number}"
+            else profileData?.studentNum?.number
 
         binding.profileUserName.text = profileData?.name
         binding.profileStudentNumber.text = "$grade$classNum$number"

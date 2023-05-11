@@ -22,6 +22,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
         <activity
+            android:name="com.goms.presentation.view.manage.StudentManageActivity"
+            android:exported="false" />
+        <activity
             android:name="com.goms.presentation.view.splash.SplashActivity"
             android:exported="true">
             <intent-filter>

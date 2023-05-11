@@ -61,9 +61,12 @@ fun HomeItemCard(item: ProfileResponseData) {
             )
 
             val studentInfo = item.studentNum
+            val studentNum =
+                if (studentInfo.number < 10) "0${studentInfo.number}"
+                else studentInfo.number
             Text(
                 modifier = Modifier.padding(top = 7.dp),
-                text = "${studentInfo.grade}${studentInfo.classNum}${studentInfo.number}" ?: "0000",
+                text = "${studentInfo.grade}${studentInfo.classNum}$studentNum" ?: "0000",
                 style = TextStyle(
                     fontFamily = homeCardFont,
                     fontWeight = FontWeight.Normal,

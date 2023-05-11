@@ -30,7 +30,7 @@ class ProfileViewModel @Inject constructor(
         }.onCompletion {
             _isLoading.value = false
         }.catch {
-            Log.e("TAG", "getProfileLogic: ${it.printStackTrace()}", it.cause)
+            Log.d("TAG", "getProfileLogic: $it")
         }.collect {
             _profile.value = it
         }

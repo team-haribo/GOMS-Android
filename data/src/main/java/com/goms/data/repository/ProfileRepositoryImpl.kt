@@ -2,7 +2,7 @@ package com.goms.data.repository
 
 import com.goms.data.datasource.profile.ProfileDataSource
 import com.goms.data.mapper.ProfileMapper
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

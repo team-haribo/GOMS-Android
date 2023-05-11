@@ -12,7 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel

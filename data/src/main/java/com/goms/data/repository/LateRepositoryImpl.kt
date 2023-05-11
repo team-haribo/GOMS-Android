@@ -2,7 +2,7 @@ package com.goms.data.repository
 
 import com.goms.data.datasource.late.LateDataSource
 import com.goms.data.mapper.ProfileMapper
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.repository.LateRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

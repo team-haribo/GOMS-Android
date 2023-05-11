@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityProfileBinding
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.view.sign_in.SignInActivity
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,9 +1,11 @@
 package com.goms.presentation.di.module
 
 import com.goms.domain.repository.AuthRepository
+import com.goms.domain.repository.CouncilRepository
 import com.goms.domain.repository.LateRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
+import com.goms.domain.usecase.admin.UserListUseCase
 import com.goms.domain.usecase.auth.CheckLoginUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
@@ -68,5 +70,11 @@ object UseCaseModule {
     @Singleton
     fun provideLateUseCase(lateRepository: LateRepository): LateUseCase {
         return LateUseCase(lateRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserListUseCase(councilRepository: CouncilRepository): UserListUseCase {
+        return UserListUseCase(councilRepository)
     }
 }

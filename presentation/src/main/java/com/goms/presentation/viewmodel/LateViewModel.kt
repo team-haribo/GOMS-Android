@@ -2,7 +2,7 @@ package com.goms.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.usecase.late.LateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

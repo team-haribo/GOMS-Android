@@ -2,8 +2,8 @@ package com.goms.data.mapper
 
 import com.goms.data.model.profile.ProfileResponse
 import com.goms.data.model.profile.StudentInfo
-import com.goms.domain.data.profile.response.ProfileResponseData
-import com.goms.domain.data.profile.response.StudentInfoData
+import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.domain.data.profile.StudentInfoData
 
 object ProfileMapper {
     fun profileResponseToData(profileResponse: ProfileResponse): ProfileResponseData {

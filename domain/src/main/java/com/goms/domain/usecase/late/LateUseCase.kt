@@ -1,6 +1,6 @@
 package com.goms.domain.usecase.late
 
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.repository.LateRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

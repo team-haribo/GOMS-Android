@@ -1,6 +1,6 @@
 package com.goms.domain.repository
 
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.profile.ProfileResponseData
 import kotlinx.coroutines.flow.Flow
 
 interface LateRepository {

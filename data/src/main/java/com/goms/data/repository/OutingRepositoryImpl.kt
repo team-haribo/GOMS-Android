@@ -2,9 +2,9 @@ package com.goms.data.repository
 
 import com.goms.data.datasource.outing.OutingDataSource
 import com.goms.data.mapper.OutingMapper
-import com.goms.data.mapper.ProfileMapper
+import com.goms.data.mapper.UserMapper
 import com.goms.domain.data.outing.OutingCountResponseData
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.repository.OutingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,10 +18,10 @@ class OutingRepositoryImpl @Inject constructor(
         return outingDataSource.outing(outingUUID)
     }
 
-    override suspend fun getOutingList(): Flow<List<ProfileResponseData>> {
+    override suspend fun getOutingList(): Flow<List<UserResponseData>> {
         return flow {
             outingDataSource.getOutingList().collect { list ->
-                emit(list.map { ProfileMapper.profileResponseToData(it) })
+                emit(list.map { UserMapper.userResponseToData(it) })
             }
         }
     }

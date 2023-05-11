@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityStudentManageBinding
+import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.view.manage.StudentManageActivity
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skydoves.landscapist.coil.CoilImage
@@ -34,7 +36,8 @@ import com.skydoves.landscapist.coil.CoilImage
 @Composable
 fun StudentManageCard(
     binding: ActivityStudentManageBinding,
-    activity: StudentManageActivity
+    activity: StudentManageActivity,
+    item: UserResponseData
 ) {
     val studentManageCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal)
@@ -53,8 +56,9 @@ fun StudentManageCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             CoilImage(
-                modifier = Modifier.size(50.dp),
-                imageModel = { R.drawable.user_profile }
+                modifier = Modifier.size(50.dp)
+                    .clip(CircleShape),
+                imageModel = { item.profileUrl ?: R.drawable.user_profile }
             )
 
             Column(
@@ -63,15 +67,17 @@ fun StudentManageCard(
                     .weight(1f)
             ) {
                 Text(
-                    text = "김성길",
+                    text = item.name,
                     style = TextStyle(
                         fontFamily = studentManageCardFont,
                         fontSize = 16.sp,
                         color = Color.Black
                     )
                 )
+
+                val studentNum = item.studentNum
                 Text(
-                    text = "3학년 4반 2번",
+                    text = "${studentNum.grade}학년 ${studentNum.classNum}반 ${studentNum.number}번",
                     style = TextStyle(
                         fontFamily = studentManageCardFont,
                         fontSize = 14.sp,

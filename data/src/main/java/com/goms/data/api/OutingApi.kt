@@ -1,7 +1,7 @@
 package com.goms.data.api
 
 import com.goms.data.model.outing.OutingCountResponse
-import com.goms.data.model.profile.ProfileResponse
+import com.goms.data.model.user.UserResponse
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -12,7 +12,7 @@ interface OutingApi {
     suspend fun outing(@Path("outingUUID") outingUUID: UUID)
 
     @GET("outing")
-    suspend fun getOutingList(): List<ProfileResponse>
+    suspend fun getOutingList(): List<UserResponse>
 
     @GET("outing/count")
     suspend fun getOutingCount(): OutingCountResponse

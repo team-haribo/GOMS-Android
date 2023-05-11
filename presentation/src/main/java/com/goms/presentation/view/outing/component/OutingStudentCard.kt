@@ -24,11 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.user.UserResponseData
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun OutingStudentCard(item: ProfileResponseData) {
+fun OutingStudentCard(item: UserResponseData) {
     val outingCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal)
     )

@@ -2,7 +2,7 @@ package com.goms.data.datasource.outing
 
 import com.goms.data.api.OutingApi
 import com.goms.data.model.outing.OutingCountResponse
-import com.goms.data.model.profile.ProfileResponse
+import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.UUID
@@ -15,7 +15,7 @@ class OutingDataSourceImpl @Inject constructor(
         return outingApi.outing(outingUUID)
     }
 
-    override suspend fun getOutingList(): Flow<List<ProfileResponse>> {
+    override suspend fun getOutingList(): Flow<List<UserResponse>> {
         return flow {
             emit(outingApi.getOutingList())
         }

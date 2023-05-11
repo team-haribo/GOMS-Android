@@ -5,7 +5,7 @@ import android.content.Context.MODE_PRIVATE
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
-import com.goms.domain.data.profile.response.ProfileResponseData
+import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
@@ -28,8 +28,8 @@ class OutingViewModel @Inject constructor(
     private val _isOuting: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isOuting: StateFlow<Boolean?> = _isOuting
 
-    private val _outingList: MutableStateFlow<List<ProfileResponseData>?> = MutableStateFlow(null)
-    val outingList: StateFlow<List<ProfileResponseData>?> = _outingList
+    private val _outingList: MutableStateFlow<List<UserResponseData>?> = MutableStateFlow(null)
+    val outingList: StateFlow<List<UserResponseData>?> = _outingList
 
     private val _outingCount: MutableStateFlow<OutingCountResponseData?> = MutableStateFlow(null)
     val outingCount: StateFlow<OutingCountResponseData?> = _outingCount
@@ -57,7 +57,7 @@ class OutingViewModel @Inject constructor(
             if (it is HttpException) {
                 when(it.code()) {
                     401 -> Log.d("TAG", "outingListLogic: 토큰 에러")
-                    404 -> _outingList.value = emptyList()
+                    404 -> Log.d("TAG", "outingListLogic 404: $it")
                     500 -> Log.d("TAG", "outingListLogic: 서버 에러")
                 }
             } else Log.d("TAG", "outingListLogic: $it")

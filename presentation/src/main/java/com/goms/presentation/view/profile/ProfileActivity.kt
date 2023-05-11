@@ -51,7 +51,7 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileCardUserNameText.text = profileData?.name
         binding.profileCardUserGradeText.text = grade.toString()
         binding.profileCardUserClassText.text = classNum.toString()
-        binding.profileCardUserNumberText.text = number.toString()
+        binding.profileCardUserNumberText.text = profileData?.studentNum?.number.toString()
         binding.profileCardUserLateCountText.text = profileData?.lateCount.toString()
         binding.profileUserCircleImage.load(profileData?.profileUrl ?: R.drawable.user_profile)
     }

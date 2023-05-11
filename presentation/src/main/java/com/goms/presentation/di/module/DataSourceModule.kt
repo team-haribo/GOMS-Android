@@ -1,5 +1,7 @@
 package com.goms.presentation.di.module
 
+import com.goms.data.datasource.admin.CouncilDataSource
+import com.goms.data.datasource.admin.CouncilDataSourceImpl
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.auth.AuthDataSourceImpl
 import com.goms.data.datasource.late.LateDataSource
@@ -43,4 +45,9 @@ abstract class DataSourceModule {
     abstract fun bindLateDataSource(
         lateDataSourceImpl: LateDataSourceImpl
     ): LateDataSource
+
+    @Binds
+    abstract fun bindCouncilDataSource(
+        councilDataSourceImpl: CouncilDataSourceImpl
+    ): CouncilDataSource
 }

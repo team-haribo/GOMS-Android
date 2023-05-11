@@ -2,6 +2,7 @@ package com.goms.presentation.di.module
 
 import com.example.presentation.BuildConfig
 import com.goms.data.api.AuthApi
+import com.goms.data.api.CouncilApi
 import com.goms.data.api.LateApi
 import com.goms.data.api.OutingApi
 import com.goms.data.api.ProfileApi
@@ -78,5 +79,11 @@ object NetWorkModule {
     @Singleton
     fun provideLateService(retrofit: Retrofit): LateApi {
         return retrofit.create(LateApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCouncilService(retrofit: Retrofit): CouncilApi {
+        return retrofit.create(CouncilApi::class.java)
     }
 }

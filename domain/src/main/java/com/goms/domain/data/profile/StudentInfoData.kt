@@ -1,4 +1,4 @@
-package com.goms.domain.data.profile.response
+package com.goms.domain.data.profile
 
 import java.io.Serializable
 

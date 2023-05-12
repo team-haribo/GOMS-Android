@@ -33,6 +33,5 @@ class ServerException(
  * 그 밖의 에러
  */
 class OtherException(
-    val code: Int,
     override val message: String?
 ): RuntimeException()

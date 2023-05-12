@@ -2,7 +2,6 @@ package com.goms.presentation.viewmodel
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.auth.response.SignInResponseData
@@ -39,18 +38,13 @@ class SignInViewModel @Inject constructor(
             _isLoading.value = true
         }.onCompletion {
             _isLoading.value = false
-        }.catch { error ->
-            if (error is HttpException) {
-                val message = error.message
-                throw when(error.code()) {
-                    400 -> NotRequestParamException(message = message)
-                    500 -> ServerException(message = message)
-                    else -> OtherException(
-                        code = error.code(),
-                        message = message
-                    )
+        }.catch {
+            if (it is HttpException) {
+                when(it.code()) {
+                    400 -> throw NotRequestParamException("gauth code가 이미 사용되었습니다")
+                    500 -> throw ServerException("서버 에러")
                 }
-            } else Log.d("TAG", "signInLogic: $error")
+            } else throw OtherException(it.message)
         }.collect { response ->
             setTokenUseCase(
                 accessToken = response.accessToken,

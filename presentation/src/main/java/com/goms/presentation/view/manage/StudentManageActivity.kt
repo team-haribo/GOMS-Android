@@ -82,7 +82,7 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         binding.modifyFilterModifyRoleButton.setOnClickListener {
-            modifyRoleLogic(userUUID)
+            setRole(userUUID)
         }
 
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
@@ -134,24 +134,34 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    private fun modifyRoleLogic(accountIdx: UUID) {
+    private fun setRole(accountIdx: UUID) {
         lifecycleScope.launch {
-            if (changeModifyRole == "BLACK_LIST") {
-                // todo :: 블랙리스트 전환 로직
-            } else {
-                councilViewModel.modifyRole(ModifyRoleRequestData(
-                    accountIdx = accountIdx,
-                    authority = changeModifyRole
-                ))
+            if (changeModifyRole == "BLACK_LIST") setBlackListLogic(accountIdx)
+            else modifyRoleLogic(accountIdx)
+        }
+    }
 
-                councilViewModel.modifyRole.collect { checkAble ->
-                    if (checkAble) {
-                        Toast.makeText(this@StudentManageActivity, "권한이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    }
-                }
+    private suspend fun modifyRoleLogic(accountIdx: UUID) {
+        councilViewModel.modifyRole(ModifyRoleRequestData(
+            accountIdx = accountIdx,
+            authority = changeModifyRole
+        ))
+
+        councilViewModel.modifyRole.collect { checkAble ->
+            if (checkAble) {
+                Toast.makeText(this@StudentManageActivity, "권한이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                behavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
+        }
+    }
 
+    private suspend fun setBlackListLogic(accountIdx: UUID) {
+        councilViewModel.setBlackList(accountIdx)
+        councilViewModel.setBlackList.collect { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(this@StudentManageActivity, "외출 금지로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+                behavior.state = BottomSheetBehavior.STATE_HIDDEN
+            }
         }
     }
 

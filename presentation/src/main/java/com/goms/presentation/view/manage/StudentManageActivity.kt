@@ -3,6 +3,7 @@ package com.goms.presentation.view.manage
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityStudentManageBinding
+import com.goms.domain.data.council.ModifyRoleRequestData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.view.manage.component.StudentManageCard
 import com.goms.presentation.view.manage.component.StudentManageSearchTextField
@@ -32,11 +34,16 @@ import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 @AndroidEntryPoint
 class StudentManageActivity : AppCompatActivity() {
     private val councilViewModel by viewModels<CouncilViewModel>()
     private lateinit var binding: ActivityStudentManageBinding
+
+    private lateinit var userUUID: UUID
+    private lateinit var behavior: BottomSheetBehavior<LinearLayout>
+    private var changeModifyRole = "ROLE_STUDENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +61,14 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         val bottomSheet = binding.bottomSheetView
-        val behavior = BottomSheetBehavior.from(bottomSheet)
+        behavior = BottomSheetBehavior.from(bottomSheet)
         behavior.state = BottomSheetBehavior.STATE_HIDDEN
 
         binding.manageStudentSearchView.setOnClickListener {
             binding.manageStudentBottomSheetView.visibility = View.VISIBLE
             binding.modifyRoleBottomSheetView.visibility = View.GONE
 
-            setBottomSheet(behavior)
+            setBottomSheet()
         }
         bottomSheetLogic()
 
@@ -74,10 +81,14 @@ class StudentManageActivity : AppCompatActivity() {
             )
         }
 
+        binding.modifyFilterModifyRoleButton.setOnClickListener {
+            modifyRoleLogic(userUUID)
+        }
+
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
     }
 
-    fun setBottomSheet(behavior: BottomSheetBehavior<LinearLayout>) {
+    private fun setBottomSheet() {
         behavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         behavior.addBottomSheetCallback(object: BottomSheetBehavior.BottomSheetCallback() {
@@ -100,7 +111,6 @@ class StudentManageActivity : AppCompatActivity() {
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 contentPadding = PaddingValues(horizontal = 2.dp)
             ) {
-                // 임시 데이터
                 items(list) { item ->
                     Box(
                         modifier = Modifier
@@ -108,13 +118,40 @@ class StudentManageActivity : AppCompatActivity() {
                             .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
                     ) {
                         StudentManageCard(
-                            binding = binding,
-                            activity = this@StudentManageActivity,
-                            item = item
+                            item = item,
+                            iconClick = { uuid ->
+                                userUUID = uuid
+
+                                binding.manageStudentBottomSheetView.visibility = View.GONE
+                                binding.modifyRoleBottomSheetView.visibility = View.VISIBLE
+
+                                setBottomSheet()
+                            }
                         )
                     }
                 }
             }
+        }
+    }
+
+    private fun modifyRoleLogic(accountIdx: UUID) {
+        lifecycleScope.launch {
+            if (changeModifyRole == "BLACK_LIST") {
+                // todo :: 블랙리스트 전환 로직
+            } else {
+                councilViewModel.modifyRole(ModifyRoleRequestData(
+                    accountIdx = accountIdx,
+                    authority = changeModifyRole
+                ))
+
+                councilViewModel.modifyRole.collect { checkAble ->
+                    if (checkAble) {
+                        Toast.makeText(this@StudentManageActivity, "권한이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    }
+                }
+            }
+
         }
     }
 
@@ -180,6 +217,9 @@ class StudentManageActivity : AppCompatActivity() {
                     if (modifyRole == button) {
                         modifyRole.setBackgroundResource(R.drawable.admin_attribute_button_selected)
                         modifyRole.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+                        val currentIndex = modifyRoleButtons.indexOf(modifyRole)
+                        changeModifyRole = modifyRoleTexts[currentIndex]
                     } else {
                         modifyRole.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
                         modifyRole.setTextColor(ContextCompat.getColor(this, R.color.goms_second_color_gray))

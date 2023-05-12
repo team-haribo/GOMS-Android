@@ -410,6 +410,7 @@
                 android:orientation="vertical">
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify_filter_modify_role_button"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="2dp"

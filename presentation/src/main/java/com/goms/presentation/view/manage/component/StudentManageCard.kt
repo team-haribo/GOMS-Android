@@ -1,6 +1,5 @@
 package com.goms.presentation.view.manage.component
 
-import android.view.View
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -27,17 +26,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.user.UserResponseData
-import com.goms.presentation.view.manage.StudentManageActivity
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.skydoves.landscapist.coil.CoilImage
+import java.util.UUID
 
 @Composable
 fun StudentManageCard(
-    binding: ActivityStudentManageBinding,
-    activity: StudentManageActivity,
-    item: UserResponseData
+    item: UserResponseData,
+    iconClick: (UUID) -> Unit
 ) {
     val studentManageCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal)
@@ -91,12 +87,7 @@ fun StudentManageCard(
                     .align(Alignment.Top)
                     .padding(top = 5.dp)
                     .clickable {
-                        binding.manageStudentBottomSheetView.visibility = View.GONE
-                        binding.modifyRoleBottomSheetView.visibility = View.VISIBLE
-
-                        val bottomSheet = binding.bottomSheetView
-                        val behavior = BottomSheetBehavior.from(bottomSheet)
-                        activity.setBottomSheet(behavior)
+                        iconClick(item.accountIdx)
                     },
                 painter = painterResource(id = R.drawable.pencil_icon),
                 contentDescription = "student manage icon"

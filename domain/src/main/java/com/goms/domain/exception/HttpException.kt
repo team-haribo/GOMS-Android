@@ -8,6 +8,20 @@ class NotRequestParamException(
 ): RuntimeException()
 
 /**
+ * 학생회 계정이 아님
+ */
+class NotCouncilException(
+    override val message: String?
+): RuntimeException()
+
+/**
+ * 계정을 찾을 수 없음
+ */
+class UserNotFoundException(
+    override val message: String?
+): RuntimeException()
+
+/**
  * 서버 에러
  * 500 에러에서 사용
  */

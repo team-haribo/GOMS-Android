@@ -1,11 +1,11 @@
 package com.goms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.ModifyRoleRequestData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.exception.NotCouncilException
+import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserNotFoundException
 import com.goms.domain.usecase.admin.ModifyRoleUseCase
@@ -37,7 +37,7 @@ class CouncilViewModel @Inject constructor(
                         403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
                         500 -> throw ServerException("서버 에러")
                     }
-                } else Log.d("TAG", "getUserList error: $it")
+                } else throw OtherException(it.message)
             }.collect { list ->
                 _userList.value = list
             }
@@ -53,7 +53,7 @@ class CouncilViewModel @Inject constructor(
                         404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
                         500 -> throw ServerException("서버 에러")
                     }
-                } else Log.d("TAG", "modifyRole error: $it")
+                } else throw OtherException(it.message)
             }.collect {
                 _modifyRole.value = true
             }

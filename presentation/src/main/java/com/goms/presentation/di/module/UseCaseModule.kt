@@ -6,6 +6,7 @@ import com.goms.domain.repository.LateRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
 import com.goms.domain.usecase.admin.ModifyRoleUseCase
+import com.goms.domain.usecase.admin.SetBlackListUseCase
 import com.goms.domain.usecase.admin.UserListUseCase
 import com.goms.domain.usecase.auth.CheckLoginUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
@@ -83,5 +84,11 @@ object UseCaseModule {
     @Singleton
     fun provideModifyRoleUseCase(councilRepository: CouncilRepository): ModifyRoleUseCase {
         return ModifyRoleUseCase(councilRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetBlackListUseCase(councilRepository: CouncilRepository): SetBlackListUseCase {
+        return SetBlackListUseCase(councilRepository)
     }
 }

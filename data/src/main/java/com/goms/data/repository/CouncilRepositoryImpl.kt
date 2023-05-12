@@ -9,6 +9,7 @@ import com.goms.domain.repository.CouncilRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import java.util.UUID
 import javax.inject.Inject
 
 class CouncilRepositoryImpl @Inject constructor(
@@ -25,6 +26,14 @@ class CouncilRepositoryImpl @Inject constructor(
     override suspend fun modifyRole(body: ModifyRoleRequestData): Flow<Response<Unit>> {
         return flow {
             councilDataSource.modifyRole(CouncilMapper.modifyRoleRequestToDomain(body)).collect {
+                emit(it)
+            }
+        }
+    }
+
+    override suspend fun setBlackList(accountIdx: UUID): Flow<Response<Unit>> {
+        return flow {
+            councilDataSource.setBlackList(accountIdx).collect {
                 emit(it)
             }
         }

@@ -22,6 +22,13 @@ class UserNotFoundException(
 ): RuntimeException()
 
 /**
+ * 토큰 이슈
+ */
+class FailAccessTokenException(
+    override val message: String?
+): RuntimeException()
+
+/**
  * 서버 에러
  * 500 에러에서 사용
  */

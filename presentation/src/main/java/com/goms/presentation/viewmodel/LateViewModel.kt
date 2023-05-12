@@ -1,8 +1,10 @@
 package com.goms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.domain.exception.FailAccessTokenException
+import com.goms.domain.exception.OtherException
+import com.goms.domain.exception.ServerException
 import com.goms.domain.usecase.late.LateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,11 +24,10 @@ class LateViewModel @Inject constructor(
         lateUseCase().catch {
             if (it is HttpException) {
                 when(it.code()) {
-                    401 -> Log.d("TAG", "getLfiateRanking: 토큰 이슈")
-                    404 -> _lateRanking.value = emptyList()
-                    500 -> Log.d("TAG", "getLateRanking: server error")
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                    500 -> throw ServerException("서버 에러")
                 }
-            } else Log.d("TAG", "getLateRanking: $it")
+            } else throw OtherException(it.message)
         }.collect {
             _lateRanking.value = it
         }

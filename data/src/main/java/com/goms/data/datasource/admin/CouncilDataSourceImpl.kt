@@ -6,6 +6,7 @@ import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import java.util.UUID
 import javax.inject.Inject
 
 class CouncilDataSourceImpl @Inject constructor(
@@ -20,6 +21,12 @@ class CouncilDataSourceImpl @Inject constructor(
     override suspend fun modifyRole(body: ModifyRoleRequest): Flow<Response<Unit>> {
         return flow {
             emit(councilApi.modifyRole(body))
+        }
+    }
+
+    override suspend fun setBlackList(accountIdx: UUID): Flow<Response<Unit>> {
+        return flow {
+            emit(councilApi.setBlackList(accountIdx))
         }
     }
 }

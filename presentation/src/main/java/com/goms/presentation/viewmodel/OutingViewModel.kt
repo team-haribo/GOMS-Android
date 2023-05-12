@@ -6,6 +6,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
+import com.goms.domain.exception.FailAccessTokenException
+import com.goms.domain.exception.OtherException
+import com.goms.domain.exception.ServerException
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
@@ -43,10 +46,10 @@ class OutingViewModel @Inject constructor(
                         _isOuting.value = null
                         Log.d("TAG", "outingLogic: ${it.message()}")
                     }
-                    401 -> Log.d("TAG", "outingLogic: 유효하지 않은 토큰")
-                    500 -> Log.d("TAG", "outingLogic: server error")
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                    500 -> throw ServerException("서버 에러")
                 }
-            } else Log.d("TAG", "outingLogic error: $it")
+            } else throw OtherException(it.message)
         }.onSuccess {
             _isOuting.value = true
         }
@@ -57,7 +60,8 @@ class OutingViewModel @Inject constructor(
             if (it is HttpException) {
                 when(it.code()) {
                     401 -> Log.d("TAG", "outingListLogic: 토큰 에러")
-                    404 -> Log.d("TAG", "outingListLogic 404: $it")
+                    404 ->
+                        Log.d("TAG", "outingListLogic 404: $it")
                     500 -> Log.d("TAG", "outingListLogic: 서버 에러")
                 }
             } else Log.d("TAG", "outingListLogic: $it")

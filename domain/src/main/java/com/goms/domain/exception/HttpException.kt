@@ -28,10 +28,3 @@ class UserNotFoundException(
 class ServerException(
     override val message: String?
 ): RuntimeException()
-
-/**
- * 그 밖의 에러
- */
-class OtherException(
-    override val message: String?
-): RuntimeException()

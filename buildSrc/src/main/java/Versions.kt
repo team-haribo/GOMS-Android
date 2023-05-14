@@ -39,5 +39,5 @@ object Versions {
     const val Gson = "2.9.0"
 
     const val Lifecycle = "2.3.1"
-    const val LifecycleRuntime = "2.4.0"
+    const val LifecycleRuntime = "2.5.1"
 }

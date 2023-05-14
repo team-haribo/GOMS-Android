@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/manage_student_bottom_sheet_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/admin_filter_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/bottom_sheet_filter_edit_text_bg"
+        android:elevation="2dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:layout_weight="1"
+            android:hint="찾으시는 학생이 있으신가요?"
+            android:layout_marginStart="15dp"/>
+        
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/baseline_search_24"
+            android:layout_gravity="center"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="역할"
+        android:textColor="@color/goms_filter_title_color"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_text_medium"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_student"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="학생"
+            android:textColor="@color/white"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/admin_attribute_button_selected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_council"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="학생회"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_blacklist"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="외출 금지"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="학년"
+        android:textColor="@color/goms_filter_title_color"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_text_medium"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_grade1"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/admin_attribute_button_selected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_grade2"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="2"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_grade3"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="3"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:text="반"
+        android:textColor="@color/goms_filter_title_color"
+        android:layout_marginTop="20dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_text_medium"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:gravity="top">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_class1"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/admin_attribute_button_selected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_class2"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="2"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_class3"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="3"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_attr_class4"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:text="4"
+            android:layout_marginEnd="2dp"
+            android:textColor="@color/goms_second_color_gray"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_margin="23dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/filter_search_button"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_margin="2dp"
+            android:text="검색하기"
+            android:fontFamily="@font/sf_pro_text_semibold"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:background="@drawable/admin_attribute_button_selected" />
+    </LinearLayout>
+</LinearLayout>

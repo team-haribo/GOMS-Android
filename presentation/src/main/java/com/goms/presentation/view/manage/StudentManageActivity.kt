@@ -19,7 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.view.manage.bottomsheet.FilterBottomSheet
-import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheet
+import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.component.StudentManageCard
 import com.goms.presentation.viewmodel.CouncilViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +31,7 @@ class StudentManageActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStudentManageBinding
 
     private lateinit var filterBottomSheetBinding: FilterBottomSheet
-    private lateinit var bottomSheetModifyRoleDialog: ModifyRoleBottomSheet
+    private lateinit var bottomSheetModifyRoleDialog: ModifyRoleBottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,7 +74,7 @@ class StudentManageActivity : AppCompatActivity() {
                         StudentManageCard(
                             item = item,
                             iconClick = { uuid ->
-                                bottomSheetModifyRoleDialog = ModifyRoleBottomSheet(uuid)
+                                bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid)
                                 bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
                             }
                         )

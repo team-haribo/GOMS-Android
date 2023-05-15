@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 @AndroidEntryPoint
-class ModifyRoleBottomSheet(private val uuid: UUID): BottomSheetDialogFragment() {
+class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
 
     private lateinit var binding: BottomSheetModifyRoleBinding

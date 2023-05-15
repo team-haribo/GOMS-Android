@@ -25,7 +25,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        profileData = intent.getSerializableExtra("profile", ProfileResponseData::class.java)
+        profileData = intent.getSerializableExtra("profile") as ProfileResponseData
         setView()
 
         binding.backToMainImage.setOnClickListener { finish() }

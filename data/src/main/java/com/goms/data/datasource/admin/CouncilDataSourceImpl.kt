@@ -2,6 +2,7 @@ package com.goms.data.datasource.admin
 
 import com.goms.data.api.CouncilApi
 import com.goms.data.model.council.request.ModifyRoleRequest
+import com.goms.data.model.council.response.MakeQrCodeResponse
 import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,12 @@ class CouncilDataSourceImpl @Inject constructor(
     ): Flow<List<SearchStudentResponse>> {
         return flow {
             emit(councilApi.searchStudent(grade, classNum, name, isBlackList, authority))
+        }
+    }
+
+    override suspend fun makeQrCode(): Flow<MakeQrCodeResponse> {
+        return flow {
+            emit(councilApi.makeQrCode())
         }
     }
 }

@@ -9,6 +9,7 @@ import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.exception.FailAccessTokenException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
+import com.goms.domain.exception.UserIsBlackListException
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
@@ -42,10 +43,7 @@ class OutingViewModel @Inject constructor(
             _isOuting.value = false
             if (it is HttpException) {
                 when(it.code()) {
-                    400 -> {
-                        _isOuting.value = null
-                        Log.d("TAG", "outingLogic: ${it.message()}")
-                    }
+                    400 -> throw UserIsBlackListException("외출 금지인 사용자입니다.")
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
                     500 -> throw ServerException("서버 에러")
                 }

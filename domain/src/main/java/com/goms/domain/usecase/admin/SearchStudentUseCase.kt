@@ -11,11 +11,10 @@ class SearchStudentUseCase @Inject constructor(
     suspend operator fun invoke(
         grade: Int,
         classNum: Int,
-        number: Int,
         name: String,
         isBlackList: Boolean,
         authority: String
     ): Flow<List<SearchStudentResponseData>> {
-        return councilRepository.searchStudent(grade, classNum, number, name, isBlackList, authority)
+        return councilRepository.searchStudent(grade, classNum, name, isBlackList, authority)
     }
 }

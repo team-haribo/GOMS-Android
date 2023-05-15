@@ -43,13 +43,12 @@ class CouncilRepositoryImpl @Inject constructor(
     override suspend fun searchStudent(
         grade: Int,
         classNum: Int,
-        number: Int,
         name: String,
         isBlackList: Boolean,
         authority: String
     ): Flow<List<SearchStudentResponseData>> {
         return flow {
-            councilDataSource.searchStudent(grade, classNum, number, name, isBlackList, authority).collect { list ->
+            councilDataSource.searchStudent(grade, classNum, name, isBlackList, authority).collect { list ->
                 emit(list.map { CouncilMapper.searchStudentToData(it) })
             }
         }

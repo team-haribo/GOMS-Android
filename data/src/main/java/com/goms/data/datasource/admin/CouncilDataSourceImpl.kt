@@ -34,13 +34,12 @@ class CouncilDataSourceImpl @Inject constructor(
     override suspend fun searchStudent(
         grade: Int,
         classNum: Int,
-        number: Int,
         name: String,
         isBlackList: Boolean,
         authority: String
     ): Flow<List<SearchStudentResponse>> {
         return flow {
-            emit(councilApi.searchStudent(grade, classNum, number, name, isBlackList, authority))
+            emit(councilApi.searchStudent(grade, classNum, name, isBlackList, authority))
         }
     }
 }

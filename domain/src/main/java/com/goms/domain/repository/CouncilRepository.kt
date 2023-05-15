@@ -17,7 +17,6 @@ interface CouncilRepository {
     suspend fun searchStudent(
         grade: Int,
         classNum: Int,
-        number: Int,
         name: String,
         isBlackList: Boolean,
         authority: String

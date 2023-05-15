@@ -30,7 +30,6 @@ interface CouncilApi {
     suspend fun searchStudent(
         @Query("grade") grade: Int,
         @Query("classNum") classNum: Int,
-        @Query("number") number: Int,
         @Query("name") name: String,
         @Query("isBlackList") isBlackList: Boolean,
         @Query("authority") authority: String

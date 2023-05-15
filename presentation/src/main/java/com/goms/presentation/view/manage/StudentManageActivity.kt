@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.user.UserResponseData
-import com.goms.presentation.view.manage.bottomsheet.FilterBottomSheetDialog
+import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.component.StudentManageCard
 import com.goms.presentation.viewmodel.CouncilViewModel
@@ -30,7 +30,7 @@ class StudentManageActivity : AppCompatActivity() {
     private val councilViewModel by viewModels<CouncilViewModel>()
     private lateinit var binding: ActivityStudentManageBinding
 
-    private lateinit var filterBottomSheetDialogBinding: FilterBottomSheetDialog
+    private lateinit var searchFilterBottomSheetDialogBinding: SearchFilterBottomSheetDialog
     private lateinit var bottomSheetModifyRoleDialog: ModifyRoleBottomSheetDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +49,8 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         binding.manageStudentSearchView.setOnClickListener {
-            filterBottomSheetDialogBinding = FilterBottomSheetDialog()
-            filterBottomSheetDialogBinding.show(supportFragmentManager, filterBottomSheetDialogBinding.tag)
+            searchFilterBottomSheetDialogBinding = SearchFilterBottomSheetDialog()
+            searchFilterBottomSheetDialogBinding.show(supportFragmentManager, searchFilterBottomSheetDialogBinding.tag)
         }
 
         binding.studentManageBackArrowImage.setOnClickListener { finish() }

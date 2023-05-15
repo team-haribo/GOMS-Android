@@ -8,6 +8,6 @@ data class SearchStudentResponse(
     @SerializedName("accountIdx") val accountIdx: UUID,
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: UserInfo,
-    @SerializedName("profileUrl") val profileUrl: String,
+    @SerializedName("profileUrl") val profileUrl: String?,
     @SerializedName("authority") val authority: String
 )

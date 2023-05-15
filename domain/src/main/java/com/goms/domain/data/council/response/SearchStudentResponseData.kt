@@ -7,6 +7,6 @@ data class SearchStudentResponseData(
     val accountIdx: UUID,
     val name: String,
     val studentNum: UserInfoData,
-    val profileUrl: String,
+    val profileUrl: String?,
     val authority: String
 )

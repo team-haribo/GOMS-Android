@@ -1,6 +1,7 @@
 package com.goms.data.api
 
-import com.goms.data.model.council.ModifyRoleRequest
+import com.goms.data.model.council.request.ModifyRoleRequest
+import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.user.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -8,6 +9,7 @@ import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.UUID
 
 interface CouncilApi {
@@ -23,4 +25,13 @@ interface CouncilApi {
     suspend fun setBlackList(
         @Path("accountIdx") accountIdx: UUID
     ): Response<Unit>
+
+    @GET("student-council/search")
+    suspend fun searchStudent(
+        @Query("grade") grade: Int,
+        @Query("classNum") classNum: Int,
+        @Query("name") name: String,
+        @Query("isBlackList") isBlackList: Boolean,
+        @Query("authority") authority: String
+    ): List<SearchStudentResponse>
 }

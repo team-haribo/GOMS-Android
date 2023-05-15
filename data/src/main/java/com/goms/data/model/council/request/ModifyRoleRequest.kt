@@ -1,4 +1,4 @@
-package com.goms.data.model.council
+package com.goms.data.model.council.request
 
 import com.google.gson.annotations.SerializedName
 import java.util.UUID

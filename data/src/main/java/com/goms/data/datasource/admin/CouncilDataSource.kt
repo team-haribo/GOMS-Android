@@ -1,6 +1,7 @@
 package com.goms.data.datasource.admin
 
-import com.goms.data.model.council.ModifyRoleRequest
+import com.goms.data.model.council.request.ModifyRoleRequest
+import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
@@ -12,4 +13,12 @@ interface CouncilDataSource {
     suspend fun modifyRole(body: ModifyRoleRequest): Flow<Response<Unit>>
 
     suspend fun setBlackList(accountIdx: UUID): Flow<Response<Unit>>
+
+    suspend fun searchStudent(
+        grade: Int,
+        classNum: Int,
+        name: String,
+        isBlackList: Boolean,
+        authority: String
+    ): Flow<List<SearchStudentResponse>>
 }

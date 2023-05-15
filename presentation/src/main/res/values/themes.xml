@@ -15,13 +15,6 @@
     <item name="android:windowLightStatusBar">true</item>
   </style>
 
-  <style name="Theme.App.Starting" parent="Theme.SplashScreen">
-    <item name="windowSplashScreenBackground">@color/goms_main_color_student</item>
-    <item name="windowSplashScreenAnimatedIcon">@drawable/goms_splash_logo</item>
-    <item name="windowSplashScreenAnimationDuration">2000</item>
-    <item name="postSplashScreenTheme">@style/Theme.GSM_GOMS</item>
-  </style>
-
   <style name="BottomNavigationViewTextStyle">
     <item name="fontFamily">@font/sf_pro_text_regular</item>
   </style>

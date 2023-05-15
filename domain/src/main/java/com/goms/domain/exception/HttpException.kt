@@ -29,6 +29,13 @@ class FailAccessTokenException(
 ): RuntimeException()
 
 /**
+ * 나가는 학생이 외출 금지일 때
+ */
+class UserIsBlackListException(
+    override val message: String?
+): RuntimeException()
+
+/**
  * 서버 에러
  * 500 에러에서 사용
  */

@@ -38,6 +38,7 @@ object Dependency {
         const val CODE_SCANNER = "com.github.yuriy-budiyev:code-scanner:${Versions.CodeScanner}"
         const val TEDPERMMISION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TedPermission}"
         const val CIRCLE_IMAGEVIEW = "de.hdodenhof:circleimageview:${Versions.CircleImageView}"
+        const val ZXING = "com.journeyapps:zxing-android-embedded:${Versions.Zxing}"
     }
 
     object Hilt {

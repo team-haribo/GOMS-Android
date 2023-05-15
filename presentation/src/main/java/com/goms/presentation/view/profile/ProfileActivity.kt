@@ -1,6 +1,5 @@
 package com.goms.presentation.view.profile
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
@@ -9,7 +8,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityProfileBinding
 import com.goms.domain.data.profile.ProfileResponseData
-import com.goms.presentation.view.sign_in.SignInActivity
+import com.goms.presentation.utils.GomsDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,11 +30,11 @@ class ProfileActivity : AppCompatActivity() {
         binding.backToMainImage.setOnClickListener { finish() }
 
         binding.logoutView.setOnClickListener {
-            val tokenInfo = this.getSharedPreferences("token", MODE_PRIVATE)
-            tokenInfo.edit().clear().apply()
-
-            startActivity(Intent(this, SignInActivity::class.java))
-            finish()
+            val dialog = GomsDialog(
+                title = "로그아웃",
+                content = "로그아웃 하시겠습니까?"
+            )
+            dialog.show(supportFragmentManager, "logout")
         }
     }
 

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SetBlackListUseCase @Inject constructor(
     private val councilRepository: CouncilRepository
 ) {
-    suspend operator fun  invoke(accountIdx: UUID): Flow<Response<Unit>> {
+    suspend operator fun invoke(accountIdx: UUID): Flow<Response<Unit>> {
         return councilRepository.setBlackList(accountIdx)
     }
 }

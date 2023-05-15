@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.BottomSheetModifyRoleBinding
 import com.goms.domain.data.council.request.ModifyRoleRequestData
+import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,16 +42,22 @@ class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFrag
 
     private fun setRole(accountIdx: UUID) {
         lifecycleScope.launch {
-            if (changeModifyRole == "BLACK_LIST") setBlackListLogic(accountIdx)
-            else modifyRoleLogic(accountIdx)
+            if (changeModifyRole == "BLACK_LIST") {
+                val dialog = GomsDialog(
+                    title = "외출 금지",
+                    content = "해당 학생을 외출 금지로 설정하시겠습니까?",
+                    accountIdx = accountIdx
+                )
+                dialog.show(activity?.supportFragmentManager!!, "setBlackList")
+            } else modifyRoleLogic(accountIdx)
         }
     }
 
     private suspend fun modifyRoleLogic(accountIdx: UUID) {
         councilViewModel.modifyRole(
             ModifyRoleRequestData(
-            accountIdx = accountIdx,
-            authority = changeModifyRole
+                accountIdx = accountIdx,
+                authority = changeModifyRole
             )
         )
 
@@ -58,15 +65,6 @@ class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFrag
             if (checkAble) {
                 Toast.makeText(context, "권한이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                 dialog?.dismiss()
-            }
-        }
-    }
-
-    private suspend fun setBlackListLogic(accountIdx: UUID) {
-        councilViewModel.setBlackList(accountIdx)
-        councilViewModel.setBlackList.collect { isSuccess ->
-            if (isSuccess) {
-                Toast.makeText(context, "외출 금지로 설정되었습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }

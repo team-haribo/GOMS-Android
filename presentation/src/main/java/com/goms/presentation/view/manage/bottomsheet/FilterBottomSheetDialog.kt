@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FilterBottomSheet: BottomSheetDialogFragment() {
+class FilterBottomSheetDialog: BottomSheetDialogFragment() {
     private lateinit var binding: BottomSheetFilterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

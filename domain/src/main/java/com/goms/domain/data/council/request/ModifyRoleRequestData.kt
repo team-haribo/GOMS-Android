@@ -1,4 +1,4 @@
-package com.goms.domain.data.council
+package com.goms.domain.data.council.request
 
 import java.util.UUID
 

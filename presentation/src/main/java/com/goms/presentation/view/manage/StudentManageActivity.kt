@@ -86,7 +86,7 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    fun setUserList(list: List<SearchStudentResponseData>) {
+    fun searchUserList(list: List<SearchStudentResponseData>) {
         binding.manageStudentStudentList.setContent {
             if (list.isEmpty()) SearchResultEmptyScreen()
             else {

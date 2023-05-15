@@ -45,7 +45,7 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                 councilViewModel.searchStudent.collect { list ->
                     if (list != null) {
                         val activity = activity as StudentManageActivity
-                        activity.setUserList(list)
+                        activity.searchUserList(list)
                         dialog?.dismiss()
                     }
                 }

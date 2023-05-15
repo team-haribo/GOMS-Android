@@ -3,7 +3,7 @@ package com.goms.data.repository
 import com.goms.data.datasource.admin.CouncilDataSource
 import com.goms.data.mapper.CouncilMapper
 import com.goms.data.mapper.UserMapper
-import com.goms.domain.data.council.ModifyRoleRequestData
+import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.repository.CouncilRepository
 import kotlinx.coroutines.flow.Flow

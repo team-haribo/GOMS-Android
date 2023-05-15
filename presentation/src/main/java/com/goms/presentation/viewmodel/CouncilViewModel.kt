@@ -2,7 +2,7 @@ package com.goms.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goms.domain.data.council.ModifyRoleRequestData
+import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException

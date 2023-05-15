@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.BottomSheetModifyRoleBinding
-import com.goms.domain.data.council.ModifyRoleRequestData
+import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

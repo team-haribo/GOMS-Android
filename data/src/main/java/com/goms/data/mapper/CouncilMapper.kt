@@ -1,6 +1,6 @@
 package com.goms.data.mapper
 
-import com.goms.data.model.council.ModifyRoleRequest
+import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.domain.data.council.ModifyRoleRequestData
 
 object CouncilMapper {

@@ -1,7 +1,7 @@
 package com.goms.data.datasource.admin
 
 import com.goms.data.api.CouncilApi
-import com.goms.data.model.council.ModifyRoleRequest
+import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

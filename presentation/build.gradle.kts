@@ -61,6 +61,8 @@ dependencies {
     implementation(Dependency.Libraries.TEDPERMMISION)
     // circle image
     implementation(Dependency.Libraries.CIRCLE_IMAGEVIEW)
+    // zxing
+    implementation(Dependency.Libraries.ZXING)
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)

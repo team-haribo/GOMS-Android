@@ -4,6 +4,7 @@ import com.goms.data.datasource.admin.CouncilDataSource
 import com.goms.data.mapper.CouncilMapper
 import com.goms.data.mapper.UserMapper
 import com.goms.domain.data.council.request.ModifyRoleRequestData
+import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.SearchStudentResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.repository.CouncilRepository
@@ -50,6 +51,14 @@ class CouncilRepositoryImpl @Inject constructor(
         return flow {
             councilDataSource.searchStudent(grade, classNum, name, isBlackList, authority).collect { list ->
                 emit(list.map { CouncilMapper.searchStudentToData(it) })
+            }
+        }
+    }
+
+    override suspend fun makeQrCode(): Flow<MakeQrCodeResponseData> {
+        return flow {
+            councilDataSource.makeQrCode().collect {
+                emit(MakeQrCodeResponseData(outingUUID = it.outingUUID))
             }
         }
     }

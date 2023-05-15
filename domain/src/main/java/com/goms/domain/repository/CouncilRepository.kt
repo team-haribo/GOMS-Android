@@ -1,6 +1,7 @@
 package com.goms.domain.repository
 
 import com.goms.domain.data.council.request.ModifyRoleRequestData
+import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.SearchStudentResponseData
 import com.goms.domain.data.user.UserResponseData
 import kotlinx.coroutines.flow.Flow
@@ -21,4 +22,6 @@ interface CouncilRepository {
         isBlackList: Boolean,
         authority: String
     ): Flow<List<SearchStudentResponseData>>
+
+    suspend fun makeQrCode(): Flow<MakeQrCodeResponseData>
 }

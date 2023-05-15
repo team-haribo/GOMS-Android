@@ -1,6 +1,7 @@
 package com.goms.data.api
 
 import com.goms.data.model.council.request.ModifyRoleRequest
+import com.goms.data.model.council.response.MakeQrCodeResponse
 import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.user.UserResponse
 import retrofit2.Response
@@ -34,4 +35,7 @@ interface CouncilApi {
         @Query("isBlackList") isBlackList: Boolean,
         @Query("authority") authority: String
     ): List<SearchStudentResponse>
+
+    @POST("student-council/outing")
+    suspend fun makeQrCode(): MakeQrCodeResponse
 }

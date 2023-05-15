@@ -3,12 +3,14 @@ package com.goms.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
+import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.SearchStudentResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserNotFoundException
+import com.goms.domain.usecase.admin.MakeQrCodeUseCase
 import com.goms.domain.usecase.admin.ModifyRoleUseCase
 import com.goms.domain.usecase.admin.SearchStudentUseCase
 import com.goms.domain.usecase.admin.SetBlackListUseCase
@@ -27,7 +29,8 @@ class CouncilViewModel @Inject constructor(
     private val userListUseCase: UserListUseCase,
     private val modifyRoleUseCase: ModifyRoleUseCase,
     private val setBlackListUseCase: SetBlackListUseCase,
-    private val searchStudentUseCase: SearchStudentUseCase
+    private val searchStudentUseCase: SearchStudentUseCase,
+    private val makeQrCodeUseCase: MakeQrCodeUseCase
 ): ViewModel() {
     private val _userList: MutableStateFlow<List<UserResponseData>?> = MutableStateFlow(null)
     val userList: StateFlow<List<UserResponseData>?> = _userList
@@ -40,6 +43,9 @@ class CouncilViewModel @Inject constructor(
 
     private val _searchStudent: MutableStateFlow<List<SearchStudentResponseData>?> = MutableStateFlow(null)
     val searchStudent: StateFlow<List<SearchStudentResponseData>?> = _searchStudent
+
+    private val _makeQr: MutableStateFlow<MakeQrCodeResponseData?> = MutableStateFlow(null)
+    val makeQr: StateFlow<MakeQrCodeResponseData?> = _makeQr
 
     fun getUserList() {
         viewModelScope.launch {
@@ -105,6 +111,21 @@ class CouncilViewModel @Inject constructor(
                 } else throw OtherException(it.message)
             }.collect {
                 _searchStudent.value = it
+            }
+        }
+    }
+
+    fun makeQrCode() {
+        viewModelScope.launch {
+            makeQrCodeUseCase().catch {
+                if (it is HttpException) {
+                    when (it.code()) {
+                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                        500 -> throw ServerException("서버 에러")
+                    }
+                } else throw OtherException(it.message)
+            }.collect {
+                _makeQr.value = it
             }
         }
     }

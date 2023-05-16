@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.SearchStudentResponseData
-import com.goms.domain.data.user.UserResponseData
+import com.goms.domain.data.council.response.UserListResponseData
 import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
@@ -32,8 +32,8 @@ class CouncilViewModel @Inject constructor(
     private val searchStudentUseCase: SearchStudentUseCase,
     private val makeQrCodeUseCase: MakeQrCodeUseCase
 ): ViewModel() {
-    private val _userList: MutableStateFlow<List<UserResponseData>?> = MutableStateFlow(null)
-    val userList: StateFlow<List<UserResponseData>?> = _userList
+    private val _userList: MutableStateFlow<List<UserListResponseData>?> = MutableStateFlow(null)
+    val userList: StateFlow<List<UserListResponseData>?> = _userList
 
     private val _modifyRole: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val modifyRole: StateFlow<Boolean> = _modifyRole

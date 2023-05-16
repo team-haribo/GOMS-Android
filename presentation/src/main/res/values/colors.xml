@@ -11,5 +11,6 @@
     <color name="goms_second_color_gray">#969696</color>
     <color name="goms_third_color_gray">#C6C6C6</color>
     <color name="goms_color_red">#FF7E7E</color>
+    <color name="goms_black_list_color_red">#FF4B4B</color>
     <color name="goms_filter_title_color">#505050</color>
 </resources>

@@ -95,11 +95,11 @@ class CouncilViewModel @Inject constructor(
     }
 
     fun searchStudent(
-        grade: Int,
-        classNum: Int,
-        name: String,
-        isBlackList: Boolean,
-        authority: String
+        grade: Int?,
+        classNum: Int?,
+        name: String?,
+        isBlackList: Boolean?,
+        authority: String?
     ) {
         viewModelScope.launch {
             searchStudentUseCase(grade, classNum, name, isBlackList, authority).catch {

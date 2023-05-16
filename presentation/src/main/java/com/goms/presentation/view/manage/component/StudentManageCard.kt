@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
@@ -57,7 +56,7 @@ fun StudentManageCard(
                 .padding(15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            if (item.authority != "ROLE_STUDENT")
+            if (item.authority != "ROLE_STUDENT" || item.isBlackList)
                 StudentProfileRole(item = item)
             else StudentProfile(item = item)
 
@@ -102,10 +101,11 @@ fun StudentManageCard(
 
 @Composable
 fun StudentProfileRole(item: UserListResponseData) {
-//    val authority = item.authority
-    val profileMainColor = if (item.authority == "ROLE_STUDENT_COUNCIL")
-        colorResource(id = R.color.goms_main_color_admin)
-    else colorResource(id = R.color.goms_black_list_color_red)
+    val profileMainColor = if (item.isBlackList)
+        colorResource(id = R.color.goms_black_list_color_red)
+    else colorResource(id = R.color.goms_main_color_admin)
+    val text = if (item.isBlackList) "외출금지"
+    else "학생회"
 
     Box(
         modifier = Modifier
@@ -138,7 +138,7 @@ fun StudentProfileRole(item: UserListResponseData) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 2.dp, bottom = 2.dp),
-                text = "학생회",
+                text = text,
                 style = TextStyle(
                     fontSize = 9.sp,
                     color = profileMainColor
@@ -157,10 +157,4 @@ fun StudentProfile(item: UserListResponseData) {
             .clip(CircleShape),
         imageModel = { item.profileUrl ?: R.drawable.user_profile }
     )
-}
-
-@Preview
-@Composable
-fun TestText() {
-
 }

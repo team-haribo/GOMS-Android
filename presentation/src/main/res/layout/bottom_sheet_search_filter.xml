@@ -57,10 +57,10 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:text="학생"
-            android:textColor="@color/white"
+            android:textColor="@color/goms_second_color_gray"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/admin_attribute_button_selected"
+            android:background="@drawable/admin_attribute_button_unselected"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View
@@ -121,10 +121,10 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:text="1"
-            android:textColor="@color/white"
+            android:textColor="@color/goms_second_color_gray"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/admin_attribute_button_selected"
+            android:background="@drawable/admin_attribute_button_unselected"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View
@@ -185,10 +185,10 @@
             android:layout_width="75dp"
             android:layout_height="35dp"
             android:text="1"
-            android:textColor="@color/white"
+            android:textColor="@color/goms_second_color_gray"
             android:layout_marginStart="2dp"
             android:layout_marginBottom="2dp"
-            android:background="@drawable/admin_attribute_button_selected"
+            android:background="@drawable/admin_attribute_button_unselected"
             android:fontFamily="@font/sf_pro_text_regular"/>
 
         <View

@@ -1,13 +1,17 @@
 package com.goms.presentation.view.manage.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -23,16 +27,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.goms.domain.data.user.UserResponseData
+import com.goms.domain.data.council.response.UserListResponseData
 import com.skydoves.landscapist.coil.CoilImage
 import java.util.UUID
 
 @Composable
 fun StudentManageCard(
-    item: UserResponseData,
+    item: UserListResponseData,
     iconClick: (UUID) -> Unit
 ) {
     val studentManageCardFont = FontFamily(
@@ -51,16 +57,14 @@ fun StudentManageCard(
                 .padding(15.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            CoilImage(
-                modifier = Modifier.size(50.dp)
-                    .clip(CircleShape),
-                imageModel = { item.profileUrl ?: R.drawable.user_profile }
-            )
+            if (item.authority != "ROLE_STUDENT")
+                StudentProfileRole(item = item)
+            else StudentProfile(item = item)
 
             Column(
                 modifier = Modifier
                     .padding(start = 15.dp)
-                    .weight(1f)
+                    .weight(1f),
             ) {
                 Text(
                     text = item.name,
@@ -94,4 +98,69 @@ fun StudentManageCard(
             )
         }
     }
+}
+
+@Composable
+fun StudentProfileRole(item: UserListResponseData) {
+//    val authority = item.authority
+    val profileMainColor = if (item.authority == "ROLE_STUDENT_COUNCIL")
+        colorResource(id = R.color.goms_main_color_admin)
+    else colorResource(id = R.color.goms_black_list_color_red)
+
+    Box(
+        modifier = Modifier
+            .width(50.dp)
+            .height(58.dp)
+    ) {
+        CoilImage(
+            modifier = Modifier
+                .size(50.dp)
+                .clip(CircleShape),
+            imageModel = { item.profileUrl ?: R.drawable.user_profile }
+        )
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .background(
+                    color = Color.White,
+                    shape = CircleShape
+                )
+                .clip(CircleShape)
+                .border(
+                    width = 1.dp,
+                    color = profileMainColor,
+                    shape = CircleShape
+                )
+        ) {
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 2.dp, bottom = 2.dp),
+                text = "학생회",
+                style = TextStyle(
+                    fontSize = 9.sp,
+                    color = profileMainColor
+                ),
+                textAlign = TextAlign.Center
+            )
+        }
+    }
+}
+
+@Composable
+fun StudentProfile(item: UserListResponseData) {
+    CoilImage(
+        modifier = Modifier
+            .size(50.dp)
+            .clip(CircleShape),
+        imageModel = { item.profileUrl ?: R.drawable.user_profile }
+    )
+}
+
+@Preview
+@Composable
+fun TestText() {
+
 }

@@ -1,5 +1,6 @@
 package com.goms.domain.data.profile
 
+import com.goms.domain.data.util.StudentInfoData
 import java.io.Serializable
 import java.util.UUID
 

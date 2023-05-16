@@ -1,5 +1,6 @@
 package com.goms.data.model.profile
 
+import com.goms.data.model.util.StudentInfo
 import com.google.gson.annotations.SerializedName
 import java.util.UUID
 

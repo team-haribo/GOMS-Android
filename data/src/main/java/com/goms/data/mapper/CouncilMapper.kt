@@ -1,11 +1,10 @@
 package com.goms.data.mapper
 
+import com.goms.data.mapper.util.StudentInfoMapper
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.SearchStudentResponse
-import com.goms.data.model.user.UserInfo
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.SearchStudentResponseData
-import com.goms.domain.data.user.UserInfoData
 
 object CouncilMapper {
     fun modifyRoleRequestToDomain(modifyRoleRequestData: ModifyRoleRequestData): ModifyRoleRequest {
@@ -19,17 +18,9 @@ object CouncilMapper {
         return SearchStudentResponseData(
             accountIdx = searchStudentResponse.accountIdx,
             name = searchStudentResponse.name,
-            studentNum = userInfoToData(searchStudentResponse.studentNum),
+            studentNum = StudentInfoMapper.studentInfoToData(searchStudentResponse.studentNum),
             profileUrl = searchStudentResponse.profileUrl,
             authority = searchStudentResponse.authority
-        )
-    }
-
-    private fun userInfoToData(userInfo: UserInfo): UserInfoData {
-        return UserInfoData(
-            grade = userInfo.grade,
-            classNum = userInfo.classNum,
-            number = userInfo.number
         )
     }
 }

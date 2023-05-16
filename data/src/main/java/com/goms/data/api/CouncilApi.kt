@@ -29,11 +29,11 @@ interface CouncilApi {
 
     @GET("student-council/search")
     suspend fun searchStudent(
-        @Query("grade") grade: Int,
-        @Query("classNum") classNum: Int,
-        @Query("name") name: String,
-        @Query("isBlackList") isBlackList: Boolean,
-        @Query("authority") authority: String
+        @Query("grade") grade: Int?,
+        @Query("classNum") classNum: Int?,
+        @Query("name") name: String?,
+        @Query("isBlackList") isBlackList: Boolean?,
+        @Query("authority") authority: String?
     ): List<SearchStudentResponse>
 
     @POST("student-council/outing")

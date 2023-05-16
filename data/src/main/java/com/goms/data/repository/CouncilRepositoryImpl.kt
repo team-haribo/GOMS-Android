@@ -41,11 +41,11 @@ class CouncilRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchStudent(
-        grade: Int,
-        classNum: Int,
-        name: String,
-        isBlackList: Boolean,
-        authority: String
+        grade: Int?,
+        classNum: Int?,
+        name: String?,
+        isBlackList: Boolean?,
+        authority: String?
     ): Flow<List<SearchStudentResponseData>> {
         return flow {
             councilDataSource.searchStudent(grade, classNum, name, isBlackList, authority).collect { list ->

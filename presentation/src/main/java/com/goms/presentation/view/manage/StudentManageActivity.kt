@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.council.response.SearchStudentResponseData
-import com.goms.domain.data.user.UserResponseData
-import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
+import com.goms.domain.data.council.response.UserListResponseData
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
+import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
 import com.goms.presentation.view.manage.component.StudentManageCard
 import com.goms.presentation.viewmodel.CouncilViewModel
@@ -58,7 +58,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
     }
 
-    private fun initUserList(list: List<UserResponseData>) {
+    private fun initUserList(list: List<UserListResponseData>) {
         binding.manageStudentStudentList.setContent {
             LazyColumn(
                 modifier = Modifier
@@ -104,12 +104,13 @@ class StudentManageActivity : AppCompatActivity() {
                                 .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
                         ) {
                             StudentManageCard(
-                                item = UserResponseData(
+                                item = UserListResponseData(
                                     accountIdx = item.accountIdx,
                                     name = item.name,
                                     studentNum = item.studentNum,
                                     profileUrl = item.profileUrl,
-                                    lateCount = 0
+                                    authority = item.authority,
+                                    isBlackList = false
                                 ),
                                 iconClick = { uuid ->
                                     bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid)

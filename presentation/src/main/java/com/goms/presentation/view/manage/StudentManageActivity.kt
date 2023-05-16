@@ -110,7 +110,7 @@ class StudentManageActivity : AppCompatActivity() {
                                     studentNum = item.studentNum,
                                     profileUrl = item.profileUrl,
                                     authority = item.authority,
-                                    isBlackList = false
+                                    isBlackList = item.isBlackList
                                 ),
                                 iconClick = { uuid ->
                                     bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid)

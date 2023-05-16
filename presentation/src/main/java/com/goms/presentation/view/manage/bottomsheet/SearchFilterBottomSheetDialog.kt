@@ -20,9 +20,9 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
 
     private lateinit var binding: BottomSheetSearchFilterBinding
-    private var changeRole = "ROLE_STUDENT"
-    private var changeGrade = "1"
-    private var changeClassNum = "1"
+    private var changeRole: String? = null
+    private var changeGrade: Int? = null
+    private var changeClassNum: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +35,10 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
         binding.filterSearchButton.setOnClickListener {
             lifecycleScope.launch {
                 councilViewModel.searchStudent(
-                    grade = changeGrade.toInt(),
-                    classNum = changeClassNum.toInt(),
+                    grade = changeGrade,
+                    classNum = changeClassNum,
                     name = binding.searchFilterEditText.text.toString(),
-                    isBlackList = changeRole == "BLACK_LIST",
+                    isBlackList = setIsBlackList(),
                     authority = setAuthority()
                 )
 
@@ -55,9 +55,17 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
         return binding.root
     }
 
-    private fun setAuthority(): String {
+    private fun setIsBlackList(): Boolean? {
+        return when (changeRole) {
+            "BLACK_LIST" -> true
+            "ROLE_STUDENT", "ROLE_STUDENT_COUNCIL" -> false
+            else -> null
+        }
+    }
+
+    private fun setAuthority(): String? {
         return if (changeRole == "BLACK_LIST")
-            "ROLE_STUDENT"
+           "ROLE_STUDENT"
         else changeRole
     }
 
@@ -93,7 +101,7 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                         grade.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                         val currentIndex = gradeButtons.indexOf(grade)
-                        changeGrade = gradeTexts[currentIndex]
+                        changeGrade = gradeTexts[currentIndex].toInt()
                     } else {
                         grade.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
                         grade.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))
@@ -114,7 +122,7 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                         classNum.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
 
                         val currentIndex = classButtons.indexOf(classNum)
-                        changeClassNum = classTexts[currentIndex]
+                        changeClassNum = classTexts[currentIndex].toInt()
                     } else {
                         classNum.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
                         classNum.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))

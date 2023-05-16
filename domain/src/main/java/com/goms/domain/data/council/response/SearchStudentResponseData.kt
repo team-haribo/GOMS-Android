@@ -8,5 +8,6 @@ data class SearchStudentResponseData(
     val name: String,
     val studentNum: StudentInfoData,
     val profileUrl: String?,
-    val authority: String
+    val authority: String,
+    val isBlackList: Boolean
 )

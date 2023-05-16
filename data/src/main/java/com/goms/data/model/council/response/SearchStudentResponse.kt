@@ -9,5 +9,6 @@ data class SearchStudentResponse(
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: StudentInfo,
     @SerializedName("profileUrl") val profileUrl: String?,
-    @SerializedName("authority") val authority: String
+    @SerializedName("authority") val authority: String,
+    @SerializedName("isBlackList") val isBlackList: Boolean
 )

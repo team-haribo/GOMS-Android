@@ -16,11 +16,11 @@ interface CouncilDataSource {
     suspend fun setBlackList(accountIdx: UUID): Flow<Response<Unit>>
 
     suspend fun searchStudent(
-        grade: Int,
-        classNum: Int,
-        name: String,
-        isBlackList: Boolean,
-        authority: String
+        grade: Int?,
+        classNum: Int?,
+        name: String?,
+        isBlackList: Boolean?,
+        authority: String?
     ): Flow<List<SearchStudentResponse>>
 
     suspend fun makeQrCode(): Flow<MakeQrCodeResponse>

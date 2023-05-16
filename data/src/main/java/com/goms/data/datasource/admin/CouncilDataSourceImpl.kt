@@ -33,11 +33,11 @@ class CouncilDataSourceImpl @Inject constructor(
     }
 
     override suspend fun searchStudent(
-        grade: Int,
-        classNum: Int,
-        name: String,
-        isBlackList: Boolean,
-        authority: String
+        grade: Int?,
+        classNum: Int?,
+        name: String?,
+        isBlackList: Boolean?,
+        authority: String?
     ): Flow<List<SearchStudentResponse>> {
         return flow {
             emit(councilApi.searchStudent(grade, classNum, name, isBlackList, authority))

@@ -33,7 +33,8 @@ object CouncilMapper {
             name = searchStudentResponse.name,
             studentNum = StudentInfoMapper.studentInfoToData(searchStudentResponse.studentNum),
             profileUrl = searchStudentResponse.profileUrl,
-            authority = searchStudentResponse.authority
+            authority = searchStudentResponse.authority,
+            isBlackList = searchStudentResponse.isBlackList
         )
     }
 }

@@ -6,7 +6,7 @@ body:
     attributes:
       label: Describe
       description: |
-        [Description] 버그에 관한 설명을 적어주세요.
+        [Description] 버그에 관한 설명과 사진을 같이 첨부해주세요.
       placeholder: |
         앱을 잘못만들었어요
   - type: textarea

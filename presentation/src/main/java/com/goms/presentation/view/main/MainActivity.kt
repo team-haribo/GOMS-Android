@@ -89,6 +89,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun navigateToQrScan() {
+        navController.navigate(R.id.qrScanFragment)
+
+        binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> navController.navigate(R.id.homeFragment)
+                R.id.qrScanFragment -> navController.navigate(R.id.qrScanFragment)
+                R.id.outingFragment -> navController.navigate(R.id.outingFragment)
+                else -> return@setOnItemSelectedListener false
+            }
+            return@setOnItemSelectedListener true
+        }
+    }
+
     private fun setTheme() {
         val authorityPreferences = getSharedPreferences("authority", MODE_PRIVATE)
         val role = authorityPreferences.getString("role", "").toString()

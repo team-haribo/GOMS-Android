@@ -78,20 +78,16 @@ class MainActivity : AppCompatActivity() {
     fun navigateToOuting() {
         navController.navigate(R.id.outingFragment)
 
-        binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.homeFragment -> navController.navigate(R.id.homeFragment)
-                R.id.qrScanFragment -> navController.navigate(R.id.qrScanFragment)
-                R.id.outingFragment -> navController.navigate(R.id.outingFragment)
-                else -> return@setOnItemSelectedListener false
-            }
-            return@setOnItemSelectedListener true
-        }
+        navigationItemSelectListener()
     }
 
     fun navigateToQrScan() {
         navController.navigate(R.id.qrScanFragment)
 
+        navigationItemSelectListener()
+    }
+
+    private fun navigationItemSelectListener() {
         binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> navController.navigate(R.id.homeFragment)

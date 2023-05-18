@@ -1,17 +1,76 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goms.presentation.view.qr_scan.QrScanFragment">
+    tools:context="com.goms.presentation.view.qr_scan.QrScanFragment"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="외출하기"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:textSize="22sp" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모바일 기기로\nQRCode를 스캔한 후 외출해주세요!"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_text_medium"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"/>
 
     <ImageView
         android:id="@+id/outing_qr_code_image"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_gravity="center"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="남은 시간"
+        android:textSize="16sp"
+        android:fontFamily="@font/sf_pro_text_semibold"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"/>
+
+    <TextView
+        android:id="@+id/qr_scan_time_left_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1분 30초"
+        android:textSize="22sp"
+        android:fontFamily="@font/sf_pro_text_semibold"
+        android:textColor="@color/goms_main_color_admin"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="3"/>
+</LinearLayout>

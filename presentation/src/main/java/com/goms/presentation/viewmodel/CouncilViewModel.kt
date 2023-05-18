@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
 import javax.inject.Inject
+import kotlin.concurrent.timer
 
 @HiltViewModel
 class CouncilViewModel @Inject constructor(
@@ -46,6 +47,9 @@ class CouncilViewModel @Inject constructor(
 
     private val _makeQr: MutableStateFlow<MakeQrCodeResponseData?> = MutableStateFlow(null)
     val makeQr: StateFlow<MakeQrCodeResponseData?> = _makeQr
+
+    private val _scanTime: MutableStateFlow<Long?> = MutableStateFlow(null)
+    val scanTime: StateFlow<Long?> = _scanTime
 
     fun getUserList() {
         viewModelScope.launch {
@@ -127,6 +131,14 @@ class CouncilViewModel @Inject constructor(
             }.collect {
                 _makeQr.value = it
             }
+        }
+    }
+
+    fun setQrScanTimer(time: Long) {
+        _scanTime.value = time
+        timer(period = 1000) {
+            _scanTime.value = _scanTime.value!! - 1
+            if (_scanTime.value!! <= 0) cancel()
         }
     }
 }

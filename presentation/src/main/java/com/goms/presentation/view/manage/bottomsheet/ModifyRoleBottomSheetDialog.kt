@@ -1,5 +1,6 @@
 package com.goms.presentation.view.manage.bottomsheet
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.BottomSheetModifyRoleBinding
 import com.goms.domain.data.council.request.ModifyRoleRequestData
+import com.goms.domain.data.council.response.UserListResponseData
 import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -19,11 +21,11 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 @AndroidEntryPoint
-class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFragment() {
+class ModifyRoleBottomSheetDialog(private val uuid: UUID, private val  user: UserListResponseData): BottomSheetDialogFragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
 
     private lateinit var binding: BottomSheetModifyRoleBinding
-    private var changeModifyRole = "ROLE_STUDENT"
+    private var changeModifyRole = user.authority
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +34,7 @@ class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFrag
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = BottomSheetModifyRoleBinding.inflate(layoutInflater)
+        initBottomSheetDialog()
         changeRole()
         binding.modifyFilterModifyRoleButton.setOnClickListener {
             setRole(uuid)
@@ -88,6 +91,27 @@ class ModifyRoleBottomSheetDialog(private val uuid: UUID): BottomSheetDialogFrag
                         modifyRole.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))
                     }
                 }
+            }
+        }
+    }
+
+    private fun initBottomSheetDialog() {
+        lifecycleScope.launch {
+            when (user.authority) {
+                "ROLE_STUDENT" -> {
+                    binding.modifyFilterAttrStudent.setBackgroundResource(R.drawable.admin_attribute_button_selected)
+                    binding.modifyFilterAttrStudent.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                }
+                "ROLE_STUDENT_COUNCIL" -> {
+                    binding.modifyFilterAttrCouncil.setBackgroundResource(R.drawable.admin_attribute_button_selected)
+                    binding.modifyFilterAttrCouncil.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                }
+            }
+            if (user.isBlackList) {
+                binding.modifyFilterAttrStudent.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
+                binding.modifyFilterAttrStudent.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))
+                binding.modifyFilterAttrBlacklist.setBackgroundResource(R.drawable.admin_attribute_button_selected)
+                binding.modifyFilterAttrBlacklist.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
             }
         }
     }

@@ -45,7 +45,7 @@ class QrScanFragment : Fragment() {
     }
 
     private suspend fun startTimer() {
-        councilViewModel.setQrScanTimer(5)
+        councilViewModel.setQrScanTimer(300)
         councilViewModel.scanTime.collect { time ->
             if (time != null)  {
                 val min = time / 60

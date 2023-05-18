@@ -76,7 +76,7 @@ class StudentManageActivity : AppCompatActivity() {
                         StudentManageCard(
                             item = item,
                             iconClick = { uuid ->
-                                bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid)
+                                bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
                                 bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
                             }
                         )
@@ -86,7 +86,7 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    fun searchUserList(list: List<SearchStudentResponseData>) {
+    fun searchUserList(list: List<UserListResponseData>) {
         binding.manageStudentStudentList.setContent {
             if (list.isEmpty()) SearchResultEmptyScreen()
             else {
@@ -113,7 +113,7 @@ class StudentManageActivity : AppCompatActivity() {
                                     isBlackList = item.isBlackList
                                 ),
                                 iconClick = { uuid ->
-                                    bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid)
+                                    bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
                                     bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
                                 }
                             )

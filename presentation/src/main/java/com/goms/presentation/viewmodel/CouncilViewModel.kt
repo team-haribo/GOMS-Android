@@ -41,8 +41,8 @@ class CouncilViewModel @Inject constructor(
     private val _setBlackList: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val setBlackList: StateFlow<Boolean> = _setBlackList
 
-    private val _searchStudent: MutableStateFlow<List<SearchStudentResponseData>?> = MutableStateFlow(null)
-    val searchStudent: StateFlow<List<SearchStudentResponseData>?> = _searchStudent
+    private val _searchStudent: MutableStateFlow<List<UserListResponseData>?> = MutableStateFlow(null)
+    val searchStudent: StateFlow<List<UserListResponseData>?> = _searchStudent
 
     private val _makeQr: MutableStateFlow<MakeQrCodeResponseData?> = MutableStateFlow(null)
     val makeQr: StateFlow<MakeQrCodeResponseData?> = _makeQr

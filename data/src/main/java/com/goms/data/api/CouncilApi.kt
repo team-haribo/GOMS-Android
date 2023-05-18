@@ -34,7 +34,7 @@ interface CouncilApi {
         @Query("name") name: String?,
         @Query("isBlackList") isBlackList: Boolean?,
         @Query("authority") authority: String?
-    ): List<SearchStudentResponse>
+    ): List<UserListResponse>
 
     @POST("student-council/outing")
     suspend fun makeQrCode(): MakeQrCodeResponse

@@ -21,7 +21,7 @@ interface CouncilRepository {
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<SearchStudentResponseData>>
+    ): Flow<List<UserListResponseData>>
 
     suspend fun makeQrCode(): Flow<MakeQrCodeResponseData>
 }

@@ -46,10 +46,10 @@ class CouncilRepositoryImpl @Inject constructor(
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<SearchStudentResponseData>> {
+    ): Flow<List<UserListResponseData>> {
         return flow {
             councilDataSource.searchStudent(grade, classNum, name, isBlackList, authority).collect { list ->
-                emit(list.map { CouncilMapper.searchStudentToData(it) })
+                emit(list.map { CouncilMapper.userListResponseToData(it) })
             }
         }
     }

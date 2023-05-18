@@ -38,7 +38,7 @@ class CouncilDataSourceImpl @Inject constructor(
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<SearchStudentResponse>> {
+    ): Flow<List<UserListResponse>> {
         return flow {
             emit(councilApi.searchStudent(grade, classNum, name, isBlackList, authority))
         }

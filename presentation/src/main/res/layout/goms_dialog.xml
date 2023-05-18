@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="23dp"
         android:layout_marginEnd="23dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="23dp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -46,6 +46,7 @@
             android:text="아니요"
             android:textColor="@color/goms_main_color_gray"
             android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/dialog_button_bg_no"/>
 
         <View
@@ -60,6 +61,6 @@
             android:text="예"
             android:textColor="@color/white"
             android:layout_marginStart="2dp"
-            android:background="@drawable/admin_attribute_button_selected"/>
+            android:background="@drawable/dialog_button_bg_yes"/>
     </LinearLayout>
 </LinearLayout>

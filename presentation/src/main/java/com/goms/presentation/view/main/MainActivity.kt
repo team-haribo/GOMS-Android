@@ -78,6 +78,16 @@ class MainActivity : AppCompatActivity() {
     fun navigateToOuting() {
         navController.navigate(R.id.outingFragment)
 
+        navigationItemSelectListener()
+    }
+
+    fun navigateToQrScan() {
+        navController.navigate(R.id.qrScanFragment)
+
+        navigationItemSelectListener()
+    }
+
+    private fun navigationItemSelectListener() {
         binding.gomsBottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> navController.navigate(R.id.homeFragment)

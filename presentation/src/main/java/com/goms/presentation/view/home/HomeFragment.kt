@@ -58,6 +58,7 @@ class HomeFragment : Fragment() {
     private val lateViewModel by viewModels<LateViewModel>()
     private lateinit var binding: FragmentHomeBinding
 
+    private lateinit var mainActivity: MainActivity
     private var response: ProfileResponseData? = null
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
@@ -67,9 +68,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?)
     : View {
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        mainActivity = activity as MainActivity
 
         setProfile()
-
         lifecycleScope.launch {
             outingViewModel.outingCount()
             outingViewModel.outingCount.collect { people ->
@@ -87,7 +88,9 @@ class HomeFragment : Fragment() {
                 "QR 생성하기"
             } else if (outingStatus) "복귀하기" else "외출하기"
         binding.mainOutingButton.setOnClickListener {
-            startActivity(Intent(context, QrCodeActivity::class.java))
+            if (checkUserIsAdmin(requireContext())) {
+                mainActivity.navigateToQrScan()
+            } else startActivity(Intent(context, QrCodeActivity::class.java))
         }
 
         setLateRankList()
@@ -97,7 +100,6 @@ class HomeFragment : Fragment() {
         else binding.gomsMainTitleText.text = "간편하게\n수요 외출제를\n이용해 보세요!"
 
         binding.homeOutingStudentCardView.setOnClickListener {
-            val mainActivity = activity as MainActivity
             mainActivity.navigateToOuting()
         }
 

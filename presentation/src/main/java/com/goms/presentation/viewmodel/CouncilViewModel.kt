@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.MakeQrCodeResponseData
-import com.goms.domain.data.council.response.SearchStudentResponseData
 import com.goms.domain.data.council.response.UserListResponseData
 import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException

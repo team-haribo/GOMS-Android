@@ -3,7 +3,6 @@ package com.goms.data.datasource.admin
 import com.goms.data.api.CouncilApi
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.MakeQrCodeResponse
-import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.council.response.UserListResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

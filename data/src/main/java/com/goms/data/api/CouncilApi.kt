@@ -2,7 +2,6 @@ package com.goms.data.api
 
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.MakeQrCodeResponse
-import com.goms.data.model.council.response.SearchStudentResponse
 import com.goms.data.model.council.response.UserListResponse
 import retrofit2.Response
 import retrofit2.http.Body

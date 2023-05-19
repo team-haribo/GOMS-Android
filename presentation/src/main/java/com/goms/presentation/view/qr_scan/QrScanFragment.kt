@@ -32,12 +32,7 @@ class QrScanFragment : Fragment() {
         binding = FragmentQrScanBinding.inflate(layoutInflater)
 
         lifecycleScope.launch {
-            if (checkUserIsAdmin(requireContext())) {
-                councilViewModel.makeQrCode()
-                councilViewModel.makeQr.collect { uuid ->
-                    if (uuid != null) createQrCode(uuid.outingUUID)
-                }
-            } else context?.startActivity(Intent(context, QrCodeActivity::class.java))
+            makeQr()
         }
 
         return binding.root
@@ -47,5 +42,31 @@ class QrScanFragment : Fragment() {
         val barCodeEncoder = BarcodeEncoder()
         val bitmap = barCodeEncoder.encodeBitmap(BuildConfig.BASE_URL+uuid, BarcodeFormat.QR_CODE, 300, 300)
         binding.outingQrCodeImage.setImageBitmap(bitmap)
+    }
+
+    private suspend fun startTimer() {
+        councilViewModel.setQrScanTimer(300)
+        councilViewModel.scanTime.collect { time ->
+            if (time != null)  {
+                val min = time / 60
+                val sec = (time % 60).let { if (it < 10) "0$it" else "$it" }
+                binding.qrScanTimeLeftText.text = "${min}분 ${sec}초"
+                if (time <= 0) {
+                    makeQr()
+                }
+            }
+        }
+    }
+
+    private suspend fun makeQr() {
+        if (checkUserIsAdmin(requireContext())) {
+            councilViewModel.makeQrCode()
+            councilViewModel.makeQr.collect { uuid ->
+                if (uuid != null) {
+                        createQrCode(uuid.outingUUID)
+                        startTimer()
+                }
+            }
+        } else context?.startActivity(Intent(context, QrCodeActivity::class.java))
     }
 }

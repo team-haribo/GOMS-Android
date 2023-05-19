@@ -64,7 +64,6 @@
         android:id="@+id/qr_scan_time_left_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1분 30초"
         android:textSize="22sp"
         android:fontFamily="@font/sf_pro_text_semibold"
         android:textColor="@color/goms_main_color_admin"/>

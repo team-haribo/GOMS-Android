@@ -3,7 +3,7 @@ package com.goms.data.datasource.admin
 import com.goms.data.api.CouncilApi
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.MakeQrCodeResponse
-import com.goms.data.model.council.response.UserListResponse
+import com.goms.data.model.council.response.UserInfoResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CouncilDataSourceImpl @Inject constructor(
     private val councilApi: CouncilApi
 ): CouncilDataSource {
-    override suspend fun getUserList(): Flow<List<UserListResponse>> {
+    override suspend fun getUserList(): Flow<List<UserInfoResponse>> {
         return flow {
             emit(councilApi.getUserList())
         }
@@ -37,7 +37,7 @@ class CouncilDataSourceImpl @Inject constructor(
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<UserListResponse>> {
+    ): Flow<List<UserInfoResponse>> {
         return flow {
             emit(councilApi.searchStudent(grade, classNum, name, isBlackList, authority))
         }

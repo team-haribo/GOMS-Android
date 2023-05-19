@@ -1,6 +1,5 @@
 package com.goms.presentation.view.manage.bottomsheet
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.BottomSheetModifyRoleBinding
 import com.goms.domain.data.council.request.ModifyRoleRequestData
-import com.goms.domain.data.council.response.UserListResponseData
+import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -21,7 +20,7 @@ import kotlinx.coroutines.launch
 import java.util.UUID
 
 @AndroidEntryPoint
-class ModifyRoleBottomSheetDialog(private val uuid: UUID, private val  user: UserListResponseData): BottomSheetDialogFragment() {
+class ModifyRoleBottomSheetDialog(private val uuid: UUID, private val  user: UserInfoResponseData): BottomSheetDialogFragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
 
     private lateinit var binding: BottomSheetModifyRoleBinding

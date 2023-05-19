@@ -2,13 +2,13 @@ package com.goms.data.datasource.admin
 
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.MakeQrCodeResponse
-import com.goms.data.model.council.response.UserListResponse
+import com.goms.data.model.council.response.UserInfoResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 import java.util.UUID
 
 interface CouncilDataSource {
-    suspend fun getUserList(): Flow<List<UserListResponse>>
+    suspend fun getUserList(): Flow<List<UserInfoResponse>>
 
     suspend fun modifyRole(body: ModifyRoleRequest): Flow<Response<Unit>>
 
@@ -20,7 +20,7 @@ interface CouncilDataSource {
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<UserListResponse>>
+    ): Flow<List<UserInfoResponse>>
 
     suspend fun makeQrCode(): Flow<MakeQrCodeResponse>
 }

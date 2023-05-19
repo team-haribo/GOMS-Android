@@ -17,7 +17,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.ActivityStudentManageBinding
-import com.goms.domain.data.council.response.UserListResponseData
+import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
@@ -57,7 +57,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
     }
 
-    private fun initUserList(list: List<UserListResponseData>) {
+    private fun initUserList(list: List<UserInfoResponseData>) {
         binding.manageStudentStudentList.setContent {
             LazyColumn(
                 modifier = Modifier
@@ -85,7 +85,7 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    fun searchUserList(list: List<UserListResponseData>) {
+    fun searchUserList(list: List<UserInfoResponseData>) {
         binding.manageStudentStudentList.setContent {
             if (list.isEmpty()) SearchResultEmptyScreen()
             else {
@@ -103,7 +103,7 @@ class StudentManageActivity : AppCompatActivity() {
                                 .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
                         ) {
                             StudentManageCard(
-                                item = UserListResponseData(
+                                item = UserInfoResponseData(
                                     accountIdx = item.accountIdx,
                                     name = item.name,
                                     studentNum = item.studentNum,

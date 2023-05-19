@@ -31,13 +31,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.goms.domain.data.council.response.UserListResponseData
+import com.goms.domain.data.council.response.UserInfoResponseData
 import com.skydoves.landscapist.coil.CoilImage
 import java.util.UUID
 
 @Composable
 fun StudentManageCard(
-    item: UserListResponseData,
+    item: UserInfoResponseData,
     iconClick: (UUID) -> Unit
 ) {
     val studentManageCardFont = FontFamily(
@@ -100,7 +100,7 @@ fun StudentManageCard(
 }
 
 @Composable
-fun StudentProfileRole(item: UserListResponseData) {
+fun StudentProfileRole(item: UserInfoResponseData) {
     val profileMainColor = if (item.isBlackList)
         colorResource(id = R.color.goms_black_list_color_red)
     else colorResource(id = R.color.goms_main_color_admin)
@@ -150,7 +150,7 @@ fun StudentProfileRole(item: UserListResponseData) {
 }
 
 @Composable
-fun StudentProfile(item: UserListResponseData) {
+fun StudentProfile(item: UserInfoResponseData) {
     CoilImage(
         modifier = Modifier
             .size(50.dp)

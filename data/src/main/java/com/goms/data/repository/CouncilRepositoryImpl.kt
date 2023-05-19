@@ -4,7 +4,7 @@ import com.goms.data.datasource.admin.CouncilDataSource
 import com.goms.data.mapper.CouncilMapper
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.MakeQrCodeResponseData
-import com.goms.domain.data.council.response.UserListResponseData
+import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.domain.repository.CouncilRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class CouncilRepositoryImpl @Inject constructor(
     private val councilDataSource: CouncilDataSource
 ): CouncilRepository {
-    override suspend fun getUserList(): Flow<List<UserListResponseData>> {
+    override suspend fun getUserList(): Flow<List<UserInfoResponseData>> {
         return flow {
             councilDataSource.getUserList().collect { list ->
                 emit(list.map { CouncilMapper.userListResponseToData(it) })
@@ -45,7 +45,7 @@ class CouncilRepositoryImpl @Inject constructor(
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<UserListResponseData>> {
+    ): Flow<List<UserInfoResponseData>> {
         return flow {
             councilDataSource.searchStudent(grade, classNum, name, isBlackList, authority).collect { list ->
                 emit(list.map { CouncilMapper.userListResponseToData(it) })

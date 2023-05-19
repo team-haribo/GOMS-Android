@@ -4,7 +4,7 @@ import com.goms.data.model.util.StudentInfo
 import com.google.gson.annotations.SerializedName
 import java.util.UUID
 
-data class SearchStudentResponse(
+data class UserInfoResponse(
     @SerializedName("accountIdx") val accountIdx: UUID,
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: StudentInfo,

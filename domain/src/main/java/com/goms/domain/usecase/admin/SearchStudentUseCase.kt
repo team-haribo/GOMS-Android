@@ -1,6 +1,6 @@
 package com.goms.domain.usecase.admin
 
-import com.goms.domain.data.council.response.SearchStudentResponseData
+import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.domain.repository.CouncilRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -14,7 +14,7 @@ class SearchStudentUseCase @Inject constructor(
         name: String?,
         isBlackList: Boolean?,
         authority: String?
-    ): Flow<List<SearchStudentResponseData>> {
+    ): Flow<List<UserInfoResponseData>> {
         return councilRepository.searchStudent(grade, classNum, name, isBlackList, authority)
     }
 }

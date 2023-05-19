@@ -2,8 +2,7 @@ package com.goms.data.api
 
 import com.goms.data.model.council.request.ModifyRoleRequest
 import com.goms.data.model.council.response.MakeQrCodeResponse
-import com.goms.data.model.council.response.SearchStudentResponse
-import com.goms.data.model.council.response.UserListResponse
+import com.goms.data.model.council.response.UserInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,7 +14,7 @@ import java.util.UUID
 
 interface CouncilApi {
     @GET("student-council/account")
-    suspend fun getUserList(): List<UserListResponse>
+    suspend fun getUserList(): List<UserInfoResponse>
 
     @PATCH("student-council/authority")
     suspend fun modifyRole(
@@ -34,7 +33,7 @@ interface CouncilApi {
         @Query("name") name: String?,
         @Query("isBlackList") isBlackList: Boolean?,
         @Query("authority") authority: String?
-    ): List<SearchStudentResponse>
+    ): List<UserInfoResponse>
 
     @POST("student-council/outing")
     suspend fun makeQrCode(): MakeQrCodeResponse

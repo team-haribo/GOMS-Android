@@ -28,7 +28,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
-        if (sharedPreferences.contains("userOuting"))
+        if (!sharedPreferences.contains("outingStatus"))
             setSharedPreference()
 
         Handler(Looper.getMainLooper()).postDelayed({

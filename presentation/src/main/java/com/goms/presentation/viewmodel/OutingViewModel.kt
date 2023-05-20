@@ -49,6 +49,7 @@ class OutingViewModel @Inject constructor(
                 }
             } else throw OtherException(it.message)
         }.onSuccess {
+            manageOutingSharedPreference()
             _isOuting.value = true
         }
     }
@@ -64,14 +65,17 @@ class OutingViewModel @Inject constructor(
                 }
             } else Log.d("TAG", "outingListLogic: $it")
         }.collect {
-            manageOutingSharedPreference()
             _outingList.value = it
         }
     }
 
     suspend fun outingCount() {
         outingCountUseCase().catch {
-            Log.d("TAG", "outingCount: $it")
+            if (it is HttpException) {
+                when (it.code()) {
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                }
+            } else Log.d("TAG", "outingCount: $it")
         }.collect {
             _outingCount.value = it
         }
@@ -82,8 +86,9 @@ class OutingViewModel @Inject constructor(
     private val editor = sharedPreferences.edit()
 
     private fun manageOutingSharedPreference() {
-        if (!sharedPreferences.getBoolean("userOuting", false))
-            editor.putBoolean("userOuting", true)
-        else editor.putBoolean("userOuting", false)
+        if (!sharedPreferences.getBoolean("outingStatus", false))
+            editor.putBoolean("outingStatus", true)
+        else editor.putBoolean("outingStatus", false)
+        editor.apply()
     }
 }

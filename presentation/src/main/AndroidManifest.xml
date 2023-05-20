@@ -42,8 +42,7 @@
         <activity
             android:name="com.goms.presentation.view.profile.ProfileActivity"
             android:screenOrientation="portrait"
-            android:exported="false"
-            android:theme="@style/Theme.GSM_GOMS" />
+            android:exported="false" />
         <activity
             android:name="com.goms.presentation.view.sign_in.SignInActivity"
             android:screenOrientation="portrait"
@@ -52,8 +51,7 @@
         <activity
             android:name="com.goms.presentation.view.main.MainActivity"
             android:screenOrientation="portrait"
-            android:exported="true"
-            android:theme="@style/Theme.GSM_GOMS" />
+            android:exported="true" />
     </application>
 
 </manifest>

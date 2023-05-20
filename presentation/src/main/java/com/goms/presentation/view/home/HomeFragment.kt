@@ -80,13 +80,11 @@ class HomeFragment : Fragment() {
             }
         }
 
-
         val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
         val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean
-        binding.mainOutingButton.text =
-            if(checkUserIsAdmin(requireContext())) {
-                "QR 생성하기"
-            } else if (outingStatus) "복귀하기" else "외출하기"
+        binding.mainOutingButton.text = if(checkUserIsAdmin(requireContext())) "QR 생성하기"
+        else if (outingStatus) "복귀하기" else "외출하기"
+
         binding.mainOutingButton.setOnClickListener {
             if (checkUserIsAdmin(requireContext())) {
                 mainActivity.navigateToQrScan()

@@ -20,6 +20,7 @@ class ProfileActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme()
 
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -53,5 +54,12 @@ class ProfileActivity : AppCompatActivity() {
         binding.profileCardUserNumberText.text = profileData?.studentNum?.number.toString()
         binding.profileCardUserLateCountText.text = profileData?.lateCount.toString()
         binding.profileUserCircleImage.load(profileData?.profileUrl ?: R.drawable.user_profile)
+    }
+
+    private fun setTheme() {
+        val authorityPreferences = getSharedPreferences("authority", MODE_PRIVATE)
+        val role = authorityPreferences.getString("role", "").toString()
+        if (role == "ROLE_STUDENT") super.setTheme(R.style.Theme_GSM_GOMS)
+        else super.setTheme(R.style.Theme_GSM_GOMS_ADMIN)
     }
 }

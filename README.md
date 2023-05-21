@@ -1,22 +1,23 @@
 <p align="center">
- <h1 align="center">
+  <img src = "https://github.com/team-goms/GOMS-Android/assets/84944098/634c28bd-6559-480b-ab06-ec3f5acf9e3b.png" />
+  <img src = "https://github.com/team-goms/GOMS-Android/assets/84944098/664a14e1-7b8e-4023-9523-1b6c1198aeaa.png" />
+ <h1>
   GOMS-Android
- </h3>
+ </h1>
 </p>
-<p align="center">
-    <h3 align="center">
+<p>
+    <h3>
         <b>광주소프트웨어마이스터고 수요 외출제 관리 서비스<br>
         GSM(GwangjuSoftwareMeisterhighschool) Outgoing Management Service</b>
     </h3>
     <br>
     <p>
-        <b>GOMS</b>는 광주 소프트웨어 마이스터고의 수요 외출제를 편리하게 관리하게 위해 개발한 수요 외출제 관리 서비스입니다.<br>
-        기존 수요 외출제는 학생회 친구들이 수요 외출제를 통해 외출한 학생들을 관리할 때 힘들었고,<br> 
-        또한 선생님들이 외출한 학생들의 위치를 파악하는데 힘들었습니다.<br>
-        <b>GOMS</b>는 이러한 불편한 점들을 줄일 수 있도록 도와주는 서비스를 개발하게되며 만들게 되었습니다.
+        광주소프트웨어마이스터고는 학생들이 수요일 저녁 시간에 외출을 할 수 있는 수요 외출제를 운영합니다.<br>
+        하지만 나간 학생을 학생회 학생들이 수기로 일일이 학생을 체크해야 하는 점,<br> 
+        체크하지 않은 학생들이 혹여 지각한다면 누가 지각을 했는지 확인할 수 없다는 점<br>
+        위와 같은 문제점들을 발견하여 이를 해결하기 위해 학생들이 외출 시<br>
+        QR Code를 찍어서 수요 외출제를 더욱 간편하게 관리할 수 있는 서비스 입니다. <br> 
     </p>
-    <img src = "https://github.com/team-goms/GOMS-Android/assets/84944098/634c28bd-6559-480b-ab06-ec3f5acf9e3b.png" />
-    <img src = "https://github.com/team-goms/GOMS-Android/assets/84944098/664a14e1-7b8e-4023-9523-1b6c1198aeaa.png" />
     </p>
 <br>
 <br>

@@ -39,6 +39,7 @@ class OutingFragment : Fragment() {
     : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
+        setLoading()
         lifecycleScope.launch {
             outingViewModel.outingListLogic()
             outingViewModel.outingList.collect { list ->
@@ -51,6 +52,15 @@ class OutingFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun setLoading() {
+        lifecycleScope.launch {
+            outingViewModel.isLoading.collect { loading ->
+                if (loading) binding.outingLoadingIndicator.root.visibility = View.VISIBLE
+                else binding.outingLoadingIndicator.root.visibility = View.GONE
+            }
+        }
     }
 
     @Composable

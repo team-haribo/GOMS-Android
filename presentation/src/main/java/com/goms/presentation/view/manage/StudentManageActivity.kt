@@ -1,6 +1,7 @@
 package com.goms.presentation.view.manage
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding = ActivityStudentManageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setLoading()
         lifecycleScope.launch {
             councilViewModel.getUserList()
             councilViewModel.userList.collect { list ->
@@ -55,6 +57,15 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
+    }
+
+    private fun setLoading() {
+        lifecycleScope.launch {
+            councilViewModel.isLoading.collect { loading ->
+                if (loading) binding.manageStudentLoadingIndicator.root.visibility = View.VISIBLE
+                else binding.manageStudentLoadingIndicator.root.visibility = View.GONE
+            }
+        }
     }
 
     private fun initUserList(list: List<UserInfoResponseData>) {

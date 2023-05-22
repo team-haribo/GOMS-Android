@@ -16,6 +16,12 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp" />
 
+    <include
+        android:id="@+id/outing_loading_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/view_loading_indicator"/>
+
     <androidx.compose.ui.platform.ComposeView
         android:id="@+id/outing_student_list_lazy_column"
         android:layout_width="match_parent"

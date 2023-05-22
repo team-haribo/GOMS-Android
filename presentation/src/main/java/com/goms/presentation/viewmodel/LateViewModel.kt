@@ -10,6 +10,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -20,8 +22,15 @@ class LateViewModel @Inject constructor(
     private val _lateRanking: MutableStateFlow<List<ProfileResponseData>?> = MutableStateFlow(null)
     val lateRanking: StateFlow<List<ProfileResponseData>?> = _lateRanking
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     suspend fun getLateRanking() {
-        lateUseCase().catch {
+        lateUseCase().onStart {
+            _isLoading.value = true
+        }.onCompletion {
+            _isLoading.value = false
+        }.catch {
             if (it is HttpException) {
                 when(it.code()) {
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")

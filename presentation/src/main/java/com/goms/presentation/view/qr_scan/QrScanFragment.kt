@@ -31,6 +31,10 @@ class QrScanFragment : Fragment() {
     : View {
         binding = FragmentQrScanBinding.inflate(layoutInflater)
 
+        if (!checkUserIsAdmin(requireContext()))
+            binding.qrScanAdminView.visibility = View.GONE
+
+        setLoading()
         lifecycleScope.launch {
             makeQr()
         }
@@ -63,10 +67,19 @@ class QrScanFragment : Fragment() {
             councilViewModel.makeQrCode()
             councilViewModel.makeQr.collect { uuid ->
                 if (uuid != null) {
-                        createQrCode(uuid.outingUUID)
-                        startTimer()
+                    createQrCode(uuid.outingUUID)
+                    startTimer()
                 }
             }
         } else context?.startActivity(Intent(context, QrCodeActivity::class.java))
+    }
+
+    private fun setLoading() {
+        lifecycleScope.launch {
+            councilViewModel.isLoading.collect { loading ->
+                if (loading) binding.qrScanLoadingIndicator.root.visibility = View.VISIBLE
+                else binding.qrScanLoadingIndicator.root.visibility = View.GONE
+            }
+        }
     }
 }

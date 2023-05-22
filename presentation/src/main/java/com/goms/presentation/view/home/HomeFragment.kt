@@ -70,6 +70,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         mainActivity = activity as MainActivity
 
+        setLoading()
         setProfile()
         lifecycleScope.launch {
             outingViewModel.outingCount()
@@ -111,6 +112,15 @@ class HomeFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun setLoading() {
+        lifecycleScope.launch {
+            lateViewModel.isLoading.collect { loading ->
+                if (loading) binding.homeLoadingIndicator.root.visibility = View.VISIBLE
+                else binding.homeLoadingIndicator.root.visibility = View.GONE
+            }
+        }
     }
 
     private fun setBottomCard() {

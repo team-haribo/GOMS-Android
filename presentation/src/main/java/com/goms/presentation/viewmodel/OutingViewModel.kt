@@ -2,7 +2,6 @@ package com.goms.presentation.viewmodel
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
@@ -67,12 +66,10 @@ class OutingViewModel @Inject constructor(
         }.catch {
             if (it is HttpException) {
                 when(it.code()) {
-                    401 -> Log.d("TAG", "outingListLogic: 토큰 에러")
-                    404 ->
-                        Log.d("TAG", "outingListLogic 404: $it")
-                    500 -> Log.d("TAG", "outingListLogic: 서버 에러")
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                    500 -> throw ServerException("서버 에러")
                 }
-            } else Log.d("TAG", "outingListLogic: $it")
+            } else throw OtherException(it.message)
         }.collect {
             _outingList.value = it
         }
@@ -88,7 +85,7 @@ class OutingViewModel @Inject constructor(
                 when (it.code()) {
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
                 }
-            } else Log.d("TAG", "outingCount: $it")
+            } else throw OtherException(it.message)
         }.collect {
             _outingCount.value = it
         }

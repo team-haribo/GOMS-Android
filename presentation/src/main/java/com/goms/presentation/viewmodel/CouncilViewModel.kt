@@ -18,6 +18,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.util.UUID
@@ -50,9 +52,16 @@ class CouncilViewModel @Inject constructor(
     private val _scanTime: MutableStateFlow<Long?> = MutableStateFlow(null)
     val scanTime: StateFlow<Long?> = _scanTime
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     fun getUserList() {
         viewModelScope.launch {
-            userListUseCase().catch {
+            userListUseCase().onStart {
+                _isLoading.value = true
+            }.onCompletion {
+                _isLoading.value = false
+            }.catch {
                 if (it is HttpException) {
                     when (it.code()) {
                         403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
@@ -120,7 +129,11 @@ class CouncilViewModel @Inject constructor(
 
     fun makeQrCode() {
         viewModelScope.launch {
-            makeQrCodeUseCase().catch {
+            makeQrCodeUseCase().onStart {
+                _isLoading.value = true
+            }.onCompletion {
+                _isLoading.value = false
+            }.catch {
                 if (it is HttpException) {
                     when (it.code()) {
                         403 -> throw NotCouncilException("학생회 계정이 아닙니다.")

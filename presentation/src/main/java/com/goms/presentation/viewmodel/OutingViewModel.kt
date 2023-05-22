@@ -18,6 +18,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
 import retrofit2.HttpException
 import java.util.UUID
 import javax.inject.Inject
@@ -38,6 +40,9 @@ class OutingViewModel @Inject constructor(
     private val _outingCount: MutableStateFlow<OutingCountResponseData?> = MutableStateFlow(null)
     val outingCount: StateFlow<OutingCountResponseData?> = _outingCount
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     suspend fun outingLogic(outingUUID: UUID) {
         outingUseCase(outingUUID).onFailure {
             _isOuting.value = false
@@ -55,7 +60,11 @@ class OutingViewModel @Inject constructor(
     }
 
     suspend fun outingListLogic() {
-        outingListUseCase().catch {
+        outingListUseCase().onStart {
+            _isLoading.value = true
+        }.onCompletion {
+            _isLoading.value = false
+        }.catch {
             if (it is HttpException) {
                 when(it.code()) {
                     401 -> Log.d("TAG", "outingListLogic: 토큰 에러")
@@ -70,7 +79,11 @@ class OutingViewModel @Inject constructor(
     }
 
     suspend fun outingCount() {
-        outingCountUseCase().catch {
+        outingCountUseCase().onStart {
+            _isLoading.value = true
+        }.onCompletion {
+            _isLoading.value = false
+        }.catch {
             if (it is HttpException) {
                 when (it.code()) {
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")

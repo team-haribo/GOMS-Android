@@ -24,6 +24,7 @@
         <activity
             android:name="com.goms.presentation.view.manage.StudentManageActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.GSM_GOMS_ADMIN"
             android:exported="false" />
         <activity
             android:name="com.goms.presentation.view.splash.SplashActivity"

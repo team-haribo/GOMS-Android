@@ -41,7 +41,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding = ActivityStudentManageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        callUserList()
+        getUserList()
 
         binding.manageStudentSearchView.setOnClickListener {
             searchFilterBottomSheetDialogBinding = SearchFilterBottomSheetDialog()
@@ -51,7 +51,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            callUserList()
+            getUserList()
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
@@ -65,7 +65,7 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    private fun callUserList() {
+    private fun getUserList() {
         setLoading()
         lifecycleScope.launch {
             councilViewModel.getUserList()

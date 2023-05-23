@@ -13,6 +13,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel
@@ -53,11 +54,16 @@ class MainActivity : AppCompatActivity() {
 
     private fun setProfile() {
         lifecycleScope.launch {
-            profileViewModel.getProfileLogic()
-            profileViewModel.profile.collect { data ->
-                response = data
-                binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
-            }
+            apiErrorHandling(
+                context = this@MainActivity,
+                logic = {
+                    profileViewModel.getProfileLogic()
+                    profileViewModel.profile.collect { data ->
+                        response = data
+                        binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
+                    }
+                }
+            )
         }
     }
 
@@ -77,13 +83,11 @@ class MainActivity : AppCompatActivity() {
 
     fun navigateToOuting() {
         navController.navigate(R.id.outingFragment)
-
         navigationItemSelectListener()
     }
 
     fun navigateToQrScan() {
         navController.navigate(R.id.qrScanFragment)
-
         navigationItemSelectListener()
     }
 

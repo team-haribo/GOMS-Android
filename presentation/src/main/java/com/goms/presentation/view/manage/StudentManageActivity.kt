@@ -41,15 +41,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding = ActivityStudentManageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setLoading()
-        lifecycleScope.launch {
-            councilViewModel.getUserList()
-            councilViewModel.userList.collect { list ->
-                if (list != null) {
-                    initUserList(list)
-                }
-            }
-        }
+        callUserList()
 
         binding.manageStudentSearchView.setOnClickListener {
             searchFilterBottomSheetDialogBinding = SearchFilterBottomSheetDialog()
@@ -57,6 +49,11 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            callUserList()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
     }
 
     private fun setLoading() {
@@ -64,6 +61,18 @@ class StudentManageActivity : AppCompatActivity() {
             councilViewModel.isLoading.collect { loading ->
                 if (loading) binding.manageStudentLoadingIndicator.root.visibility = View.VISIBLE
                 else binding.manageStudentLoadingIndicator.root.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun callUserList() {
+        setLoading()
+        lifecycleScope.launch {
+            councilViewModel.getUserList()
+            councilViewModel.userList.collect { list ->
+                if (list != null) {
+                    initUserList(list)
+                }
             }
         }
     }

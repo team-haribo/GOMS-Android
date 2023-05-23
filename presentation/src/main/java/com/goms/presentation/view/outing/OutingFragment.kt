@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,8 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.FragmentOutingBinding
 import com.goms.domain.data.user.UserResponseData
-import com.goms.domain.exception.FailAccessTokenException
-import com.goms.domain.exception.ServerException
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
@@ -42,26 +40,28 @@ class OutingFragment : Fragment() {
     : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
+        outingLogic()
+        return binding.root
+    }
+
+    private fun outingLogic() {
         setLoading()
         lifecycleScope.launch {
-            try {
-                outingViewModel.outingListLogic()
-                outingViewModel.outingList.collect { list ->
-                    binding.outingStudentListLazyColumn.setContent {
-                        if (list!!.isEmpty()) EmptyScreen()
-                        else OutingLazyColumn(list)
-                    }
-                }
-            } catch (e: Exception) {
-                when (e) {
-                    is FailAccessTokenException -> Toast.makeText(context, "유효하지 않은 token입니다.", Toast.LENGTH_SHORT).show()
-                    is ServerException -> Toast.makeText(context, "서버에 문제가 발생했습니다 관리자에게 문의하세요.", Toast.LENGTH_SHORT).show()
-                }
+            apiErrorHandling(
+                context = context,
+                logic = { getOutingList() }
+            )
+        }
+    }
+
+    private suspend fun getOutingList() {
+        outingViewModel.outingListLogic()
+        outingViewModel.outingList.collect { list ->
+            binding.outingStudentListLazyColumn.setContent {
+                if (list!!.isEmpty()) EmptyScreen()
+                else OutingLazyColumn(list)
             }
         }
-
-
-        return binding.root
     }
 
     private fun setLoading() {

@@ -13,6 +13,7 @@ object Dependency {
         const val SPLASH_CORE = "androidx.core:core-splashscreen:${Versions.Splash}"
         const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.Navigation}"
         const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.Navigation}"
+        const val SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SwipeRefreshLayout}"
     }
 
     object Compose {

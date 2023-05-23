@@ -11,9 +11,9 @@ QR Code를 찍어서 수요 외출제를 더욱 간편하게 관리할 수 있�
 
 ## 📱 Screen
 <p>
-<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d3b3cd2f-1233-4abe-9f79-3af32ab36f97.png width=190 /> &nbsp;
-<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d5b743b8-1ed7-4aea-9584-acd4a1cb7a42.png width=190 /> &nbsp;
-<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/e7e214bb-e9ba-4ddd-8a65-239f60475c4c.png width=190 /> &nbsp;
+<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d3b3cd2f-1233-4abe-9f79-3af32ab36f97.png width=190 /> &nbsp; &nbsp;
+<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d5b743b8-1ed7-4aea-9584-acd4a1cb7a42.png width=190 /> &nbsp; &nbsp;
+<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/e7e214bb-e9ba-4ddd-8a65-239f60475c4c.png width=190 /> &nbsp; &nbsp;
 <img src = https://github.com/team-goms/GOMS-Android/assets/84944098/46b10027-e535-4808-8359-1d1f3eaf5372.png width=190 />
 </p>
 

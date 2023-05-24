@@ -1,5 +1,6 @@
 package com.goms.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
@@ -22,9 +23,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.util.Timer
+import java.util.TimerTask
 import java.util.UUID
 import javax.inject.Inject
-import kotlin.concurrent.timer
 
 @HiltViewModel
 class CouncilViewModel @Inject constructor(
@@ -146,11 +148,23 @@ class CouncilViewModel @Inject constructor(
         }
     }
 
-    fun setQrScanTimer(time: Long) {
-        _scanTime.value = time
-        timer(period = 1000) {
-            _scanTime.value = _scanTime.value!! - 1
-            if (_scanTime.value!! <= 0) cancel()
+    fun setTimer(time: Long) {
+        if (_scanTime.value == null) {
+            var second = time
+            val timer = Timer()
+            timer.schedule(object :TimerTask() {
+                override fun run() {
+                    _scanTime.value = second
+                    second--
+
+                    if (second < 0) {
+                        timer.cancel()
+                        _scanTime.value = null
+                        setTimer(time)
+                    }
+                }
+            }, 0, 1000)
         }
     }
+
 }

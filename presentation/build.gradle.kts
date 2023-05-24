@@ -98,21 +98,19 @@ dependencies {
     debugImplementation(Dependency.Compose.COMPOSE_MANIFEST)
     testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
 
-    // splash
-    implementation(Dependency.AndroidX.SPLASH_CORE)
     // navigation
     implementation(Dependency.AndroidX.NAVIGATION_FRAGMENT)
     implementation(Dependency.AndroidX.NAVIGATION_UI_KTX)
 
     implementation(Dependency.AndroidX.KOTLIN_CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)
+    implementation(Dependency.AndroidX.ACTIVITY_KTX)
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
     implementation(Dependency.Google.MATERIAL)
     testImplementation(Dependency.Test.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.TEST_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO)
 
-    implementation(Dependency.AndroidX.ACTIVITY_KTX)
-
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
 }

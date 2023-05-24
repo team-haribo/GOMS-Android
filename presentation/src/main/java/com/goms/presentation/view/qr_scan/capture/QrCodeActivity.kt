@@ -13,7 +13,7 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.example.presentation.databinding.ActivityQrCodeBinding
-import com.goms.domain.exception.UserIsBlackListException
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.OutingViewModel
 import com.gun0912.tedpermission.PermissionListener
@@ -57,7 +57,12 @@ class QrCodeActivity : AppCompatActivity() {
 
         codeScanner.decodeCallback = DecodeCallback { resultUrl ->
             runOnUiThread {
-                outingLogic(resultUrl.text)
+                lifecycleScope.launch {
+                    apiErrorHandling(
+                        context = this@QrCodeActivity,
+                        logic = { outingLogic(resultUrl.text) }
+                    )
+                }
             }
         }
 
@@ -72,25 +77,15 @@ class QrCodeActivity : AppCompatActivity() {
         codeScanner.startPreview()
     }
 
-    private fun outingLogic(text: String) {
-        lifecycleScope.launch {
-            val qrUUID = text.split("/")
-            val resultUUID = UUID.fromString(qrUUID[qrUUID.lastIndex])
+    private suspend fun outingLogic(text: String) {
+        val qrUUID = text.split("/")
+        val resultUUID = UUID.fromString(qrUUID[qrUUID.lastIndex])
 
-            try {
-                outingViewModel.outingLogic(resultUUID)
-                outingViewModel.isOuting.collect { outAble ->
-                    if (outAble == true) {
-                        startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
-                        finish()
-                    }
-                }
-            } catch (e: Exception) {
-                if (e is UserIsBlackListException) {
-                    Toast.makeText(this@QrCodeActivity, "외출 금지 상태입니다.", Toast.LENGTH_SHORT).show()
-                    startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
-                    finish()
-                }
+        outingViewModel.outingLogic(resultUUID)
+        outingViewModel.isOuting.collect { outAble ->
+            if (outAble == true) {
+                startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
+                finish()
             }
         }
     }

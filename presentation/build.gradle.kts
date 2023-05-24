@@ -113,4 +113,6 @@ dependencies {
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO)
 
     implementation(Dependency.AndroidX.ACTIVITY_KTX)
+
+    implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
 }

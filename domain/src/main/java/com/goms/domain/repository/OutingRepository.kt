@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import java.util.UUID
 
 interface OutingRepository {
-    suspend fun outing(outingUUID: UUID)
+    suspend fun outing(outingUUID: UUID): Flow<Unit>
 
     suspend fun getOutingList(): Flow<List<UserResponseData>>
 

@@ -2,11 +2,11 @@ package com.goms.presentation.viewmodel
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.exception.FailAccessTokenException
+import com.goms.domain.exception.QrCodeExpiredException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserIsBlackListException
@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
+import org.json.JSONObject
 import retrofit2.HttpException
 import java.util.UUID
 import javax.inject.Inject
@@ -44,16 +45,25 @@ class OutingViewModel @Inject constructor(
     val isLoading: StateFlow<Boolean> = _isLoading
 
     suspend fun outingLogic(outingUUID: UUID) {
-        outingUseCase(outingUUID).onFailure {
+        outingUseCase(outingUUID).catch {
             _isOuting.value = false
             if (it is HttpException) {
                 when(it.code()) {
-                    400 -> throw UserIsBlackListException("외출 금지인 사용자입니다.")
+                    400 -> {
+                        val errorBody = it.response()?.errorBody()?.string()
+                        val jsonObject = JSONObject(errorBody!!)
+
+                        when(jsonObject.getString("message")) {
+                            "검증되지 않은 외출 식별자 입니다." -> throw QrCodeExpiredException("올바르지 않은 Qr Code입니다.")
+                            "블랙리스트인 학생은 외출을 할 수 없습니다." -> throw UserIsBlackListException("외출 금지인 사용자입니다.")
+                        }
+                    }
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
                     500 -> throw ServerException("서버 에러")
                 }
-            } else throw OtherException(it.message)
-        }.onSuccess {
+            } else if (it is IllegalArgumentException) throw QrCodeExpiredException("올바르지 않은 QR Code입니다.")
+            else throw OtherException(it.message)
+        }.collect {
             manageOutingSharedPreference()
             _isOuting.value = true
         }
@@ -67,12 +77,10 @@ class OutingViewModel @Inject constructor(
         }.catch {
             if (it is HttpException) {
                 when(it.code()) {
-                    401 -> Log.d("TAG", "outingListLogic: 토큰 에러")
-                    404 ->
-                        Log.d("TAG", "outingListLogic 404: $it")
-                    500 -> Log.d("TAG", "outingListLogic: 서버 에러")
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                    500 -> throw ServerException("서버 에러")
                 }
-            } else Log.d("TAG", "outingListLogic: $it")
+            } else throw OtherException(it.message)
         }.collect {
             _outingList.value = it
         }
@@ -88,7 +96,7 @@ class OutingViewModel @Inject constructor(
                 when (it.code()) {
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
                 }
-            } else Log.d("TAG", "outingCount: $it")
+            } else throw OtherException(it.message)
         }.collect {
             _outingCount.value = it
         }

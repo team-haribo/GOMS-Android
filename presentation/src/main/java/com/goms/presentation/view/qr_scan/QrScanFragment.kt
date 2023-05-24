@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.BuildConfig
 import com.example.presentation.databinding.FragmentQrScanBinding
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
@@ -63,6 +64,15 @@ class QrScanFragment : Fragment() {
     }
 
     private suspend fun makeQr() {
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = context,
+                logic = { qrLogic() }
+            )
+        }
+    }
+
+    private suspend fun qrLogic() {
         if (checkUserIsAdmin(requireContext())) {
             councilViewModel.makeQrCode()
             councilViewModel.makeQr.collect { uuid ->
@@ -77,8 +87,13 @@ class QrScanFragment : Fragment() {
     private fun setLoading() {
         lifecycleScope.launch {
             councilViewModel.isLoading.collect { loading ->
-                if (loading) binding.qrScanLoadingIndicator.root.visibility = View.VISIBLE
-                else binding.qrScanLoadingIndicator.root.visibility = View.GONE
+                if (loading) {
+                    binding.qrScanLoadingIndicator.root.visibility = View.VISIBLE
+                    binding.qrScanMainView.visibility = View.GONE
+                } else {
+                    binding.qrScanLoadingIndicator.root.visibility = View.GONE
+                    binding.qrScanMainView.visibility = View.VISIBLE
+                }
             }
         }
     }

@@ -36,6 +36,13 @@ class UserIsBlackListException(
 ): RuntimeException()
 
 /**
+ * 올바르지 않은 qr code
+ */
+class QrCodeExpiredException(
+    override val message: String?
+): RuntimeException()
+
+/**
  * 서버 에러
  * 500 에러에서 사용
  */

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.council.response.UserInfoResponseData
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
@@ -41,8 +42,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding = ActivityStudentManageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getUserList()
-
+        studentManageLogic()
         binding.manageStudentSearchView.setOnClickListener {
             searchFilterBottomSheetDialogBinding = SearchFilterBottomSheetDialog()
             searchFilterBottomSheetDialogBinding.show(supportFragmentManager, searchFilterBottomSheetDialogBinding.tag)
@@ -51,8 +51,18 @@ class StudentManageActivity : AppCompatActivity() {
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            getUserList()
+            studentManageLogic()
             binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+    private fun studentManageLogic() {
+        setLoading()
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = this@StudentManageActivity,
+                logic = { getUserList() }
+            )
         }
     }
 
@@ -65,14 +75,11 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserList() {
-        setLoading()
-        lifecycleScope.launch {
-            councilViewModel.getUserList()
-            councilViewModel.userList.collect { list ->
-                if (list != null) {
-                    initUserList(list)
-                }
+    private suspend fun getUserList() {
+        councilViewModel.getUserList()
+        councilViewModel.userList.collect { list ->
+            if (list != null) {
+                initUserList(list)
             }
         }
     }

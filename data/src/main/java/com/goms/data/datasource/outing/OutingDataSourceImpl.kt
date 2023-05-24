@@ -11,8 +11,10 @@ import javax.inject.Inject
 class OutingDataSourceImpl @Inject constructor(
     private val outingApi: OutingApi
 ): OutingDataSource {
-    override suspend fun outing(outingUUID: UUID) {
-        return outingApi.outing(outingUUID)
+    override suspend fun outing(outingUUID: UUID): Flow<Unit> {
+        return flow {
+            emit(outingApi.outing(outingUUID))
+        }
     }
 
     override suspend fun getOutingList(): Flow<List<UserResponse>> {

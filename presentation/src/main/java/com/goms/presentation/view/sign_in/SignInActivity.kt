@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.BuildConfig
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivitySignInBinding
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.SignInViewModel
 import com.msg.gauthsignin.GAuthSigninWebView
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
-    private val viewModel by viewModels<SignInViewModel>()
+    private val signInViewModel by viewModels<SignInViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,23 +83,30 @@ class SignInActivity : AppCompatActivity() {
             ) { code ->
                 binding.gauthWebView.visibility = View.INVISIBLE
 
-                viewModel.signInLogic(code)
+                signInViewModel.signInLogic(code)
                 lifecycleScope.launch {
-                    viewModel.isLoading.collect { loading ->
+                    signInViewModel.isLoading.collect { loading ->
                         if (loading) {
                             binding.signInScreenView.visibility = View.GONE
                             binding.signInProgressBar.visibility = View.VISIBLE
                         } else {
                             binding.signInProgressBar.visibility = View.GONE
-                            viewModel.signIn.collect { signInResponse ->
-                                if (signInResponse != null) {
-                                    startActivity(Intent(this@SignInActivity, MainActivity::class.java))
-                                    viewModel.setAuthority(signInResponse.authority)
-                                }
-                            }
+                            apiErrorHandling(
+                                context = this@SignInActivity,
+                                logic = { signInLogic() }
+                            )
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private suspend fun signInLogic() {
+        signInViewModel.signIn.collect { signInResponse ->
+            if (signInResponse != null) {
+                startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+                signInViewModel.setAuthority(signInResponse.authority)
             }
         }
     }

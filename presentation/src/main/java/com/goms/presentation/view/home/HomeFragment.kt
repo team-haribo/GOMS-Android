@@ -38,6 +38,7 @@ import coil.load
 import com.example.presentation.R
 import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.home.component.LateRankEmptyScreen
@@ -70,17 +71,7 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(layoutInflater)
         mainActivity = activity as MainActivity
 
-        setLoading()
-        setProfile()
-        lifecycleScope.launch {
-            outingViewModel.outingCount()
-            outingViewModel.outingCount.collect { people ->
-                binding.currentStudentOutingText.setContent {
-                    StudentOutingText(people!!.outingCount)
-                }
-            }
-        }
-
+        homeLogic()
         val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
         val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean
         binding.mainOutingButton.text = if(checkUserIsAdmin(requireContext())) "QR 생성하기"
@@ -91,8 +82,6 @@ class HomeFragment : Fragment() {
                 mainActivity.navigateToQrScan()
             } else startActivity(Intent(context, QrCodeActivity::class.java))
         }
-
-        setLateRankList()
 
         if(checkUserIsAdmin(requireContext()))
             binding.gomsMainTitleText.text = "간편하게\n수요 외출제를\n관리해 보세요!"
@@ -114,6 +103,30 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun homeLogic() {
+        setLoading()
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = context,
+                logic = { setProfile() }
+            )
+        }
+
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = context,
+                logic = { getOutingCount() }
+            )
+        }
+
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = context,
+                logic = { setLateRankList() }
+            )
+        }
+    }
+
     private fun setLoading() {
         lifecycleScope.launch {
             lateViewModel.isLoading.collect { loading ->
@@ -133,31 +146,36 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setLateRankList() {
-        lifecycleScope.launch {
-            lateViewModel.getLateRanking()
-            lateViewModel.lateRanking.collect { list ->
-                binding.lateRankingLazyRow.setContent {
-                    if (list != null) {
-                        if (list.isEmpty()) LateRankEmptyScreen()
-                        else LateLazyRow(list)
-                    }
+    private suspend fun getOutingCount() {
+        outingViewModel.outingCount()
+        outingViewModel.outingCount.collect { people ->
+            binding.currentStudentOutingText.setContent {
+                StudentOutingText(people!!.outingCount)
+            }
+        }
+    }
+
+    private suspend fun setLateRankList() {
+        lateViewModel.getLateRanking()
+        lateViewModel.lateRanking.collect { list ->
+            binding.lateRankingLazyRow.setContent {
+                if (list != null) {
+                    if (list.isEmpty()) LateRankEmptyScreen()
+                    else LateLazyRow(list)
                 }
             }
         }
     }
 
-    private fun setProfile() {
-        lifecycleScope.launch {
-            profileViewModel.getProfileLogic()
-            profileViewModel.profile.collect { data ->
-                response = data
+    private suspend fun setProfile() {
+        profileViewModel.getProfileLogic()
+        profileViewModel.profile.collect { data ->
+            response = data
 
-                binding.mainProfileCardUserNameText.text = data?.name
-                binding.mainProfileCardStudentNumberText.text =
-                    "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
-                binding.mainProfileCardUserCircleImage.load(data?.profileUrl ?: R.drawable.user_profile)
-            }
+            binding.mainProfileCardUserNameText.text = data?.name
+            binding.mainProfileCardStudentNumberText.text =
+                "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
+            binding.mainProfileCardUserCircleImage.load(data?.profileUrl ?: R.drawable.user_profile)
         }
     }
 

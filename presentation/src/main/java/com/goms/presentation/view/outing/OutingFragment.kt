@@ -21,6 +21,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.presentation.databinding.FragmentOutingBinding
 import com.goms.domain.data.user.UserResponseData
+import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
@@ -39,19 +40,28 @@ class OutingFragment : Fragment() {
     : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
+        outingLogic()
+        return binding.root
+    }
+
+    private fun outingLogic() {
         setLoading()
         lifecycleScope.launch {
-            outingViewModel.outingListLogic()
-            outingViewModel.outingList.collect { list ->
-                binding.outingStudentListLazyColumn.setContent {
-                    if (list!!.isEmpty()) EmptyScreen()
-                    else OutingLazyColumn(list)
-                }
+            apiErrorHandling(
+                context = context,
+                logic = { getOutingList() }
+            )
+        }
+    }
+
+    private suspend fun getOutingList() {
+        outingViewModel.outingListLogic()
+        outingViewModel.outingList.collect { list ->
+            binding.outingStudentListLazyColumn.setContent {
+                if (list!!.isEmpty()) EmptyScreen()
+                else OutingLazyColumn(list)
             }
         }
-
-
-        return binding.root
     }
 
     private fun setLoading() {

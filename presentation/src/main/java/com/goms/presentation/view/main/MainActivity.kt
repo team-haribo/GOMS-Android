@@ -56,14 +56,16 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             apiErrorHandling(
                 context = this@MainActivity,
-                logic = {
-                    profileViewModel.getProfileLogic()
-                    profileViewModel.profile.collect { data ->
-                        response = data
-                        binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
-                    }
-                }
+                logic = { getProfile() }
             )
+        }
+    }
+
+    private suspend fun getProfile() {
+        profileViewModel.getProfileLogic()
+        profileViewModel.profile.collect { data ->
+            response = data
+            binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
         }
     }
 

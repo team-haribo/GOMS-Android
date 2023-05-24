@@ -147,10 +147,16 @@ class CouncilViewModel @Inject constructor(
     }
 
     fun setQrScanTimer(time: Long) {
-        _scanTime.value = time
-        timer(period = 1000) {
-            _scanTime.value = _scanTime.value!! - 1
-            if (_scanTime.value!! <= 0) cancel()
+        if (_scanTime.value == null) {
+            _scanTime.value = time
+            timer(period = 1000) {
+                _scanTime.value = _scanTime.value!! - 1
+                if (_scanTime.value!! <= 0) {
+                    _scanTime.value = null
+                    cancel()
+                }
+            }
         }
     }
+
 }

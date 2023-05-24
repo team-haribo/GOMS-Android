@@ -67,9 +67,7 @@ class QrScanFragment : Fragment() {
         lifecycleScope.launch {
             apiErrorHandling(
                 context = context,
-                logic = {
-                    qrLogic()
-                }
+                logic = { qrLogic() }
             )
         }
     }

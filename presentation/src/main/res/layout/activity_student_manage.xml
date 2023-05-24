@@ -78,24 +78,17 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/manage_student_student_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="23dp"
+            android:layout_marginEnd="23dp"/>
+
         <include
             android:id="@+id/manage_student_loading_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             layout="@layout/view_loading_indicator"/>
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipe_refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <androidx.compose.ui.platform.ComposeView
-                android:id="@+id/manage_student_student_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="23dp"
-                android:layout_marginEnd="23dp"/>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

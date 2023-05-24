@@ -13,10 +13,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
+import com.example.presentation.R
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.utils.apiErrorHandling
@@ -25,6 +29,9 @@ import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDial
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
 import com.goms.presentation.view.manage.component.StudentManageCard
 import com.goms.presentation.viewmodel.CouncilViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -49,11 +56,6 @@ class StudentManageActivity : AppCompatActivity() {
         }
 
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
-
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            studentManageLogic()
-            binding.swipeRefreshLayout.isRefreshing = false
-        }
     }
 
     private fun studentManageLogic() {
@@ -78,34 +80,44 @@ class StudentManageActivity : AppCompatActivity() {
     private suspend fun getUserList() {
         councilViewModel.getUserList()
         councilViewModel.userList.collect { list ->
-            if (list != null) {
-                initUserList(list)
-            }
+            if (list != null) initUserList(list)
         }
     }
 
     private fun initUserList(list: List<UserInfoResponseData>) {
         binding.manageStudentStudentList.setContent {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(top = 2.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                contentPadding = PaddingValues(horizontal = 2.dp)
+            val isRefreshing by councilViewModel.isLoading.collectAsState()
+
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
+                onRefresh = { studentManageLogic() },
+                indicator = { state, refreshTrigger ->  
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = refreshTrigger,
+                        contentColor = colorResource(id = R.color.goms_main_color_admin)
+                    )
+                }
             ) {
-                items(list) { item ->
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
-                    ) {
-                        StudentManageCard(
-                            item = item,
-                            iconClick = { uuid ->
-                                bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
-                                bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
-                            }
-                        )
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                    contentPadding = PaddingValues(2.dp)
+                ) {
+                    items(list) { item ->
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
+                        ) {
+                            StudentManageCard(
+                                item = item,
+                                iconClick = { uuid ->
+                                    bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
+                                    bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
+                                }
+                            )
+                        }
                     }
                 }
             }

@@ -43,8 +43,6 @@ class StudentManageActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         studentManageLogic()
-        getUserList()
-
         binding.manageStudentSearchView.setOnClickListener {
             searchFilterBottomSheetDialogBinding = SearchFilterBottomSheetDialog()
             searchFilterBottomSheetDialogBinding.show(supportFragmentManager, searchFilterBottomSheetDialogBinding.tag)
@@ -53,7 +51,7 @@ class StudentManageActivity : AppCompatActivity() {
         binding.studentManageBackArrowImage.setOnClickListener { finish() }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            getUserList()
+            studentManageLogic()
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
@@ -63,14 +61,7 @@ class StudentManageActivity : AppCompatActivity() {
         lifecycleScope.launch {
             apiErrorHandling(
                 context = this@StudentManageActivity,
-                logic = {
-                    councilViewModel.getUserList()
-                    councilViewModel.userList.collect { list ->
-                        if (list != null) {
-                            initUserList(list)
-                        }
-                    }
-                }
+                logic = { getUserList() }
             )
         }
     }
@@ -84,14 +75,11 @@ class StudentManageActivity : AppCompatActivity() {
         }
     }
 
-    private fun getUserList() {
-        setLoading()
-        lifecycleScope.launch {
-            councilViewModel.getUserList()
-            councilViewModel.userList.collect { list ->
-                if (list != null) {
-                    initUserList(list)
-                }
+    private suspend fun getUserList() {
+        councilViewModel.getUserList()
+        councilViewModel.userList.collect { list ->
+            if (list != null) {
+                initUserList(list)
             }
         }
     }

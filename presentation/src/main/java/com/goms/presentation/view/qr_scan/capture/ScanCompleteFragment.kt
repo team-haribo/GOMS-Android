@@ -17,18 +17,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 import com.example.presentation.R
-import com.example.presentation.databinding.FragmentCompleteBinding
+import com.example.presentation.databinding.FragmentScanCompleteBinding
 import com.goms.presentation.view.main.MainActivity
 
 class ScanCompleteFragment : Fragment() {
-    private lateinit var binding: FragmentCompleteBinding
+    private lateinit var binding: FragmentScanCompleteBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?)
     : View {
-        binding = FragmentCompleteBinding.inflate(layoutInflater)
+        binding = FragmentScanCompleteBinding.inflate(layoutInflater)
 
         val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
         val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean

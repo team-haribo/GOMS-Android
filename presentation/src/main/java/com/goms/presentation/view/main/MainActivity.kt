@@ -31,10 +31,19 @@ class MainActivity : AppCompatActivity() {
 
     private var response: ProfileResponseData? = null
 
+    companion object {
+        private var instance: MainActivity? = null
+
+        fun getInstance(): MainActivity {
+            return instance as MainActivity
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme()
 
+        instance = this     // 현재 mainActivity의 instance를 가져옴(외부에서 사용하기 위함)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -90,6 +99,11 @@ class MainActivity : AppCompatActivity() {
 
     fun navigateToQrScan() {
         navController.navigate(R.id.qrScanFragment)
+        navigationItemSelectListener()
+    }
+
+    fun navigateComplete() {
+        navController.navigate(R.id.scanCompleteFragment)
         navigationItemSelectListener()
     }
 

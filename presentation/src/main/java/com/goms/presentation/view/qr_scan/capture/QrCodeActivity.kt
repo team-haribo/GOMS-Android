@@ -84,7 +84,7 @@ class QrCodeActivity : AppCompatActivity() {
         outingViewModel.outingLogic(resultUUID)
         outingViewModel.isOuting.collect { outAble ->
             if (outAble == true) {
-                startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
+                MainActivity.getInstance().navigateComplete()
                 finish()
             }
         }
@@ -97,7 +97,9 @@ class QrCodeActivity : AppCompatActivity() {
                     scanningLogic()
                 }
 
-                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {}
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+                    startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
+                }
             })
             .setDeniedMessage("권한이 거부되었습니다. 앱 정보 > 권한에서 권한을 설정해주세요.")
             .setPermissions(Manifest.permission.CAMERA)

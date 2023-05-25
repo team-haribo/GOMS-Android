@@ -21,4 +21,9 @@
         android:name="com.goms.presentation.view.qr_scan.QrScanFragment"
         android:label="fragment_qr_scan"
         tools:layout="@layout/fragment_qr_scan" />
+    <fragment
+        android:id="@+id/scanCompleteFragment"
+        android:name="com.goms.presentation.view.qr_scan.capture.ScanCompleteFragment"
+        android:label="fragment_complete"
+        tools:layout="@layout/fragment_scan_complete" />
 </navigation>

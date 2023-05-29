@@ -41,12 +41,12 @@ class GomsDialog(
 
         binding.dialogButtonYes.setOnClickListener {
             lifecycleScope.launch {
-                if (tag == "logout")
+                if (tag == "logout") {
                     logoutLogic()
-                else if (tag == "setBlackList") {
-                    if (accountIdx != null) {
-                        setBlackListLogic(accountIdx)
-                    }
+                } else if (tag == "setBlackList") {
+                    if (accountIdx != null) setBlackListLogic(accountIdx)
+                } else if (tag == "cancelBlackList") {
+                    if (accountIdx != null) cancelBlackListLogic(accountIdx)
                 }
             }
         }
@@ -71,6 +71,16 @@ class GomsDialog(
         councilViewModel.setBlackList.collect { isSuccess ->
             if (isSuccess) {
                 Toast.makeText(context, "외출 금지로 설정되었습니다.", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+        }
+    }
+
+    private suspend fun cancelBlackListLogic(accountIdx: UUID) {
+        councilViewModel.cancelBlackList(accountIdx)
+        councilViewModel.cancelBlackList.collect { isSuccess ->
+            if (isSuccess) {
+                Toast.makeText(context, "외출 금지를 해제했습니다.", Toast.LENGTH_SHORT).show()
                 dismiss()
             }
         }

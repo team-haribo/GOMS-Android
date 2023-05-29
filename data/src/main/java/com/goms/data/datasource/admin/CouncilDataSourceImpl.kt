@@ -31,6 +31,12 @@ class CouncilDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun cancelBlackList(accountIdx: UUID): Flow<Response<Unit>> {
+        return flow {
+            emit(councilApi.cancelBlackList(accountIdx))
+        }
+    }
+
     override suspend fun searchStudent(
         grade: Int?,
         classNum: Int?,

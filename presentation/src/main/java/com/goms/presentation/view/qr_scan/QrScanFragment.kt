@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,6 +25,7 @@ import java.util.UUID
 class QrScanFragment : Fragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
     private lateinit var binding: FragmentQrScanBinding
+    private var outingUUID = UUID.randomUUID()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,9 +75,15 @@ class QrScanFragment : Fragment() {
         if (checkUserIsAdmin(requireContext())) {
             councilViewModel.makeQrCode()
             councilViewModel.makeQr.collect { uuid ->
-                if (uuid != null) {
-                    createQrCode(uuid.outingUUID)
-                    startTimer()
+                kotlin.runCatching {
+                    if (uuid!!.outingUUID != null) {
+                        outingUUID = uuid.outingUUID
+                        createQrCode(outingUUID)
+                        startTimer()
+                    }
+                }.onFailure {
+                    Toast.makeText(context, "UUID가 갱신되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    it.printStackTrace()
                 }
             }
         } else context?.startActivity(Intent(context, QrCodeActivity::class.java))

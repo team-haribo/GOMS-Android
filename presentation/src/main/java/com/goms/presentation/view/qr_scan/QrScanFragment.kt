@@ -24,6 +24,7 @@ import java.util.UUID
 class QrScanFragment : Fragment() {
     private val councilViewModel by viewModels<CouncilViewModel>()
     private lateinit var binding: FragmentQrScanBinding
+    private var outingUUID = UUID.randomUUID()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,9 +74,14 @@ class QrScanFragment : Fragment() {
         if (checkUserIsAdmin(requireContext())) {
             councilViewModel.makeQrCode()
             councilViewModel.makeQr.collect { uuid ->
-                if (uuid != null) {
-                    createQrCode(uuid.outingUUID)
-                    startTimer()
+                kotlin.runCatching {
+                    if (uuid!!.outingUUID != null) {
+                        outingUUID = uuid.outingUUID
+                        createQrCode(outingUUID)
+                        startTimer()
+                    }
+                }.onFailure {
+                    it.printStackTrace()
                 }
             }
         } else context?.startActivity(Intent(context, QrCodeActivity::class.java))

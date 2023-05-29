@@ -14,6 +14,8 @@ interface CouncilRepository {
 
     suspend fun setBlackList(accountIdx: UUID): Flow<Response<Unit>>
 
+    suspend fun cancelBlackList(accountIdx: UUID): Flow<Response<Unit>>
+
     suspend fun searchStudent(
         grade: Int?,
         classNum: Int?,

@@ -23,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.council.response.UserInfoResponseData
+import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
@@ -113,8 +114,17 @@ class StudentManageActivity : AppCompatActivity() {
                             StudentManageCard(
                                 item = item,
                                 iconClick = { uuid ->
-                                    bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
-                                    bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
+                                    if (item.isBlackList) {
+                                        val dialog = GomsDialog(
+                                            title = "외출 금지 해제",
+                                            content = "해당 학생의 외출 금지를 취소하시겠습니까?",
+                                            accountIdx = uuid
+                                        )
+                                        dialog.show(supportFragmentManager, "cancelBlackList")
+                                    } else {
+                                        bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
+                                        bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
+                                    }
                                 }
                             )
                         }

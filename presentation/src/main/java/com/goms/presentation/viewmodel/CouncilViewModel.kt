@@ -1,6 +1,5 @@
 package com.goms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
@@ -10,6 +9,7 @@ import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserNotFoundException
+import com.goms.domain.usecase.admin.CancelBlackListUseCase
 import com.goms.domain.usecase.admin.MakeQrCodeUseCase
 import com.goms.domain.usecase.admin.ModifyRoleUseCase
 import com.goms.domain.usecase.admin.SearchStudentUseCase
@@ -33,6 +33,7 @@ class CouncilViewModel @Inject constructor(
     private val userListUseCase: UserListUseCase,
     private val modifyRoleUseCase: ModifyRoleUseCase,
     private val setBlackListUseCase: SetBlackListUseCase,
+    private val cancelBlackListUseCase: CancelBlackListUseCase,
     private val searchStudentUseCase: SearchStudentUseCase,
     private val makeQrCodeUseCase: MakeQrCodeUseCase
 ): ViewModel() {
@@ -44,6 +45,9 @@ class CouncilViewModel @Inject constructor(
 
     private val _setBlackList: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val setBlackList: StateFlow<Boolean> = _setBlackList
+
+    private val _cancelBlackList: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val cancelBlackList: StateFlow<Boolean> = _cancelBlackList
 
     private val _searchStudent: MutableStateFlow<List<UserInfoResponseData>?> = MutableStateFlow(null)
     val searchStudent: StateFlow<List<UserInfoResponseData>?> = _searchStudent
@@ -104,6 +108,22 @@ class CouncilViewModel @Inject constructor(
                 } else throw OtherException(it.message)
             }.collect {
                 _setBlackList.value = true
+            }
+        }
+    }
+
+    fun cancelBlackList(accountIdx: UUID) {
+        viewModelScope.launch {
+            cancelBlackListUseCase(accountIdx).catch {
+                if (it is HttpException) {
+                    when (it.code()) {
+                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                        404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
+                        500 -> throw ServerException("서버 에러")
+                    }
+                } else throw OtherException(it.message)
+            }.collect {
+                _cancelBlackList.value = true
             }
         }
     }

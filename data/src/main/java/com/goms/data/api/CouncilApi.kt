@@ -5,6 +5,7 @@ import com.goms.data.model.council.response.MakeQrCodeResponse
 import com.goms.data.model.council.response.UserInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
@@ -23,6 +24,11 @@ interface CouncilApi {
 
     @POST("student-council/black-list/{accountIdx}")
     suspend fun setBlackList(
+        @Path("accountIdx") accountIdx: UUID
+    ): Response<Unit>
+
+    @DELETE("student-council/black-list/{accountIdx}")
+    suspend fun cancelBlackList(
         @Path("accountIdx") accountIdx: UUID
     ): Response<Unit>
 

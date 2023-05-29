@@ -5,6 +5,7 @@ import com.goms.domain.repository.CouncilRepository
 import com.goms.domain.repository.LateRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
+import com.goms.domain.usecase.admin.CancelBlackListUseCase
 import com.goms.domain.usecase.admin.MakeQrCodeUseCase
 import com.goms.domain.usecase.admin.ModifyRoleUseCase
 import com.goms.domain.usecase.admin.SearchStudentUseCase
@@ -92,6 +93,12 @@ object UseCaseModule {
     @Singleton
     fun provideSetBlackListUseCase(councilRepository: CouncilRepository): SetBlackListUseCase {
         return SetBlackListUseCase(councilRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCancelBlackListUseCase(councilRepository: CouncilRepository): CancelBlackListUseCase {
+        return CancelBlackListUseCase(councilRepository)
     }
 
     @Provides

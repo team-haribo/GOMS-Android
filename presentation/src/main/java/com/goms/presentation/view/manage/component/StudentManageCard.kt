@@ -92,7 +92,10 @@ fun StudentManageCard(
                     .clickable {
                         iconClick(item.accountIdx)
                     },
-                painter = painterResource(id = R.drawable.pencil_icon),
+                painter = painterResource(
+                    id = if (!item.isBlackList) R.drawable.pencil_icon
+                    else R.drawable.figure_run_circle
+                ),
                 contentDescription = "student manage icon"
             )
         }

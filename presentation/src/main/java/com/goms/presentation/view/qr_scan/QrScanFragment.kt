@@ -34,12 +34,14 @@ class QrScanFragment : Fragment() {
     : View {
         binding = FragmentQrScanBinding.inflate(layoutInflater)
 
-        if (!checkUserIsAdmin(requireContext()))
+        if (!checkUserIsAdmin(requireContext())) {
             binding.qrScanAdminView.visibility = View.GONE
-
-        setLoading()
-        lifecycleScope.launch {
-            makeQr()
+            startActivity(Intent(context, QrCodeActivity::class.java))
+        } else {
+            setLoading()
+            lifecycleScope.launch {
+                makeQr()
+            }
         }
 
         return binding.root
@@ -72,21 +74,17 @@ class QrScanFragment : Fragment() {
     }
 
     private suspend fun qrLogic() {
-        if (checkUserIsAdmin(requireContext())) {
-            councilViewModel.makeQrCode()
-            councilViewModel.makeQr.collect { uuid ->
-                kotlin.runCatching {
-                    if (uuid!!.outingUUID != null) {
-                        outingUUID = uuid.outingUUID
-                        createQrCode(outingUUID)
-                        startTimer()
-                    }
-                }.onFailure {
-                    Toast.makeText(context, "UUID가 갱신되지 않았습니다.", Toast.LENGTH_SHORT).show()
-                    it.printStackTrace()
-                }
+        councilViewModel.makeQrCode()
+        councilViewModel.makeQr.collect { uuid ->
+            kotlin.runCatching {
+                outingUUID = uuid?.outingUUID
+                createQrCode(outingUUID)
+                startTimer()
+            }.onFailure {
+                Toast.makeText(context, "UUID가 갱신되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                it.printStackTrace()
             }
-        } else context?.startActivity(Intent(context, QrCodeActivity::class.java))
+        }
     }
 
     private fun setLoading() {

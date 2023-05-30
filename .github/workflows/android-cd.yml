@@ -71,3 +71,19 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: GOMS Android CD success Discord Notification
+      uses: sarisia/actions-status-discord@v1
+      if: ${{ success() }}
+      with:
+        title: 🎉 GOMS Android CD success 🎉
+        webhook: ${{ secrets.DISCORD_WEBHOOK_BOT }}
+        color: 00FF00
+
+    - name: GOMS Android CD failure Discord Notification
+      uses: sarisia/actions-status-discord@v1
+      if: ${{ failure() }}
+      with:
+        title: ❌ GOMS Android CD failed ❌
+        webhook: ${{ secrets.DISCORD_WEBHOOK_BOT }}
+        color: FF0000

@@ -11,7 +11,9 @@ object ProfileMapper {
             name = profileResponse.name,
             studentNum = StudentInfoMapper.studentInfoToData(profileResponse.studentNum),
             profileUrl = profileResponse.profileUrl,
-            lateCount = profileResponse.lateCount
+            lateCount = profileResponse.lateCount,
+            isOuting = profileResponse.isOuting,
+            isBlackList = profileResponse.isBlackList
         )
     }
 }

@@ -9,5 +9,7 @@ data class ProfileResponseData(
     val name: String,
     val studentNum: StudentInfoData,
     val profileUrl: String?,
-    val lateCount: Int
+    val lateCount: Int,
+    val isOuting: Boolean,
+    val isBlackList: Boolean
 ): Serializable

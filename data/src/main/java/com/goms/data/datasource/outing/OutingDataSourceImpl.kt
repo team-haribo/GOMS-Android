@@ -5,13 +5,14 @@ import com.goms.data.model.outing.OutingCountResponse
 import com.goms.data.model.user.UserResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import java.util.UUID
 import javax.inject.Inject
 
 class OutingDataSourceImpl @Inject constructor(
     private val outingApi: OutingApi
 ): OutingDataSource {
-    override suspend fun outing(outingUUID: UUID): Flow<Unit> {
+    override suspend fun outing(outingUUID: UUID): Flow<Response<Unit>> {
         return flow {
             emit(outingApi.outing(outingUUID))
         }

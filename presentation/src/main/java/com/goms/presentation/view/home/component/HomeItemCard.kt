@@ -33,7 +33,7 @@ fun HomeItemCard(item: ProfileResponseData) {
         Font(R.font.sf_pro_text_medium, FontWeight.Medium)
     )
     val configuration  = LocalConfiguration.current
-    val itemWidth = (configuration.screenWidthDp-70)/3
+    val itemWidth = (configuration.screenWidthDp - 70) / 3
 
     Card(
         modifier = Modifier

@@ -207,7 +207,7 @@ class HomeFragment : Fragment() {
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 25.dp, end = 25.dp, top = 5.dp, bottom = 5.dp),
+                .padding(start = 24.dp, end = 24.dp, top = 5.dp, bottom = 5.dp),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             contentPadding = PaddingValues(horizontal = 1.dp)
         ) {
@@ -219,7 +219,6 @@ class HomeFragment : Fragment() {
                     HomeItemCard(item)
                 }
             }
-
         }
     }
 }

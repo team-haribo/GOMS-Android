@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -31,10 +32,12 @@ fun HomeItemCard(item: ProfileResponseData) {
         Font(R.font.sf_pro_text_regular, FontWeight.Normal),
         Font(R.font.sf_pro_text_medium, FontWeight.Medium)
     )
+    val configuration  = LocalConfiguration.current
+    val itemWidth = (configuration.screenWidthDp-70)/3
 
     Card(
         modifier = Modifier
-            .width(110.dp)
+            .width(itemWidth.dp)
             .fillMaxHeight()
             .clip(RoundedCornerShape(10.dp)),
     ) {

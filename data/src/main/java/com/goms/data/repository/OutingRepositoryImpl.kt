@@ -8,13 +8,14 @@ import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.repository.OutingRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 import java.util.UUID
 import javax.inject.Inject
 
 class OutingRepositoryImpl @Inject constructor(
     private val outingDataSource: OutingDataSource
 ): OutingRepository {
-    override suspend fun outing(outingUUID: UUID): Flow<Unit> {
+    override suspend fun outing(outingUUID: UUID): Flow<Response<Unit>> {
         return flow {
             outingDataSource.outing(outingUUID).collect {
                 emit(it)

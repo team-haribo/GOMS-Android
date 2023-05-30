@@ -25,8 +25,9 @@ suspend fun apiErrorHandling(
             is UserNotFoundException -> Toast.makeText(context, "존재하지 않은 사용자입니다.", Toast.LENGTH_SHORT).show()
             is FailAccessTokenException -> Toast.makeText(context, "엑세스 토큰이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
             is UserIsBlackListException -> {
-                Toast.makeText(context, "현재 외출 금지 상태입니다.", Toast.LENGTH_SHORT).show()
-                toMainActivity(context as QrCodeActivity)
+                val activity = context as QrCodeActivity
+                val dialog = GomsBlackListDialog()
+                dialog.show(activity.supportFragmentManager, "isBlackList")
             }
             is QrCodeExpiredException -> {
                 Toast.makeText(context, "만료된 QR Code입니다.", Toast.LENGTH_SHORT).show()

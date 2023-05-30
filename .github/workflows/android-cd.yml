@@ -29,6 +29,9 @@ jobs:
         key: ${{runner.os}}-gradle-${{hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/buildSrc/**/*.kt')}}
         restore-keys: |
           ${{runner.os}}-gradle-   
-      
+
+    - name: Create LOCAL_PROPERTIES
+      run: echo '${{ secrets.LOCAL_PROPERTIES }}' > ./local.properties
+
     - name: Build with Gradle
       run: ./gradlew build

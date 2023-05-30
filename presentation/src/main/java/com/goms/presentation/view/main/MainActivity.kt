@@ -10,9 +10,9 @@ import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import coil.load
-import com.example.presentation.R
-import com.example.presentation.databinding.ActivityMainBinding
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.presentation.R
+import com.goms.presentation.databinding.ActivityMainBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.databinding.GomsDialogBinding
+import com.goms.presentation.databinding.GomsDialogBinding
 import com.goms.presentation.view.sign_in.SignInActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
 import dagger.hilt.android.AndroidEntryPoint

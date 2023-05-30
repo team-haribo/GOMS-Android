@@ -8,10 +8,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.R
-import com.example.presentation.databinding.BottomSheetModifyRoleBinding
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.UserInfoResponseData
+import com.goms.presentation.R
+import com.goms.presentation.databinding.BottomSheetModifyRoleBinding
 import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -35,9 +35,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.example.presentation.R
-import com.example.presentation.databinding.FragmentHomeBinding
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.presentation.R
+import com.goms.presentation.databinding.FragmentHomeBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard

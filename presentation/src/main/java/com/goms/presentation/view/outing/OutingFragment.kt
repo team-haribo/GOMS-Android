@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.databinding.FragmentOutingBinding
 import com.goms.domain.data.user.UserResponseData
+import com.goms.presentation.databinding.FragmentOutingBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard

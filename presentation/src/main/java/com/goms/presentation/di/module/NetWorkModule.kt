@@ -1,12 +1,12 @@
 package com.goms.presentation.di.module
 
-import com.example.presentation.BuildConfig
 import com.goms.data.api.AuthApi
 import com.goms.data.api.CouncilApi
 import com.goms.data.api.LateApi
 import com.goms.data.api.OutingApi
 import com.goms.data.api.ProfileApi
 import com.goms.data.api.interceptor.LoginInterceptor
+import com.goms.presentation.BuildConfig
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

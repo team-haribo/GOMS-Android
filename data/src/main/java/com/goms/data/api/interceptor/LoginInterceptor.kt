@@ -1,6 +1,6 @@
 package com.goms.data.api.interceptor
 
-import com.example.data.BuildConfig
+import com.goms.data.BuildConfig
 import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.domain.exception.NeedLoginException
 import com.google.gson.JsonObject

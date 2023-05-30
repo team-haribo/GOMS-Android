@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import com.example.presentation.R
-import com.example.presentation.databinding.ActivityProfileBinding
 import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.presentation.R
+import com.goms.presentation.databinding.ActivityProfileBinding
 import com.goms.presentation.utils.GomsDialog
 import dagger.hilt.android.AndroidEntryPoint
 

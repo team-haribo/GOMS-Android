@@ -11,7 +11,7 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.presentation.R
+import com.goms.presentation.R
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.sign_in.SignInActivity
 import com.goms.presentation.viewmodel.SplashViewModel

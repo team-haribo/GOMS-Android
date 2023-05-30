@@ -13,7 +13,7 @@ import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.R
+import com.goms.presentation.R
 
 @Composable
 fun SearchResultEmptyScreen() {

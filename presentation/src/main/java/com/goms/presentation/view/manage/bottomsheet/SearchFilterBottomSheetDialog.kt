@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.R
-import com.example.presentation.databinding.BottomSheetSearchFilterBinding
+import com.goms.presentation.R
+import com.goms.presentation.databinding.BottomSheetSearchFilterBinding
 import com.goms.presentation.view.manage.StudentManageActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

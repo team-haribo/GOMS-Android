@@ -6,6 +6,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -115,4 +116,7 @@ dependencies {
 
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
     implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+
+    implementation(platform(Dependency.Google.FIREBASE_BOM))
+    implementation(Dependency.Google.FIREBASE_ANALYTICS)
 }

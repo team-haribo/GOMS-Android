@@ -3,6 +3,7 @@ object Dependency {
         const val ANDROID_APPLICATION = "com.android.application"
         const val ANDROID_LIBRARY = "com.android.library"
         const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
+        const val GOOGLE_PLUGIN = "com.google.gms:google-services:${Versions.GRADLE_GOOGLE}"
     }
 
     object AndroidX {
@@ -63,6 +64,8 @@ object Dependency {
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:${Versions.Material}"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     }
 
     object Test {

@@ -78,12 +78,14 @@ class QrScanFragment : Fragment() {
         councilViewModel.makeQr.collect { uuid ->
             kotlin.runCatching {
                 if (uuid!!.outingUUID != null) {
+                    if (outingUUID == uuid.outingUUID) {
+                        Toast.makeText(context, "UUID가 갱신되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    }
                     outingUUID = uuid.outingUUID
                     createQrCode(outingUUID)
                     startTimer()
                 }
             }.onFailure {
-                Toast.makeText(context, "UUID가 갱신되지 않았습니다.", Toast.LENGTH_SHORT).show()
                 it.printStackTrace()
             }
         }

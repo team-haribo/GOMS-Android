@@ -87,14 +87,13 @@ fun StudentManageCard(
 
             Image(
                 modifier = Modifier
-                    .align(Alignment.Top)
-                    .padding(top = 5.dp)
+                    .align(Alignment.CenterVertically)
                     .clickable {
                         iconClick(item.accountIdx)
                     },
                 painter = painterResource(
                     id = if (!item.isBlackList) R.drawable.pencil_icon
-                    else R.drawable.figure_run_circle
+                    else R.drawable.manage_black_list
                 ),
                 contentDescription = "student manage icon"
             )

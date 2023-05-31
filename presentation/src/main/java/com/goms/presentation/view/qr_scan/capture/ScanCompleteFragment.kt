@@ -70,7 +70,7 @@ class ScanCompleteFragment : Fragment() {
                     )
                 ) {
                     append(
-                        if (outingStatus) "7시 30분까지 늦지 않게 오세요!"
+                        if (!outingStatus) "7시 30분까지 늦지 않게 오세요!"
                         else "무사히 복귀하였습니다."
                     )
                 }

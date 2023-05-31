@@ -60,7 +60,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app
-        path: presentation/build/outputs/bundle/release/app-release.aab
+        path: presentation/build/outputs/bundle/release/presentation-release.aab
 
     - name: Deploy to Play Store
       id: deploy
@@ -68,7 +68,7 @@ jobs:
       with:
         serviceAccountJson: service_account.json
         packageName: com.goms.presentation
-        releaseFiles: app/build/outputs/bundle/release/app-release.aab
+        releaseFiles: app/build/outputs/bundle/release/presentation-release.aab
         track: beta
 
     - name: Build with Gradle

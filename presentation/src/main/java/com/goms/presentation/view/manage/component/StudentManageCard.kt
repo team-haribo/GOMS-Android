@@ -87,8 +87,7 @@ fun StudentManageCard(
 
             Image(
                 modifier = Modifier
-                    .align(Alignment.Top)
-                    .padding(top = 5.dp)
+                    .align(Alignment.CenterVertically)
                     .clickable {
                         iconClick(item.accountIdx)
                     },

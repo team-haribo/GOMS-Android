@@ -1,6 +1,5 @@
 package com.goms.presentation.view.home
 
-import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -38,6 +37,7 @@ import coil.load
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.FragmentHomeBinding
+import com.goms.presentation.utils.GomsBlackListDialog
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard
@@ -72,15 +72,15 @@ class HomeFragment : Fragment() {
         mainActivity = activity as MainActivity
 
         homeLogic()
-        val sharedPreferences = context?.getSharedPreferences("userOuting", MODE_PRIVATE)
-        val outingStatus = sharedPreferences?.getBoolean("outingStatus", false) as Boolean
-        binding.mainOutingButton.text = if(checkUserIsAdmin(requireContext())) "QR 생성하기"
-        else if (outingStatus) "복귀하기" else "외출하기"
-
         binding.mainOutingButton.setOnClickListener {
-            if (checkUserIsAdmin(requireContext())) {
+            if (binding.mainOutingButton.text.equals("외출금지")) {
+                val activity = activity as MainActivity
+                val blackListDialog = GomsBlackListDialog()
+
+                blackListDialog.show(activity.supportFragmentManager, "blackList")
+            } else if (checkUserIsAdmin(requireContext()))
                 mainActivity.navigateToQrScan()
-            } else startActivity(Intent(context, QrCodeActivity::class.java))
+            else startActivity(Intent(context, QrCodeActivity::class.java))
         }
 
         if(checkUserIsAdmin(requireContext()))
@@ -170,12 +170,20 @@ class HomeFragment : Fragment() {
     private suspend fun setProfile() {
         profileViewModel.getProfileLogic()
         profileViewModel.profile.collect { data ->
-            response = data
+            if (data != null) {
+                response = data
 
-            binding.mainProfileCardUserNameText.text = data?.name
-            binding.mainProfileCardStudentNumberText.text =
-                "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
-            binding.mainProfileCardUserCircleImage.load(data?.profileUrl ?: R.drawable.user_profile)
+                binding.mainOutingButton.text = if(checkUserIsAdmin(requireContext())) "QR 생성하기"
+                else if (data.isOuting) "복귀하기"
+                else if (data.isBlackList) "외출금지"
+                else "외출하기"
+
+                binding.mainProfileCardUserNameText.text = data.name
+                binding.mainProfileCardStudentNumberText.text =
+                    "${data?.studentNum?.grade}학년 ${data?.studentNum?.classNum}반 ${data?.studentNum?.number}번"
+                binding.mainProfileCardUserCircleImage.load(data.profileUrl ?: R.drawable.user_profile)
+            }
+
         }
     }
 

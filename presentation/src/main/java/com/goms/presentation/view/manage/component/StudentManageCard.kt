@@ -94,7 +94,7 @@ fun StudentManageCard(
                     },
                 painter = painterResource(
                     id = if (!item.isBlackList) R.drawable.pencil_icon
-                    else R.drawable.figure_run_circle
+                    else R.drawable.manage_black_list
                 ),
                 contentDescription = "student manage icon"
             )

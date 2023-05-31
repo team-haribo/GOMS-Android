@@ -6,15 +6,18 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.presentation"
+    namespace = "com.goms.presentation"
     compileSdk = 33
 
     defaultConfig {
         minSdk = 30
         targetSdk = 33
+        versionCode = 1
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -113,4 +116,7 @@ dependencies {
 
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
     implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+
+    implementation(platform(Dependency.Google.FIREBASE_BOM))
+    implementation(Dependency.Google.FIREBASE_ANALYTICS)
 }

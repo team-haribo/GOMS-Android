@@ -19,6 +19,6 @@ package com.goms.presentation
     fun useAppContext() {
       // Context of the app under test.
       val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-      assertEquals("com.example.presentation", appContext.packageName)
+      assertEquals("com.goms.presentation", appContext.packageName)
     }
   }

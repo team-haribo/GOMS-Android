@@ -20,9 +20,9 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.R
-import com.example.presentation.databinding.ActivityStudentManageBinding
 import com.goms.domain.data.council.response.UserInfoResponseData
+import com.goms.presentation.R
+import com.goms.presentation.databinding.ActivityStudentManageBinding
 import com.goms.presentation.utils.GomsDialog
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog

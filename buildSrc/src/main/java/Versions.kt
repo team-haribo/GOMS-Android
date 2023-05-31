@@ -1,6 +1,7 @@
 object Versions {
     const val Android = "7.4.2"
     const val AndroidKotlin = "1.7.0"
+    const val GRADLE_GOOGLE = "4.3.15"
 
     const val Kotlin = "1.9.0"
     const val Appcompat = "1.6.1"
@@ -41,4 +42,6 @@ object Versions {
 
     const val Lifecycle = "2.3.1"
     const val LifecycleRuntime = "2.5.1"
+
+    const val FIREBASE_BOM = "32.0.0"
 }

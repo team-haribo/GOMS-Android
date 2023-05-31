@@ -17,8 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
-import com.example.presentation.R
-import com.example.presentation.databinding.FragmentScanCompleteBinding
+import com.goms.presentation.R
+import com.goms.presentation.databinding.FragmentScanCompleteBinding
 import com.goms.presentation.view.main.MainActivity
 
 class ScanCompleteFragment : Fragment() {

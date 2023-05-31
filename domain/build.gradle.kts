@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.domain"
+    namespace = "com.goms.domain"
     compileSdk = 33
 
     defaultConfig {

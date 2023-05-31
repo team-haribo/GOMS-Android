@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.presentation.databinding.GomsBlackListDialogBinding
+import com.goms.presentation.databinding.GomsBlackListDialogBinding
 import com.goms.presentation.view.main.MainActivity
 
 class GomsBlackListDialog: DialogFragment() {

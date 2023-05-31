@@ -12,7 +12,7 @@ import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
-import com.example.presentation.databinding.ActivityQrCodeBinding
+import com.goms.presentation.databinding.ActivityQrCodeBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.OutingViewModel

@@ -19,6 +19,6 @@ package com.goms.domain
     fun useAppContext() {
       // Context of the app under test.
       val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-      assertEquals("com.example.domain.test", appContext.packageName)
+      assertEquals("com.goms.domain.test", appContext.packageName)
     }
   }

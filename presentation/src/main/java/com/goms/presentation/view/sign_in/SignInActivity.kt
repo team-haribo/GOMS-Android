@@ -16,9 +16,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.BuildConfig
-import com.example.presentation.R
-import com.example.presentation.databinding.ActivitySignInBinding
+import com.goms.presentation.BuildConfig
+import com.goms.presentation.R
+import com.goms.presentation.databinding.ActivitySignInBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.SignInViewModel

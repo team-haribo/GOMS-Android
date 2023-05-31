@@ -9,8 +9,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.example.presentation.BuildConfig
-import com.example.presentation.databinding.FragmentQrScanBinding
+import com.goms.presentation.BuildConfig
+import com.goms.presentation.databinding.FragmentQrScanBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity

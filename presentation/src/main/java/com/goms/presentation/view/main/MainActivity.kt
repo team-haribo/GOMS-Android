@@ -73,9 +73,22 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getProfile() {
         profileViewModel.getProfileLogic()
         profileViewModel.profile.collect { data ->
-            response = data
-            binding.mainCircleProfileIcon.load(data?.profileUrl ?: R.drawable.user_profile)
+            if (data != null) {
+                response = data
+                binding.mainCircleProfileIcon.load(data.profileUrl ?: R.drawable.user_profile)
+                setOutingSf(data)
+            }
         }
+    }
+
+    private fun setOutingSf(data: ProfileResponseData) {
+        val sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        if (!sharedPreferences.contains("outingStatus"))
+            editor.putBoolean("outingStatus", false)
+
+        editor.putBoolean("outingStatus", data.isOuting)
+        editor.apply()
     }
 
     private fun setNavigation() {

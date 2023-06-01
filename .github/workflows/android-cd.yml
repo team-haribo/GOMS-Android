@@ -67,7 +67,8 @@ jobs:
       uses: r0adkll/upload-google-play@v1
       with:
         serviceAccountJson: service_account.json
-        packageName: com.goms.presentation
+#        packageName: com.goms.presentation
+        packageName: com.example.presentation
         releaseFiles: presentation/build/outputs/bundle/release/presentation-release.aab
         track: beta
 

@@ -49,8 +49,7 @@ jobs:
       id: sign
       uses: r0adkll/sign-android-release@v1
       with:
-#        releaseDirectory: presentation/build/outputs/bundle/release
-        releaseDirectory: presentation/release
+        releaseDirectory: presentation/build/outputs/bundle/release
         signingKeyBase64: ${{ secrets.SIGNING_KEY }}
         alias: ${{ secrets.ALIAS }}
         keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
@@ -61,8 +60,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app
-#        path: presentation/build/outputs/bundle/release/presentation-release.aab
-        path: presentation/release/presentation-release.aab
+        path: presentation/build/outputs/bundle/release/presentation-release.aab
 
     - name: Deploy to Play Store
       id: deploy
@@ -70,8 +68,7 @@ jobs:
       with:
         serviceAccountJson: service_account.json
         packageName: com.goms.presentation
-#        releaseFiles: presentation/build/outputs/bundle/release/presentation-release.aab
-        releaseFiles: presentation/release/presentation-release.aab
+        releaseFiles: presentation/build/outputs/bundle/release/presentation-release.aab
         track: beta
 
     - name: Build with Gradle

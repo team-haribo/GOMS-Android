@@ -1,0 +1,48 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.goms.presentation.view.qr_scan.capture.ScanCompleteFragment">
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/completed" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.25" />
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/qr_scan_complete_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.15" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/qr_scan_complete_finish_button"
+        android:layout_width="140dp"
+        android:layout_height="40dp"
+        android:background="@drawable/goms_buttom_background"
+        android:text="확인"
+        android:textColor="@color/white" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+</LinearLayout>

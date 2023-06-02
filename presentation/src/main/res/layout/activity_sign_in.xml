@@ -5,18 +5,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.presentation.view.SignInActivity">
+    tools:context="com.goms.presentation.view.sign_in.SignInActivity">
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/sign_in_btn"
-        android:layout_width="match_parent"
+    <ProgressBar
+        android:id="@+id/sign_in_progress_bar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
+        android:indeterminateTint="@color/goms_main_color_student"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/gauth_web_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sign_in_screen_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/goms_sign_in_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:src="@drawable/goms_logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/login_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goms_sign_in_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="앱으로 간편하게 GSM의 \n 수요 외출제를 이용해 보세요!"
+            android:textColor="@color/goms_main_color_gray"
+            android:textAlignment="center"
+            android:textFontWeight="@integer/material_motion_duration_medium_1"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_main_text" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/sign_in_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/gauth_web_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

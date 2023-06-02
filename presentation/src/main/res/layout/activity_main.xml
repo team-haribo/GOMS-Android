@@ -1,10 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-  <androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.presentation.view.MainActivity">
+    android:background="@color/goms_main_background"
+    android:orientation="vertical"
+    tools:context="com.goms.presentation.view.main.MainActivity">
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/toolbar_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:textSize="20sp"
+            android:textColor="?attr/mainColor"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="@string/goms" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/main_circle_profile_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/profile_icon"
+            android:layout_gravity="end"
+            android:layout_marginEnd="25dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/bottom_navigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/goms_bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:menu="@menu/bottom_navi_item"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemRippleColor="@color/goms_main_color_gray"
+        app:itemTextAppearanceActive="@style/BottomNavigationViewTextStyle"
+        app:itemTextAppearanceInactive="@style/BottomNavigationViewTextStyle"
+        app:itemIconTint="@color/bottom_navi_item_selector"
+        app:itemTextColor="@color/bottom_navi_item_selector"/>
+</LinearLayout>

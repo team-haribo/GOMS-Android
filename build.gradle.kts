@@ -1,6 +1,7 @@
 buildscript {
     dependencies {
         classpath(Dependency.Hilt.HILT_ANDROID_GRADLE)
+        classpath(Dependency.GradlePlugins.GOOGLE_PLUGIN)
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.

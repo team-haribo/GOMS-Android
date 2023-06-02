@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="350dp"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dialog_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"
+        android:fontFamily="@font/sf_pro_text_medium"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"/>
+
+    <TextView
+        android:id="@+id/dialog_content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="로그아웃 하시겠습니까?"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:textSize="14sp"
+        android:textColor="@color/goms_main_color_gray"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="23dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_button_no"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:text="아니요"
+            android:textColor="@color/goms_main_color_gray"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/dialog_button_bg_no"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_button_yes"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:text="예"
+            android:textColor="@color/white"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/dialog_button_bg_yes"/>
+    </LinearLayout>
+</LinearLayout>

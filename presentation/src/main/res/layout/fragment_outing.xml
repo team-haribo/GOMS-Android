@@ -1,0 +1,29 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.goms.presentation.view.outing.OutingFragment"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="외출현황"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp" />
+
+    <include
+        android:id="@+id/outing_loading_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/view_loading_indicator"/>
+
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/outing_student_list_lazy_column"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.goms.presentation.view.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/outingFragment"
+        android:name="com.goms.presentation.view.outing.OutingFragment"
+        android:label="fragment_outing"
+        tools:layout="@layout/fragment_outing" />
+    <fragment
+        android:id="@+id/qrScanFragment"
+        android:name="com.goms.presentation.view.qr_scan.QrScanFragment"
+        android:label="fragment_qr_scan"
+        tools:layout="@layout/fragment_qr_scan" />
+    <fragment
+        android:id="@+id/scanCompleteFragment"
+        android:name="com.goms.presentation.view.qr_scan.capture.ScanCompleteFragment"
+        android:label="fragment_complete"
+        tools:layout="@layout/fragment_scan_complete" />
+</navigation>

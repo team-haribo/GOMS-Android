@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.domain"
+    namespace = "com.goms.domain"
     compileSdk = 33
 
     defaultConfig {
@@ -15,9 +15,6 @@ android {
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        vectorDrawables {
-//            useSupportLibrary = true
-//        }
     }
 
     buildTypes {
@@ -42,6 +39,9 @@ dependencies {
     // hilt
     implementation(Dependency.Hilt.HILT_ANDROID)
     kapt(Dependency.Hilt.HILT_ANDROID_COMPILER)
+
+    // retrofit
+    implementation(Dependency.Retrofit.RETROFIT_KT)
 
     implementation(Dependency.AndroidX.KOTLIN_CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)

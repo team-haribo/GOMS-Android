@@ -3,6 +3,7 @@ object Dependency {
         const val ANDROID_APPLICATION = "com.android.application"
         const val ANDROID_LIBRARY = "com.android.library"
         const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
+        const val GOOGLE_PLUGIN = "com.google.gms:google-services:${Versions.GRADLE_GOOGLE}"
     }
 
     object AndroidX {
@@ -10,6 +11,9 @@ object Dependency {
         const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.Appcompat}"
         const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.Constraint}"
         const val ACTIVITY_KTX = "androidx.activity:activity-ktx:${Versions.ActivityKtx}"
+        const val NAVIGATION_FRAGMENT = "androidx.navigation:navigation-fragment-ktx:${Versions.Navigation}"
+        const val NAVIGATION_UI_KTX = "androidx.navigation:navigation-ui-ktx:${Versions.Navigation}"
+        const val SWIPE_REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SwipeRefreshLayout}"
     }
 
     object Compose {
@@ -32,6 +36,10 @@ object Dependency {
 
     object Libraries {
         const val GAUTH =  "com.github.GSM-MSG:GAuth-Signin-Android:${Versions.Gauth}"
+        const val CODE_SCANNER = "com.github.yuriy-budiyev:code-scanner:${Versions.CodeScanner}"
+        const val TEDPERMMISION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TedPermission}"
+        const val CIRCLE_IMAGEVIEW = "de.hdodenhof:circleimageview:${Versions.CircleImageView}"
+        const val ZXING = "com.journeyapps:zxing-android-embedded:${Versions.Zxing}"
     }
 
     object Hilt {
@@ -49,12 +57,15 @@ object Dependency {
 
     object LifeCycle {
         const val LIFECYCLE = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.Lifecycle}"
+        const val LIFECYCLE_LIVEDATA = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.Lifecycle}"
         const val LIFECYCLE_RUNTIME = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LifecycleRuntime}"
         const val LIFECYCLE_VIEWMODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.Lifecycle}"
     }
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:${Versions.Material}"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
     }
 
     object Test {
@@ -64,5 +75,10 @@ object Dependency {
     object AndroidTest {
         const val TEST_JUNIT = "androidx.test.ext:junit:${Versions.TestJunit}"
         const val ESPRESSO = "androidx.test.espresso:espresso-core:${Versions.Espresso}"
+    }
+
+    object Coil {
+        const val COIL_COMPOSE = "com.github.skydoves:landscapist-coil:${Versions.CoilCompose}"
+        const val COIL_VIEW = "io.coil-kt:coil:${Versions.CoilView}"
     }
 }

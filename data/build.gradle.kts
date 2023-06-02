@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.goms.data"
     compileSdk = 33
 
     defaultConfig {
@@ -15,9 +15,8 @@ android {
         targetSdk = 33
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        vectorDrawables {
-//            useSupportLibrary = true
-//        }
+
+        buildConfigField("String", "BASE_URL", getKey("BASE_URL"))
     }
 
     buildTypes {
@@ -36,6 +35,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+fun getKey(propertyKey: String): String {
+    return com.android.build.gradle.internal.cxx.configure.gradleLocalProperties(rootDir).getProperty(propertyKey)
 }
 
 dependencies {

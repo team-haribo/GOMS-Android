@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.presentation">
+    package="com.goms.presentation">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
-        android:name="com.example.presentation.di.GomsApplication"
+        android:name=".di.GomsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.GSM_GOMS"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
-            android:name="com.example.presentation.view.SignInActivity"
+            android:name=".view.manage.StudentManageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.GSM_GOMS_ADMIN"
+            android:exported="false" />
+        <activity
+            android:name=".view.splash.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +37,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.presentation.view.MainActivity"
+            android:name=".view.qr_scan.capture.QrCodeActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".view.profile.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+        <activity
+            android:name=".view.sign_in.SignInActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:theme="@style/Theme.GSM_GOMS" />
+        <activity
+            android:name=".view.main.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true" />
     </application>
 

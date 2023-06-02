@@ -1,23 +1,30 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     id("kotlin-parcelize")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.presentation"
+    namespace = "com.goms.presentation"
     compileSdk = 33
 
     defaultConfig {
+        applicationId = "com.goms.presentation"
         minSdk = 30
         targetSdk = 33
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//        vectorDrawables {
-//            useSupportLibrary = true
-//        }
+
+        buildConfigField("String", "CLIENT_ID", getKey("CLIENT_ID"))
+        buildConfigField("String", "REDIRECT_URL", getKey("REDIRECT_URL"))
+        buildConfigField("String", "BASE_URL", getKey("BASE_URL"))
     }
 
     buildTypes {
@@ -42,21 +49,38 @@ android {
     }
 }
 
+fun getKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
+}
+
 dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
 
     // gauth
     implementation(Dependency.Libraries.GAUTH)
+    // code scanner
+    implementation(Dependency.Libraries.CODE_SCANNER)
+    // permission
+    implementation(Dependency.Libraries.TEDPERMMISION)
+    // circle image
+    implementation(Dependency.Libraries.CIRCLE_IMAGEVIEW)
+    // zxing
+    implementation(Dependency.Libraries.ZXING)
 
     // lifecycle
     implementation(Dependency.LifeCycle.LIFECYCLE)
+    implementation(Dependency.LifeCycle.LIFECYCLE_LIVEDATA)
     implementation(Dependency.LifeCycle.LIFECYCLE_RUNTIME)
     implementation(Dependency.LifeCycle.LIFECYCLE_VIEWMODEL_KTX)
 
     // hilt
     implementation(Dependency.Hilt.HILT_ANDROID)
     kapt(Dependency.Hilt.HILT_ANDROID_COMPILER)
+
+    // coil
+    implementation(Dependency.Coil.COIL_COMPOSE)
+    implementation(Dependency.Coil.COIL_VIEW)
 
     // retrofit
     implementation(Dependency.Retrofit.RETROFIT_KT)
@@ -74,17 +98,26 @@ dependencies {
     implementation(Dependency.Compose.COMPOSE_ICON)
     implementation(Dependency.Compose.COMPOSE_PAGER)
     implementation(Dependency.Compose.PAGER_INDICATORS)
-    testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
     debugImplementation(Dependency.Compose.COMPOSE_TOOLING)
     debugImplementation(Dependency.Compose.COMPOSE_MANIFEST)
+    testImplementation(Dependency.ComposeTest.COMPOSE_JUNIT)
+
+    // navigation
+    implementation(Dependency.AndroidX.NAVIGATION_FRAGMENT)
+    implementation(Dependency.AndroidX.NAVIGATION_UI_KTX)
 
     implementation(Dependency.AndroidX.KOTLIN_CORE)
     implementation(Dependency.AndroidX.APPCOMPAT)
-    implementation(Dependency.Google.MATERIAL)
+    implementation(Dependency.AndroidX.ACTIVITY_KTX)
     implementation(Dependency.AndroidX.CONSTRAINT_LAYOUT)
+    implementation(Dependency.Google.MATERIAL)
     testImplementation(Dependency.Test.JUNIT)
     androidTestImplementation(Dependency.AndroidTest.TEST_JUNIT)
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO)
 
-    implementation(Dependency.AndroidX.ACTIVITY_KTX)
+    implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+
+    implementation(platform(Dependency.Google.FIREBASE_BOM))
+    implementation(Dependency.Google.FIREBASE_ANALYTICS)
 }

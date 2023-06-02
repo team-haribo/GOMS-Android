@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/modify_role_bottom_sheet_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/admin_filter_background"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp">
+
+        <TextView
+            android:id="@+id/modify_filter_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/sf_pro_text_medium"
+            android:text="역할"
+            android:textColor="@color/goms_filter_title_color"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@+id/modify_filter_attr_student"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_filter_attr_student"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="학생"
+            android:textColor="@color/goms_second_color_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/modify_filter_attr_council"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/modify_filter_title_text" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_filter_attr_council"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="학생회"
+            android:textColor="@color/goms_second_color_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/modify_filter_attr_student"
+            app:layout_constraintEnd_toStartOf="@+id/modify_filter_attr_blacklist"
+            app:layout_constraintStart_toEndOf="@+id/modify_filter_attr_student"
+            app:layout_constraintTop_toTopOf="@+id/modify_filter_attr_student" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_filter_attr_blacklist"
+            android:layout_width="75dp"
+            android:layout_height="35dp"
+            android:background="@drawable/admin_attribute_button_unselected"
+            android:fontFamily="@font/sf_pro_text_regular"
+            android:text="외출 금지"
+            android:textColor="@color/goms_second_color_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/modify_filter_attr_council"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/modify_filter_attr_council"
+            app:layout_constraintTop_toTopOf="@+id/modify_filter_attr_council" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="23dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modify_filter_modify_role_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="25dp"
+            android:text="수정하기"
+            android:fontFamily="@font/sf_pro_text_semibold"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:background="@drawable/admin_attribute_button_selected"/>
+    </LinearLayout>
+</LinearLayout>

@@ -69,7 +69,7 @@ jobs:
         serviceAccountJson: service_account.json
         packageName: com.goms.presentation
         releaseFiles: presentation/build/outputs/bundle/release/presentation-release.aab
-        track: beta
+        track: production
 
     - name: Build with Gradle
       run: ./gradlew build

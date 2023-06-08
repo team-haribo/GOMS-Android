@@ -4,7 +4,7 @@
 
 ## 🤔 GOMS?
 ### GOMS는 다음과 같은 목적으로 탄생했어요 <br>
-<span>1. 나간 학생을 학생회 학생들이 수기로 일일이 학생들을 체크해야 하는 점,</span><br> 
+<span>1. 나간 학생을 학생회 학생들이 수기로 일일히 학생들을 체크해야 하는 점,</span><br> 
 <span>2. 체크하지 않은 학생들이 혹여 지각한다면 누가 지각을 했는지 한눈에 확인할 수 없다는 점</span><br>
 
 ### GOMS는 아래의 기능들을 제공해요. </span><br>
@@ -20,7 +20,7 @@
 <img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d3b3cd2f-1233-4abe-9f79-3af32ab36f97.png width=190 /> &nbsp; &nbsp;
 <img src = https://github.com/team-goms/GOMS-Android/assets/84944098/d5b743b8-1ed7-4aea-9584-acd4a1cb7a42.png width=190 /> &nbsp; &nbsp;
 <img src = https://github.com/team-goms/GOMS-Android/assets/84944098/e7e214bb-e9ba-4ddd-8a65-239f60475c4c.png width=190 /> &nbsp; &nbsp;
-<img src = https://github.com/team-goms/GOMS-Android/assets/84944098/46b10027-e535-4808-8359-1d1f3eaf5372.png width=190 />
+<img src = https://cdn.discordapp.com/attachments/1084762340123217980/1116228881880469564/6.5.png width=190 />
 </p>
 
 ## 🗂️ Packages

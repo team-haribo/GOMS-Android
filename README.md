@@ -104,3 +104,5 @@ GOMS Android
 - Cooperation: Git, Github, GitFlow
 - AAC(Android Architecture Components)
 
+## 🎮 Installation
+<a href='https://play.google.com/store/apps/details?id=com.goms.presentation'><img alt='Available on the Play Store' src='https://user-images.githubusercontent.com/67373938/227817080-0c069757-4000-4e3e-919b-b062e667ecc4.svg' height='60px'/></a>

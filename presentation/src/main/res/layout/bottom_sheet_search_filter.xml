@@ -35,14 +35,33 @@
             android:layout_marginEnd="15dp"/>
     </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:text="역할"
-        android:textColor="@color/goms_filter_title_color"
-        android:textSize="16sp"
-        android:fontFamily="@font/sf_pro_text_medium"/>
+        android:layout_marginEnd="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="역할"
+            android:textColor="@color/goms_filter_title_color"
+            android:textSize="16sp"
+            android:fontFamily="@font/sf_pro_text_medium"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/filter_reset_image"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/filter_reset_icon"
+            android:layout_gravity="center"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

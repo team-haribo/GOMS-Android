@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -33,11 +34,12 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
 
         bottomSheetLogic()
         binding.filterSearchButton.setOnClickListener {
+            val name = binding.searchFilterEditText.text.toString()
             lifecycleScope.launch {
                 councilViewModel.searchStudent(
                     grade = changeGrade,
                     classNum = changeClassNum,
-                    name = binding.searchFilterEditText.text.toString(),
+                    name = name.ifEmpty { null },
                     isBlackList = setIsBlackList(),
                     authority = setAuthority()
                 )
@@ -64,14 +66,19 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun setAuthority(): String? {
-        return if (changeRole == "BLACK_LIST")
-           "ROLE_STUDENT"
+        return if (changeRole == "BLACK_LIST") null
         else changeRole
     }
 
     private fun bottomSheetLogic() {
         val roleButtons = listOf(binding.filterAttrStudent, binding.filterAttrCouncil, binding.filterAttrBlacklist)
         val roleTexts = listOf("ROLE_STUDENT", "ROLE_STUDENT_COUNCIL", "BLACK_LIST")
+
+        val gradeButtons = listOf(binding.filterAttrGrade1, binding.filterAttrGrade2, binding.filterAttrGrade3)
+        val gradeTexts = listOf("1", "2", "3")
+
+        val classButtons = listOf(binding.filterAttrClass1, binding.filterAttrClass2, binding.filterAttrClass3, binding.filterAttrClass4)
+        val classTexts = listOf("1", "2", "3", "4")
 
         for (button in roleButtons) {
             button.setOnClickListener {
@@ -90,9 +97,6 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
             }
         }
 
-        val gradeButtons = listOf(binding.filterAttrGrade1, binding.filterAttrGrade2, binding.filterAttrGrade3)
-        val gradeTexts = listOf("1", "2", "3")
-
         for (button in gradeButtons) {
             button.setOnClickListener {
                 for (grade in gradeButtons) {
@@ -110,10 +114,6 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
             }
         }
 
-        val classButtons = listOf(binding.filterAttrClass1, binding.filterAttrClass2,
-            binding.filterAttrClass3, binding.filterAttrClass4)
-        val classTexts = listOf("1", "2", "3", "4")
-
         for (button in classButtons) {
             button.setOnClickListener {
                 for (classNum in classButtons) {
@@ -126,6 +126,28 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                     } else {
                         classNum.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
                         classNum.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))
+                    }
+                }
+            }
+        }
+
+        val buttonList = listOf(roleButtons, gradeButtons, classButtons)
+        clearButtonLogic(buttonList)
+    }
+
+    private fun clearButtonLogic(list: List<List<AppCompatButton>>) {
+        binding.filterResetImage.setOnClickListener {
+            clearButtonColor(list)
+        }
+    }
+
+    private fun clearButtonColor(buttonList: List<List<AppCompatButton>>) {
+        for (list in buttonList) {
+            for (button in list) {
+                for (item in list) {
+                    if (item == button) {
+                        item.setBackgroundResource(R.drawable.admin_attribute_button_unselected)
+                        item.setTextColor(ContextCompat.getColor(requireContext(), R.color.goms_second_color_gray))
                     }
                 }
             }

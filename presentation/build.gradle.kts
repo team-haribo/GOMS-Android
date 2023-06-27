@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.goms.presentation"
-        minSdk = 30
+        minSdk = 29
         targetSdk = 33
         versionCode = 4
         versionName = "1.0.2"

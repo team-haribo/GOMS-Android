@@ -27,6 +27,7 @@ import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class SignInActivity : AppCompatActivity() {
@@ -109,5 +110,16 @@ class SignInActivity : AppCompatActivity() {
                 signInViewModel.setAuthority(signInResponse.authority)
             }
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+        exitProcess(0)
     }
 }

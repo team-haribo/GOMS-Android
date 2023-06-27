@@ -94,7 +94,7 @@ GOMS Android
 
 ## :rocket: Tech Skills
 - Language: Kotlin
-- Minumun SDK 30
+- Minumun SDK 29
 - Architecture: Clean Architecture, MVVM
 - Async: Coroutine
 - DI: Dagger-Hilt

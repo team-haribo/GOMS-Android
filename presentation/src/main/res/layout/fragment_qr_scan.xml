@@ -30,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="외출하기"
+            android:textColor="@color/black"
             android:fontFamily="@font/sf_pro_text_semibold"
             android:textSize="22sp" />
 
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="모바일 기기로\nQRCode를 스캔한 후 외출해주세요!"
+            android:textColor="@color/black"
             android:textAlignment="center"
             android:textSize="16sp"
             android:fontFamily="@font/sf_pro_text_medium"/>
@@ -66,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="남은 시간"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:fontFamily="@font/sf_pro_text_semibold"/>
 

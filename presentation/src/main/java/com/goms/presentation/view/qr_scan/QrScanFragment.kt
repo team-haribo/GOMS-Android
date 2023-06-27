@@ -49,7 +49,7 @@ class QrScanFragment : Fragment() {
 
     private fun createQrCode(uuid: UUID?) {
         val barCodeEncoder = BarcodeEncoder()
-        val bitmap = barCodeEncoder.encodeBitmap(BuildConfig.BASE_URL+uuid, BarcodeFormat.QR_CODE, 300, 300)
+        val bitmap = barCodeEncoder.encodeBitmap(BuildConfig.BASE_URL+ "outing/" + uuid, BarcodeFormat.QR_CODE, 300, 300)
         binding.outingQrCodeImage.setImageBitmap(bitmap)
     }
 

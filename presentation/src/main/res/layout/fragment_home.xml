@@ -237,6 +237,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="학생 관리하기"
+                    android:textColor="@color/black"
                     android:fontFamily="@font/sf_pro_text_medium"
                     android:textSize="16sp"/>
             </LinearLayout>

@@ -1,258 +1,265 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.goms.presentation.view.home.HomeFragment"
-    android:orientation="vertical">
-
-    <include
-        android:id="@+id/home_loading_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        layout="@layout/view_loading_indicator"
-        android:visibility="gone"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.34"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.goms.presentation.view.home.HomeFragment">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginStart="25dp"
-            android:gravity="start|center"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/goms_main_title_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_bold"
-                    android:text="간편하게\n수요 외출제를\n이용해 보세요!"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    android:layout_marginBottom="15dp"
-                    app:layout_constraintBottom_toTopOf="@+id/main_outing_button"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/main_outing_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sf_pro_text_semibold"
-                    android:background="@drawable/goms_buttom_background"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/goms_main_title_text"
-                    app:layout_constraintStart_toStartOf="@+id/goms_main_title_text" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/shopping_bags_tdby"
-            android:layout_marginEnd="25dp"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.18">
-
-        <LinearLayout
-            android:id="@+id/home_outing_student_card_view"
+        <include
+            android:id="@+id/home_loading_indicator"
+            layout="@layout/view_loading_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="center|start"
-            android:background="@drawable/main_horizontal_card_background"
-            android:elevation="2dp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="0.34"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/total_student_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="현재 183명의 학생 중에서"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:textSize="12sp"/>
-
-                <androidx.compose.ui.platform.ComposeView
-                    android:id="@+id/current_student_outing_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <View
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/right_arrow_orange"
-                app:tint="?attr/mainColor" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.3"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="지각의 전당"
-            android:fontFamily="@font/sf_pro_text_bold"
-            android:textSize="20sp"
-            android:layout_marginStart="25dp"
-            android:textColor="#787878"/>
-
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/late_ranking_lazy_row"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.18">
-
-        <LinearLayout
-            android:id="@+id/main_profile_card_view_student"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/main_horizontal_card_background"
-            android:elevation="2dp"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:visibility="gone">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/main_profile_card_user_circle_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:src="@drawable/user_profile" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/main_profile_card_user_name_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:text="김성길"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/main_profile_card_student_number_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/sf_pro_text_regular"
-                    android:text="3학년 4반 2번"
-                    android:textColor="@color/goms_main_color_gray"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/right_arrow_orange"
-                app:tint="?attr/mainColor"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/main_profile_card_view_admin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/main_horizontal_card_background"
-            android:elevation="2dp"
-            android:gravity="center|start"
-            android:orientation="horizontal"
-            android:visibility="visible">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="15dp"
+                android:layout_marginStart="25dp"
+                android:layout_weight="1"
+                android:gravity="start|center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="모든 학생들의 역할을 관리해보세요!"
-                    android:textColor="@color/goms_second_color_gray"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/sf_pro_text_regular"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="학생 관리하기"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sf_pro_text_medium"
-                    android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/goms_main_title_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/sf_pro_text_bold"
+                        android:text="간편하게\n수요 외출제를\n이용해 보세요!"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toTopOf="@+id/main_outing_button"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/main_outing_button"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/goms_buttom_background"
+                        android:fontFamily="@font/sf_pro_text_semibold"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/goms_main_title_text"
+                        app:layout_constraintStart_toStartOf="@+id/goms_main_title_text" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
             <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1"
+                android:scaleType="centerCrop"
+                android:src="@drawable/shopping_bags_tdby" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.18">
+
+            <LinearLayout
+                android:id="@+id/home_outing_student_card_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/main_horizontal_card_background"
+                android:elevation="2dp"
+                android:gravity="center|start"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/total_student_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="현재 183명의 학생 중에서"
+                        android:textSize="12sp" />
+
+                    <androidx.compose.ui.platform.ComposeView
+                        android:id="@+id/current_student_outing_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/right_arrow_orange"
+                    app:tint="?attr/mainColor" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/right_arrow_orange"
-                app:tint="?attr/mainColor"/>
+                android:layout_marginStart="25dp"
+                android:fontFamily="@font/sf_pro_text_bold"
+                android:text="지각의 전당"
+                android:textColor="#787878"
+                android:textSize="20sp" />
+
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/late_ranking_lazy_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.18">
+
+            <LinearLayout
+                android:id="@+id/main_profile_card_view_student"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/main_horizontal_card_background"
+                android:elevation="2dp"
+                android:gravity="center|start"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/main_profile_card_user_circle_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:src="@drawable/user_profile" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/main_profile_card_user_name_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_medium"
+                        android:text="김성길"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/main_profile_card_student_number_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="3학년 4반 2번"
+                        android:textColor="@color/goms_main_color_gray"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/right_arrow_orange"
+                    app:tint="?attr/mainColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/main_profile_card_view_admin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/main_horizontal_card_background"
+                android:elevation="2dp"
+                android:gravity="center|start"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="15dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_regular"
+                        android:text="모든 학생들의 역할을 관리해보세요!"
+                        android:textColor="@color/goms_second_color_gray"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sf_pro_text_medium"
+                        android:text="학생 관리하기"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/right_arrow_orange"
+                    app:tint="?attr/mainColor" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

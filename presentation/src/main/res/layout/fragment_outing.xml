@@ -1,29 +1,37 @@
-<LinearLayout
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goms.presentation.view.outing.OutingFragment"
-    android:orientation="vertical">
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="외출현황"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp" />
-
-    <include
-        android:id="@+id/outing_loading_indicator"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/view_loading_indicator"/>
+        android:orientation="vertical"
+        tools:context="com.goms.presentation.view.outing.OutingFragment">
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/outing_student_list_lazy_column"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="외출현황"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <include
+            android:id="@+id/outing_loading_indicator"
+            layout="@layout/view_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/outing_student_list_lazy_column"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+

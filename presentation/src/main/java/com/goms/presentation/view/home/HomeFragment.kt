@@ -100,6 +100,11 @@ class HomeFragment : Fragment() {
             startActivity(Intent(context, StudentManageActivity::class.java))
         }
 
+        binding.refreshLayout.setOnRefreshListener {
+            homeLogic()
+            binding.refreshLayout.isRefreshing = false
+        }
+
         return binding.root
     }
 

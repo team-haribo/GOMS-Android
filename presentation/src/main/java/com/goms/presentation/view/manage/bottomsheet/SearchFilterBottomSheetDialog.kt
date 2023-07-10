@@ -139,6 +139,10 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
 
     private fun clearButtonLogic(list: List<List<AppCompatButton>>) {
         binding.filterResetImage.setOnClickListener {
+            changeRole = null
+            changeGrade = null
+            changeClassNum = null
+
             clearButtonColor(list)
         }
     }

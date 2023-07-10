@@ -33,14 +33,19 @@ class OutingFragment : Fragment() {
     private val outingViewModel by viewModels<OutingViewModel>()
     private lateinit var binding: FragmentOutingBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View {
+        savedInstanceState: Bundle?
+    ) : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
-        outingLogic()
+        binding.refreshLayout.setOnRefreshListener {
+            outingLogic()
+            binding.refreshLayout.isRefreshing = false
+        }
+
         return binding.root
     }
 

@@ -1,12 +1,8 @@
 package com.goms.presentation.view.outing.component
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -16,7 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -26,11 +25,17 @@ import androidx.compose.ui.unit.sp
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.R
 import com.skydoves.landscapist.coil.CoilImage
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 @Composable
-fun OutingStudentCard(item: UserResponseData) {
+fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
     val outingCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal)
+    )
+    val timeFont = FontFamily(
+        Font(R.font.sf_pro_text_light, FontWeight.Light)
     )
 
     Card(
@@ -74,6 +79,37 @@ fun OutingStudentCard(item: UserResponseData) {
                     color = colorResource(id = R.color.goms_main_color_gray)
                 )
             }
+
+            val time = item.createdTime.convertDateTimeFormat()
+            Text(
+                modifier = Modifier.padding(top = 35.dp, start = 6.dp),
+                style = TextStyle(
+                    fontFamily = timeFont,
+                    fontSize = 12.sp
+                ),
+                color = Color(0x4D000000),
+                text = time
+            )
+            
+            Spacer(modifier = Modifier.weight(1f))
+
+            Image(
+                modifier = Modifier
+                    .padding(end = 20.dp)
+                    .clickable{ onClick(item.accountIdx) }
+                    .align(Alignment.CenterVertically)
+                    .wrapContentSize(),
+                contentDescription = "Delete outing student icon",
+                painter = painterResource(id = R.drawable.delete_button_bg)
+            )
         }
     }
+}
+
+fun String.convertDateTimeFormat(): String {
+    val inputFormat = DateTimeFormatter.ISO_DATE_TIME
+    val outputFormat = DateTimeFormatter.ofPattern("HH:mm")
+
+    val time = LocalDateTime.parse(this, inputFormat)
+    return time.format(outputFormat)
 }

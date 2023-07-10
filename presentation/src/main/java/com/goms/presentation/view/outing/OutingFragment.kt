@@ -37,8 +37,8 @@ class OutingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View {
+        savedInstanceState: Bundle?
+    ) : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
         binding.refreshLayout.setOnRefreshListener {

@@ -12,4 +12,6 @@ interface OutingDataSource {
     suspend fun getOutingList(): Flow<List<UserResponse>>
 
     suspend fun getOutingCount(): Flow<OutingCountResponse>
+
+    suspend fun searchOutingStudent(name: String): Flow<List<UserResponse>>
 }

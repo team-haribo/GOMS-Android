@@ -15,17 +15,37 @@
         android:textColor="@color/black"
         android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/outing_student_search"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="160dp"
-        android:cursorVisible="false"
-        android:hint="찾으시는 학생이 있으신가요?"
-        android:paddingStart="14dp"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/outing_student_search"
+            android:layout_width="236dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/search_edit_text_background"
+            android:cursorVisible="false"
+            android:hint="찾으시는 학생이 있으신가요?"
+            android:imeOptions="actionSearch"
+            android:paddingStart="14dp"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/outing_student_search_button"
+            android:layout_width="78dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/goms_buttom_background"
+            android:text="검색"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+    </LinearLayout>
 
     <include
         android:id="@+id/outing_loading_indicator"

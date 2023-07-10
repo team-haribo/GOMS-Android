@@ -136,7 +136,11 @@ class CouncilViewModel @Inject constructor(
         authority: String?
     ) {
         viewModelScope.launch {
-            searchStudentUseCase(grade, classNum, name, isBlackList, authority).catch {
+            searchStudentUseCase(grade, classNum, name, isBlackList, authority).onStart {
+                    _isLoading.value = true
+                }.onCompletion {
+                    _isLoading.value = false
+                }.catch {
                 if (it is HttpException) {
                     when (it.code()) {
                         403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
@@ -186,5 +190,4 @@ class CouncilViewModel @Inject constructor(
             }, 0, 1000)
         }
     }
-
 }

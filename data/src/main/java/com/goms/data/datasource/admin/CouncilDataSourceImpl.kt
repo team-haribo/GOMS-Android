@@ -54,4 +54,10 @@ class CouncilDataSourceImpl @Inject constructor(
             emit(councilApi.makeQrCode())
         }
     }
+
+    override suspend fun deleteOuting(accountIdx: UUID): Flow<Response<Unit>> {
+        return flow {
+            emit(councilApi.deleteOuting(accountIdx))
+        }
+    }
 }

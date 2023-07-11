@@ -10,6 +10,7 @@ import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserIsBlackListException
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
+import com.goms.domain.usecase.outing.OutingStudentSearchUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +27,8 @@ import javax.inject.Inject
 class OutingViewModel @Inject constructor(
     private val outingUseCase: OutingUseCase,
     private val outingListUseCase: OutingListUseCase,
-    private val outingCountUseCase: OutingCountUseCase
+    private val outingCountUseCase: OutingCountUseCase,
+    private val outingStudentSearchUseCase: OutingStudentSearchUseCase
 ): ViewModel() {
     private val _isOuting: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val isOuting: StateFlow<Boolean?> = _isOuting
@@ -92,6 +94,22 @@ class OutingViewModel @Inject constructor(
             } else throw OtherException(it.message)
         }.collect {
             _outingCount.value = it
+        }
+    }
+
+    suspend fun searchOutingStudent(name: String){
+        outingStudentSearchUseCase(name).onStart {
+            _isLoading.value = true
+        }.onCompletion {
+            _isLoading.value = false
+        }.catch {
+            if (it is HttpException){
+                when (it.code()){
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                }
+            }else throw OtherException(it.message)
+        }.collect{
+            _outingList.value = it
         }
     }
 }

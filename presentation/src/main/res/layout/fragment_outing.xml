@@ -59,6 +59,5 @@
         android:id="@+id/outing_student_list_lazy_column"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

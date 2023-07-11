@@ -15,9 +15,6 @@ M
 presentation/build.gradle.kts,b/b/bbb5f5d9acc7530bc591aed4f71c56457464aa34
 G
 presentation/.gitignore,f/b/fbca453880d1e4bf85dee45541fc678b5da70bdf
-:
-
-.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
 €
 Ppresentation/src/main/java/com/goms/presentation/view/profile/ProfileActivity.kt,3/5/3511f000fb254bf4f7160df083126128958b7118
 z

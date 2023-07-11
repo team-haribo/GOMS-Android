@@ -80,7 +80,6 @@ fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
                 )
             }
 
-            val time = item.createdTime.convertDateTimeFormat()
             Text(
                 modifier = Modifier.padding(top = 35.dp, start = 6.dp),
                 style = TextStyle(
@@ -88,7 +87,7 @@ fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
                     fontSize = 12.sp
                 ),
                 color = Color(0x4D000000),
-                text = time
+                text = item.createdTime
             )
             
             Spacer(modifier = Modifier.weight(1f))
@@ -104,12 +103,4 @@ fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
             )
         }
     }
-}
-
-fun String.convertDateTimeFormat(): String {
-    val inputFormat = DateTimeFormatter.ISO_DATE_TIME
-    val outputFormat = DateTimeFormatter.ofPattern("HH:mm")
-
-    val time = LocalDateTime.parse(this, inputFormat)
-    return time.format(outputFormat)
 }

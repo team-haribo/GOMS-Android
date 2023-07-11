@@ -1,5 +1,6 @@
 package com.goms.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
@@ -9,11 +10,7 @@ import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import org.json.JSONObject
 import retrofit2.HttpException
 import java.util.UUID
@@ -105,6 +102,11 @@ class OutingViewModel @Inject constructor(
                     500 -> throw ServerException("서버 에러")
                 }
             } else throw OtherException(it.message)
+        }.collect {
+            when (it.code()) {
+                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                500 -> throw ServerException("서버 에러")
+            }
         }
     }
 }

@@ -35,11 +35,12 @@ class OutingFragment : Fragment() {
     private val outingViewModel by viewModels<OutingViewModel>()
     private lateinit var binding: FragmentOutingBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?)
-    : View {
+        savedInstanceState: Bundle?
+    ) : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
         binding.outingStudentSearchButton.setOnClickListener { view ->
@@ -47,6 +48,12 @@ class OutingFragment : Fragment() {
             searchOutingStudentLogic(name = inputText)
         }
         outingLogic()
+        
+        binding.refreshLayout.setOnRefreshListener {
+            outingLogic()
+            binding.refreshLayout.isRefreshing = false
+        }
+
         return binding.root
     }
 

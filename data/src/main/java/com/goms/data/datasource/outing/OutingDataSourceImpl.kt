@@ -29,4 +29,10 @@ class OutingDataSourceImpl @Inject constructor(
             emit(outingApi.getOutingCount())
         }
     }
+
+    override suspend fun searchOutingStudent(name: String): Flow<List<UserResponse>> {
+        return flow{
+            emit(outingApi.searchOutingStudent(name))
+        }
+    }
 }

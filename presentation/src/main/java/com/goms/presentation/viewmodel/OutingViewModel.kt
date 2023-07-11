@@ -1,6 +1,5 @@
 package com.goms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
@@ -8,6 +7,7 @@ import com.goms.domain.exception.*
 import com.goms.domain.usecase.admin.DeleteOutingUseCase
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
+import com.goms.domain.usecase.outing.OutingStudentSearchUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -21,6 +21,7 @@ class OutingViewModel @Inject constructor(
     private val outingUseCase: OutingUseCase,
     private val outingListUseCase: OutingListUseCase,
     private val outingCountUseCase: OutingCountUseCase,
+    private val outingStudentSearchUseCase: OutingStudentSearchUseCase,
     private val deleteOutingUseCase: DeleteOutingUseCase
 ) : ViewModel() {
     private val _isOuting: MutableStateFlow<Boolean?> = MutableStateFlow(null)
@@ -90,6 +91,19 @@ class OutingViewModel @Inject constructor(
         }
     }
 
+
+    suspend fun searchOutingStudent(name: String){
+        outingStudentSearchUseCase(name).catch {
+          if (it is HttpException){
+                when (it.code()){
+                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                }
+            }else throw OtherException(it.message)
+        }.collect{
+            _outingList.value = it
+        }
+    }
+
     suspend fun deleteOuting(accountIdx: UUID) {
         deleteOutingUseCase(accountIdx).onStart {
             _isLoading.value = true
@@ -109,4 +123,5 @@ class OutingViewModel @Inject constructor(
             }
         }
     }
+    
 }

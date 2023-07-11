@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -42,6 +44,12 @@ class OutingFragment : Fragment() {
     ) : View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
+        binding.outingStudentSearchButton.setOnClickListener { view ->
+            var inputText = binding.outingStudentSearch.text.toString()
+            searchOutingStudentLogic(name = inputText)
+        }
+        outingLogic()
+        
         binding.refreshLayout.setOnRefreshListener {
             outingLogic()
             binding.refreshLayout.isRefreshing = false
@@ -69,6 +77,19 @@ class OutingFragment : Fragment() {
             }
         }
     }
+
+    private fun searchOutingStudentLogic(name: String) {
+        lifecycleScope.launch {
+            outingViewModel.searchOutingStudent(name)
+            outingViewModel.outingList.collect { list ->
+                binding.outingStudentListLazyColumn.setContent {
+                    if (list!!.isEmpty()) EmptyScreen()
+                    else OutingLazyColumn(list)
+                }
+            }
+        }
+    }
+
 
     private fun setLoading() {
         lifecycleScope.launch {

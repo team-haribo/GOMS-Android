@@ -12,4 +12,6 @@ interface OutingRepository {
     suspend fun getOutingList(): Flow<List<UserResponseData>>
 
     suspend fun getOutingCount(): Flow<OutingCountResponseData>
+
+    suspend fun searchOutingStudent(name: String): Flow<List<UserResponseData>>
 }

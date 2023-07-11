@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context="com.goms.presentation.view.outing.OutingFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,15 +53,18 @@
 
     </LinearLayout>
 
-    <include
-        android:id="@+id/outing_loading_indicator"
-        layout="@layout/view_loading_indicator"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <include
+            android:id="@+id/outing_loading_indicator"
+            layout="@layout/view_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/outing_student_list_lazy_column"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/outing_student_list_lazy_column"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

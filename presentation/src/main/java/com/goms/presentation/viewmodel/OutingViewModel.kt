@@ -1,6 +1,5 @@
 package com.goms.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
@@ -94,15 +93,15 @@ class OutingViewModel @Inject constructor(
 
 
     suspend fun searchOutingStudent(name: String){
-        outingStudentSearchUseCase(name).onStart {
+        outingStudentSearchUseCase(name).catch {
           if (it is HttpException){
                 when (it.code()){
                     401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
                 }
             }else throw OtherException(it.message)
         }.collect{
-            _outingList.value = it}
-        
+            _outingList.value = it
+        }
     }
 
     suspend fun deleteOuting(accountIdx: UUID) {

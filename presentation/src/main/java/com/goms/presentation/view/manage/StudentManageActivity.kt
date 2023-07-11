@@ -29,6 +29,7 @@ import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
 import com.goms.presentation.view.manage.component.StudentManageCard
+import com.goms.presentation.view.manage.data.UserFilterOptions
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -43,6 +44,8 @@ class StudentManageActivity : AppCompatActivity() {
 
     private lateinit var searchFilterBottomSheetDialogBinding: SearchFilterBottomSheetDialog
     private lateinit var bottomSheetModifyRoleDialog: ModifyRoleBottomSheetDialog
+
+    private var userFilterOptions: UserFilterOptions? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,7 +67,10 @@ class StudentManageActivity : AppCompatActivity() {
         lifecycleScope.launch {
             apiErrorHandling(
                 context = this@StudentManageActivity,
-                logic = { getUserList() }
+                logic = {
+                    if (userFilterOptions != null) refreshSearchUser(userFilterOptions!!)
+                    else getUserList()
+                }
             )
         }
     }
@@ -136,39 +142,80 @@ class StudentManageActivity : AppCompatActivity() {
 
     fun searchUserList(list: List<UserInfoResponseData>) {
         binding.manageStudentStudentList.setContent {
+            val isRefreshResult by councilViewModel.isLoading.collectAsState()
+
             if (list.isEmpty()) SearchResultEmptyScreen()
             else {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(top = 2.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                    contentPadding = PaddingValues(horizontal = 2.dp)
+                SwipeRefresh(
+                    state = rememberSwipeRefreshState(isRefreshing = isRefreshResult),
+                    onRefresh = { studentManageLogic() },
+                    indicator = { state, refreshTrigger ->
+                        SwipeRefreshIndicator(
+                            state = state,
+                            refreshTriggerDistance = refreshTrigger,
+                            contentColor = colorResource(id = R.color.goms_main_color_admin)
+                        )
+                    }
                 ) {
-                    items(list) { item ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
-                        ) {
-                            StudentManageCard(
-                                item = UserInfoResponseData(
-                                    accountIdx = item.accountIdx,
-                                    name = item.name,
-                                    studentNum = item.studentNum,
-                                    profileUrl = item.profileUrl,
-                                    authority = item.authority,
-                                    isBlackList = item.isBlackList
-                                ),
-                                iconClick = { uuid ->
-                                    bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
-                                    bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
-                                }
-                            )
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(top = 2.dp),
+                        verticalArrangement = Arrangement.spacedBy(10.dp),
+                        contentPadding = PaddingValues(horizontal = 2.dp)
+                    ) {
+                        items(list) { item ->
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .shadow(elevation = 1.dp, shape = RoundedCornerShape(10.dp))
+                            ) {
+                                StudentManageCard(
+                                    item = UserInfoResponseData(
+                                        accountIdx = item.accountIdx,
+                                        name = item.name,
+                                        studentNum = item.studentNum,
+                                        profileUrl = item.profileUrl,
+                                        authority = item.authority,
+                                        isBlackList = item.isBlackList
+                                    ),
+                                    iconClick = { uuid ->
+                                        bottomSheetModifyRoleDialog = ModifyRoleBottomSheetDialog(uuid, item)
+                                        bottomSheetModifyRoleDialog.show(supportFragmentManager, bottomSheetModifyRoleDialog.tag)
+                                    }
+                                )
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    private fun refreshSearchUser(options: UserFilterOptions) {
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = this@StudentManageActivity,
+                logic = {
+                    options.apply {
+                        councilViewModel.searchStudent(grade, classNum, name, isBlackList, authority)
+                    }
+
+                    councilViewModel.searchStudent.collect { list ->
+                        if (list != null) searchUserList(list)
+                    }
+                }
+            )
+        }
+    }
+
+    fun saveFilterOptions(
+        grade: Int?,
+        classNum: Int?,
+        name: String?,
+        isBlackList: Boolean?,
+        authority: String?
+    ) {
+        userFilterOptions = UserFilterOptions(grade = grade, classNum = classNum, name = name, isBlackList = isBlackList, authority = authority)
     }
 }

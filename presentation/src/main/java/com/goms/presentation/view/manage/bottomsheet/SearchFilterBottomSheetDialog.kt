@@ -44,9 +44,11 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                     authority = setAuthority()
                 )
 
+                val activity = activity as StudentManageActivity
+                activity.saveFilterOptions(changeGrade, changeClassNum, name.ifEmpty { null }, setIsBlackList(), setAuthority())
+
                 councilViewModel.searchStudent.collect { list ->
                     if (list != null) {
-                        val activity = activity as StudentManageActivity
                         activity.searchUserList(list)
                         dialog?.dismiss()
                     }
@@ -137,6 +139,10 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
 
     private fun clearButtonLogic(list: List<List<AppCompatButton>>) {
         binding.filterResetImage.setOnClickListener {
+            changeRole = null
+            changeGrade = null
+            changeClassNum = null
+
             clearButtonColor(list)
         }
     }

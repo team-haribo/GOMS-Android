@@ -1,5 +1,6 @@
 package com.goms.presentation.view.outing.component
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.R
 import com.skydoves.landscapist.coil.CoilImage
@@ -30,7 +32,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Composable
-fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
+fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit, user: String) {
+
     val outingCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal)
     )
@@ -92,15 +95,17 @@ fun OutingStudentCard(item: UserResponseData, onClick: (UUID) -> Unit) {
             
             Spacer(modifier = Modifier.weight(1f))
 
-            Image(
-                modifier = Modifier
-                    .padding(end = 20.dp)
-                    .clickable{ onClick(item.accountIdx) }
-                    .align(Alignment.CenterVertically)
-                    .wrapContentSize(),
-                contentDescription = "Delete outing student icon",
-                painter = painterResource(id = R.drawable.delete_button_bg)
-            )
+            if (user == "ROLE_STUDENT_COUNCIL") {
+                Image(
+                    modifier = Modifier
+                        .padding(end = 20.dp)
+                        .clickable { onClick(item.accountIdx) }
+                        .align(Alignment.CenterVertically)
+                        .wrapContentSize(),
+                    contentDescription = "Delete outing student icon",
+                    painter = painterResource(id = R.drawable.delete_button_bg)
+                )
+            }
         }
     }
 }

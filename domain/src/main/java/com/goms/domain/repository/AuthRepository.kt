@@ -1,5 +1,6 @@
 package com.goms.domain.repository
 
+import com.goms.domain.data.auth.response.RefreshTokenResponseData
 import com.goms.domain.data.auth.response.SignInResponseData
 import kotlinx.coroutines.flow.Flow
 
@@ -21,4 +22,6 @@ interface AuthRepository {
         accessTokenExp: String,
         refreshTokenExp: String
     )
+
+    suspend fun refreshToken(refreshToken: String): Flow<RefreshTokenResponseData>
 }

@@ -12,6 +12,7 @@ import com.goms.domain.usecase.admin.SearchStudentUseCase
 import com.goms.domain.usecase.admin.SetBlackListUseCase
 import com.goms.domain.usecase.admin.UserListUseCase
 import com.goms.domain.usecase.auth.CheckLoginUseCase
+import com.goms.domain.usecase.auth.RefreshTokenUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
 import com.goms.domain.usecase.late.LateUseCase
@@ -28,6 +29,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
+
+    @Provides
+    @Singleton
+    fun provideRefreshTokenUseCase(authRepository: AuthRepository): RefreshTokenUseCase {
+        return RefreshTokenUseCase(authRepository)
+    }
 
     @Provides
     @Singleton

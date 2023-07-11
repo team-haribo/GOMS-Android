@@ -9,6 +9,5 @@ data class UserResponse(
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: StudentInfo,
     @SerializedName("profileUrl") val profileUrl: String?,
-    @SerializedName("lateCount") val lateCount: Int,
     @SerializedName("createdTime") val createdTime: String
 )

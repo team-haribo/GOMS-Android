@@ -9,6 +9,5 @@ data class UserResponseData(
     val name: String,
     val studentNum: StudentInfoData,
     val profileUrl: String?,
-    val lateCount: Int,
-    val cretedTime: String
+    val createdTime: String
 ): Serializable

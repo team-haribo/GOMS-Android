@@ -25,4 +25,6 @@ interface CouncilRepository {
     ): Flow<List<UserInfoResponseData>>
 
     suspend fun makeQrCode(): Flow<MakeQrCodeResponseData>
+
+    suspend fun deleteOuting(accountIdx: UUID): Flow<Response<Unit>>
 }

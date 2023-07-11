@@ -29,6 +29,7 @@ import com.goms.presentation.viewmodel.OutingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 @AndroidEntryPoint
 class OutingFragment : Fragment() {
@@ -99,6 +100,15 @@ class OutingFragment : Fragment() {
         }
     }
 
+    private fun deleteOuting(accountIdx: UUID) {
+        lifecycleScope.launch {
+            apiErrorHandling(
+                context = context,
+                logic = { outingViewModel.deleteOuting(accountIdx) }
+            )
+        }
+    }
+
     @Composable
     private fun OutingLazyColumn(list: List<UserResponseData>) {
         LazyColumn(
@@ -114,7 +124,9 @@ class OutingFragment : Fragment() {
                         elevation = 2.dp,
                         shape = RoundedCornerShape(10.dp)
                     )) {
-                    OutingStudentCard(item)
+                    OutingStudentCard(item, onClick = { UUID ->
+                        deleteOuting(UUID)
+                    })
                 }
             }
         }

@@ -1,7 +1,7 @@
 package com.goms.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.domain.data.late.LateUserResponseData
 import com.goms.domain.exception.FailAccessTokenException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
@@ -19,8 +19,8 @@ import javax.inject.Inject
 class LateViewModel @Inject constructor(
     private val lateUseCase: LateUseCase
 ): ViewModel() {
-    private val _lateRanking: MutableStateFlow<List<ProfileResponseData>?> = MutableStateFlow(null)
-    val lateRanking: StateFlow<List<ProfileResponseData>?> = _lateRanking
+    private val _lateRanking: MutableStateFlow<List<LateUserResponseData>?> = MutableStateFlow(null)
+    val lateRanking: StateFlow<List<LateUserResponseData>?> = _lateRanking
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading

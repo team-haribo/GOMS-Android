@@ -10,6 +10,7 @@ object ProfileMapper {
             accountIdx = profileResponse.accountIdx,
             name = profileResponse.name,
             studentNum = StudentInfoMapper.studentInfoToData(profileResponse.studentNum),
+            authority = profileResponse.authority,
             profileUrl = profileResponse.profileUrl,
             lateCount = profileResponse.lateCount,
             isOuting = profileResponse.isOuting,

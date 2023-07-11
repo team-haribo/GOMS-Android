@@ -22,12 +22,12 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.goms.domain.data.profile.ProfileResponseData
+import com.goms.domain.data.late.LateUserResponseData
 import com.goms.presentation.R
 import com.skydoves.landscapist.coil.CoilImage
 
 @Composable
-fun HomeItemCard(item: ProfileResponseData) {
+fun HomeItemCard(item: LateUserResponseData) {
     val homeCardFont = FontFamily(
         Font(R.font.sf_pro_text_regular, FontWeight.Normal),
         Font(R.font.sf_pro_text_medium, FontWeight.Medium)

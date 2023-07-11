@@ -4,6 +4,7 @@ import android.util.Log
 import com.goms.data.datasource.auth.AuthDataSource
 import com.goms.data.datasource.token.AuthTokenDataSource
 import com.goms.data.mapper.AuthMapper
+import com.goms.domain.data.auth.response.RefreshTokenResponseData
 import com.goms.domain.data.auth.response.SignInResponseData
 import com.goms.domain.exception.NeedLoginException
 import com.goms.domain.repository.AuthRepository
@@ -66,5 +67,13 @@ class AuthRepositoryImpl @Inject constructor(
         refreshTokenExp: String
     ) {
         authTokenDataSource.setToken(accessToken, refreshToken, accessTokenExp, refreshTokenExp)
+    }
+
+    override suspend fun refreshToken(refreshToken: String): Flow<RefreshTokenResponseData> {
+        return flow {
+            authDataSource.refreshToken(refreshToken).collect {
+                emit(AuthMapper.refreshTokenResponseToData(it))
+            }
+        }
     }
 }

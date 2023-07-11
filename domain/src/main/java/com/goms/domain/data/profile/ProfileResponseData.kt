@@ -8,6 +8,7 @@ data class ProfileResponseData(
     val accountIdx: UUID,
     val name: String,
     val studentNum: StudentInfoData,
+    val authority: String,
     val profileUrl: String?,
     val lateCount: Int,
     val isOuting: Boolean,

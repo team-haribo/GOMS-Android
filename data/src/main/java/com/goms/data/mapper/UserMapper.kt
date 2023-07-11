@@ -11,7 +11,7 @@ object UserMapper {
             name = userResponse.name,
             studentNum = StudentInfoMapper.studentInfoToData(userResponse.studentNum),
             profileUrl = userResponse.profileUrl,
-            lateCount = userResponse.lateCount
+            createdTime = userResponse.createdTime
         )
     }
 }

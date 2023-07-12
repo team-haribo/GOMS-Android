@@ -1,7 +1,6 @@
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refreshLayout"
+    android:id="@+id/fragment_outing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,47 +10,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:text="외출현황"
-        android:textColor="@color/black"
-        android:textSize="24sp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/outing_student_search"
-            android:layout_width="236dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="26dp"
-            android:background="@drawable/search_edit_text_background"
-            android:cursorVisible="false"
-            android:hint="찾으시는 학생이 있으신가요?"
-            android:imeOptions="actionSearch"
-            android:paddingStart="14dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="외출현황"
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="24sp" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/outing_student_search_button"
-            android:layout_width="78dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="9dp"
-            android:layout_marginTop="26dp"
-            android:background="@drawable/goms_buttom_background"
-            android:text="검색"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/outing_student_search"
+                android:layout_width="236dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/search_edit_text_background"
+                android:cursorVisible="false"
+                android:hint="찾으시는 학생이 있으신가요?"
+                android:imeOptions="actionSearch"
+                android:paddingStart="14dp"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/outing_student_search_button"
+                android:layout_width="78dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/goms_buttom_background"
+                android:text="검색"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
 
         <include
             android:id="@+id/outing_loading_indicator"
@@ -67,4 +67,4 @@
     </LinearLayout>
 
 
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

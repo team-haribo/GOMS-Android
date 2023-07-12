@@ -1,12 +1,9 @@
 package com.goms.presentation.view.outing
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -22,16 +19,13 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.databinding.FragmentOutingBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
-import com.goms.presentation.viewmodel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -39,7 +33,6 @@ import java.util.*
 class OutingFragment : Fragment() {
     private val outingViewModel by viewModels<OutingViewModel>()
     private lateinit var binding: FragmentOutingBinding
-    private lateinit var role: String
 
 
     override fun onCreateView(
@@ -47,7 +40,6 @@ class OutingFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) : View {
-        setRole()
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
         binding.outingStudentSearchButton.setOnClickListener { view ->
@@ -72,11 +64,6 @@ class OutingFragment : Fragment() {
                 logic = { getOutingList() }
             )
         }
-    }
-
-    private fun setRole() {
-        val authorityPreferences = this.activity?.getSharedPreferences("authority", AppCompatActivity.MODE_PRIVATE)
-        role = authorityPreferences?.getString("role", "").toString()
     }
 
     private suspend fun getOutingList() {
@@ -135,7 +122,7 @@ class OutingFragment : Fragment() {
                         elevation = 2.dp,
                         shape = RoundedCornerShape(10.dp)
                     )) {
-                    OutingStudentCard(item, onClick = { UUID -> deleteOuting(UUID) }, role)
+                    OutingStudentCard(item, onClick = { UUID -> deleteOuting(UUID) }, requireContext())
                 }
             }
         }

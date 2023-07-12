@@ -141,14 +141,17 @@ class OutingFragment : Fragment() {
                                 shape = RoundedCornerShape(10.dp)
                             )
                         ) {
-                            OutingStudentCard(item, onClick = { UUID ->
+                            OutingStudentCard(
+                              item, 
+                              onClick = { UUID ->
                                 deleteOuting(UUID)
-                            })
+                              },
+                              requireContext()
+                            )
                         }
                     }
                 }
             }
         }
     }
-
 }

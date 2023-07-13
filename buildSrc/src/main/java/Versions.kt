@@ -33,6 +33,7 @@ object Versions {
     const val TedPermission = "3.3.0"
     const val CircleImageView = "3.1.0"
     const val Zxing = "4.3.0"
+    const val SwipeRefresh = "0.27.0"
 
     const val Hilt = "2.44"
 

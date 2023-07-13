@@ -40,6 +40,7 @@ object Dependency {
         const val TEDPERMMISION = "io.github.ParkSangGwon:tedpermission-normal:${Versions.TedPermission}"
         const val CIRCLE_IMAGEVIEW = "de.hdodenhof:circleimageview:${Versions.CircleImageView}"
         const val ZXING = "com.journeyapps:zxing-android-embedded:${Versions.Zxing}"
+        const val SWIPE_REFRESH = "com.google.accompanist:accompanist-swiperefresh:${Versions.SwipeRefresh}"
     }
 
     object Hilt {

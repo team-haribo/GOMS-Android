@@ -15,10 +15,10 @@ android {
 
     defaultConfig {
         applicationId = "com.goms.presentation"
-        minSdk = 29
+        minSdk = 26
         targetSdk = 33
-        versionCode = 5
-        versionName = "1.0.3"
+        versionCode = 6
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -116,7 +116,7 @@ dependencies {
     androidTestImplementation(Dependency.AndroidTest.ESPRESSO)
 
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
-    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+    implementation(Dependency.Libraries.SWIPE_REFRESH)
 
     implementation(platform(Dependency.Google.FIREBASE_BOM))
     implementation(Dependency.Google.FIREBASE_ANALYTICS)

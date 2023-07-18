@@ -8,6 +8,7 @@ data class ProfileResponse(
     @SerializedName("accountIdx") val accountIdx: UUID,
     @SerializedName("name") val name: String,
     @SerializedName("studentNum") val studentNum: StudentInfo,
+    @SerializedName("authority") val authority: String,
     @SerializedName("profileUrl") val profileUrl: String?,
     @SerializedName("lateCount") val lateCount: Int,
     @SerializedName("isOuting") val isOuting: Boolean,

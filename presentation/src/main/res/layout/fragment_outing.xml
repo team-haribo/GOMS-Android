@@ -1,29 +1,70 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_outing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goms.presentation.view.outing.OutingFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.goms.presentation.view.outing.OutingFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="외출현황"
-        android:fontFamily="@font/sf_pro_text_bold"
-        android:textSize="24sp"
-        android:textColor="@color/black"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp" />
-
-    <include
-        android:id="@+id/outing_loading_indicator"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/view_loading_indicator"/>
+        android:orientation="vertical">
 
-    <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/outing_student_list_lazy_column"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/sf_pro_text_bold"
+            android:text="외출현황"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/outing_student_search"
+                android:layout_width="236dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/search_edit_text_background"
+                android:cursorVisible="false"
+                android:hint="찾으시는 학생이 있으신가요?"
+                android:imeOptions="actionSearch"
+                android:paddingStart="14dp"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/outing_student_search_button"
+                android:layout_width="78dp"
+                android:layout_height="52dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/goms_buttom_background"
+                android:text="검색"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/outing_loading_indicator"
+            layout="@layout/view_loading_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <androidx.compose.ui.platform.ComposeView
+            android:id="@+id/outing_student_list_lazy_column"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+
 </LinearLayout>

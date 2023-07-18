@@ -7,6 +7,7 @@ import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.domain.repository.CouncilRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import java.util.UUID
@@ -65,6 +66,14 @@ class CouncilRepositoryImpl @Inject constructor(
         return flow {
             councilDataSource.makeQrCode().collect {
                 emit(MakeQrCodeResponseData(outingUUID = it.outingUUID))
+            }
+        }
+    }
+
+    override suspend fun deleteOuting(accountIdx: UUID): Flow<Response<Unit>> {
+        return flow {
+            councilDataSource.deleteOuting(accountIdx).collect() {
+                emit(it)
             }
         }
     }

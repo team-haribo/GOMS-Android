@@ -3,10 +3,12 @@ package com.goms.data.repository
 import com.goms.data.datasource.outing.OutingDataSource
 import com.goms.data.mapper.OutingMapper
 import com.goms.data.mapper.UserMapper
+import com.goms.data.model.user.UserResponse
 import com.goms.domain.data.outing.OutingCountResponseData
 import com.goms.domain.data.user.UserResponseData
 import com.goms.domain.repository.OutingRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
 import java.util.UUID
@@ -38,4 +40,13 @@ class OutingRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun searchOutingStudent(name: String): Flow<List<UserResponseData>> {
+        return flow{
+            outingDataSource.searchOutingStudent(name).collect{ list ->
+                emit(list.map {UserMapper.userResponseToData(it)})
+            }
+        }
+    }
+
 }

@@ -60,7 +60,7 @@ class QrScanFragment : Fragment() {
                 val min = time / 60
                 val sec = (time % 60).let { if (it < 10) "0$it" else "$it" }
                 binding.qrScanTimeLeftText.text = "${min}분 ${sec}초"
-            } else makeQr()
+            }
         }
     }
 

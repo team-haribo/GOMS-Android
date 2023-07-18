@@ -43,4 +43,9 @@ interface CouncilApi {
 
     @POST("student-council/outing")
     suspend fun makeQrCode(): MakeQrCodeResponse
+
+    @DELETE("student-council/outing/{accountIdx}")
+    suspend fun deleteOuting(
+        @Path("accountIdx") accountIdx: UUID
+    ): Response<Unit>
 }

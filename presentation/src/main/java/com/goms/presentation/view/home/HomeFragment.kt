@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.goms.domain.data.late.LateUserResponseData
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.FragmentHomeBinding
@@ -98,6 +99,11 @@ class HomeFragment : Fragment() {
         }
         binding.mainProfileCardViewAdmin.setOnClickListener {
             startActivity(Intent(context, StudentManageActivity::class.java))
+        }
+
+        binding.refreshLayout.setOnRefreshListener {
+            homeLogic()
+            binding.refreshLayout.isRefreshing = false
         }
 
         return binding.root
@@ -211,7 +217,7 @@ class HomeFragment : Fragment() {
     }
 
     @Composable
-    private fun LateLazyRow(list: List<ProfileResponseData>) {
+    private fun LateLazyRow(list: List<LateUserResponseData>) {
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()

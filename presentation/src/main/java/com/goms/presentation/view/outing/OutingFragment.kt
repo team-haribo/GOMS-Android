@@ -113,11 +113,15 @@ class OutingFragment : Fragment() {
 
     @Composable
     private fun OutingLazyColumn(list: List<UserResponseData>) {
+        var inputText:String
         binding.outingStudentListLazyColumn.setContent {
             val isRefreshing by outingViewModel.isLoading.collectAsState()
             SwipeRefresh(
                 state = rememberSwipeRefreshState(isRefreshing = isRefreshing),
-                onRefresh = { getOutingList() },
+                onRefresh = {
+                    inputText = binding.outingStudentSearch.text.toString()
+                    searchOutingStudentLogic(name = inputText)
+                },
                 indicator = { state, refreshTrigger ->
                     SwipeRefreshIndicator(
                         state = state,
@@ -142,11 +146,11 @@ class OutingFragment : Fragment() {
                             )
                         ) {
                             OutingStudentCard(
-                              item, 
-                              onClick = { UUID ->
-                                deleteOuting(UUID)
-                              },
-                              requireContext()
+                                item,
+                                onClick = { UUID ->
+                                    deleteOuting(UUID)
+                                },
+                                requireContext()
                             )
                         }
                     }
@@ -154,4 +158,5 @@ class OutingFragment : Fragment() {
             }
         }
     }
+
 }

@@ -108,6 +108,7 @@ class OutingFragment : Fragment() {
                 context = context,
                 logic = { outingViewModel.deleteOuting(accountIdx) }
             )
+            getOutingList()
         }
     }
 

@@ -33,19 +33,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
-        if (!sharedPreferences.contains("outingStatus"))
-            initSharedPreference()
-
         tokenSf = getSharedPreferences("token", MODE_PRIVATE)
         val refreshToken = tokenSf.getString("refreshToken", "")
-
-        if (!refreshToken.isNullOrEmpty()) {
-            splashViewModel.refreshToken(refreshToken)
-            saveToken()
-
-            profileViewModel.getProfileLogic()
-        }
 
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
@@ -59,6 +48,17 @@ class SplashActivity : AppCompatActivity() {
                 }
             } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
         }, 1000)
+
+        if (!refreshToken.isNullOrEmpty()) {
+            splashViewModel.refreshToken(refreshToken)
+            saveToken()
+
+            profileViewModel.getProfileLogic()
+        }
+
+        sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
+        if (!sharedPreferences.contains("outingStatus"))
+            initSharedPreference()
     }
 
     private fun initSharedPreference() {

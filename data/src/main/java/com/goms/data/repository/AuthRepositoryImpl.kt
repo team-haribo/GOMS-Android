@@ -35,7 +35,7 @@ class AuthRepositoryImpl @Inject constructor(
         val currentTime = LocalDateTime.now()
         val accessTokenExp = authTokenDataSource.getAccessTokenExp()
         val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
-        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
+        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
         val refreshExpireDate = LocalDateTime.parse(refreshTokenExp, parsePattern)
         val accessExpireDate = LocalDateTime.parse(accessTokenExp, parsePattern)
 

@@ -30,11 +30,13 @@ class SplashViewModel @Inject constructor(
     private val _token = MutableStateFlow<RefreshTokenResponseData?>(null)
     val token: StateFlow<RefreshTokenResponseData?> = _token
 
-    fun checkIsLogin() = viewModelScope.launch {
-        checkLoginUseCase().onSuccess {
-            _isLogin.value = true
-        }.onFailure {
-            _isLogin.value = false
+    fun checkIsLogin() {
+        viewModelScope.launch {
+            checkLoginUseCase().onSuccess {
+                _isLogin.value = true
+            }.onFailure {
+                _isLogin.value = false
+            }
         }
     }
 

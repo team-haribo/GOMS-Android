@@ -7,7 +7,6 @@ import com.goms.domain.data.profile.ProfileResponseData
 object ProfileMapper {
     fun profileResponseToData(profileResponse: ProfileResponse): ProfileResponseData {
         return ProfileResponseData(
-            accountIdx = profileResponse.accountIdx,
             name = profileResponse.name,
             studentNum = StudentInfoMapper.studentInfoToData(profileResponse.studentNum),
             authority = profileResponse.authority,

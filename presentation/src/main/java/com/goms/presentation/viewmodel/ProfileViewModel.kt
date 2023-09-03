@@ -27,20 +27,22 @@ class ProfileViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun getProfileLogic() = viewModelScope.launch {
-        profileUseCase().onStart {
-            _isLoading.value = true
-        }.onCompletion {
-            _isLoading.value = false
-        }.catch {
-            if (it is HttpException) {
-                when (it.code()) {
-                    401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
-                    500 -> throw ServerException("서버 에러")
-                }
-            } else throw OtherException(it.message)
-        }.collect {
-            _profile.value = it
+    fun getProfileLogic() {
+        viewModelScope.launch {
+            profileUseCase().onStart {
+                _isLoading.value = true
+            }.onCompletion {
+                _isLoading.value = false
+            }.catch {
+                if (it is HttpException) {
+                    when (it.code()) {
+                        401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
+                        500 -> throw ServerException("서버 에러")
+                    }
+                } else throw OtherException(it.message)
+            }.collect {
+                _profile.value = it
+            }
         }
     }
 }

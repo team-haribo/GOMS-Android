@@ -53,8 +53,14 @@ class MainActivity : AppCompatActivity() {
             binding.gomsBottomNavigationView.menu.findItem(R.id.qrScanFragment).setIcon(R.drawable.qr_code_icon)
         }
 
+        val intentExtra = intent.getSerializableExtra("profile") as ProfileResponseData?
+        if (intentExtra == null) setProfile()
+        else {
+            response = intentExtra
+            binding.mainCircleProfileIcon.load(intentExtra.profileUrl ?: R.drawable.user_profile)
+        }
+
         setNavigation()
-        setProfile()
         binding.mainCircleProfileIcon.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java)
                 .putExtra("profile", response))

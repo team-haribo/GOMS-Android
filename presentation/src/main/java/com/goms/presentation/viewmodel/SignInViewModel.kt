@@ -33,26 +33,28 @@ class SignInViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun signInLogic(code: String) = viewModelScope.launch {
-        signInUseCase(code).onStart {
-            _isLoading.value = true
-        }.onCompletion {
-            _isLoading.value = false
-        }.catch {
-            if (it is HttpException) {
-                when(it.code()) {
-                    400 -> throw NotRequestParamException("gauth code가 이미 사용되었습니다")
-                    500 -> throw ServerException("서버 에러")
-                }
-            } else throw OtherException(it.message)
-        }.collect { response ->
-            setTokenUseCase(
-                accessToken = response.accessToken,
-                refreshToken = response.refreshToken,
-                accessTokenExp = response.accessTokenExp.toString(),
-                refreshTokenExp = response.refreshTokenExp.toString()
-            )
-            _signIn.value = response
+    fun signInLogic(code: String) {
+        viewModelScope.launch {
+            signInUseCase(code).onStart {
+                _isLoading.value = true
+            }.onCompletion {
+                _isLoading.value = false
+            }.catch {
+                if (it is HttpException) {
+                    when(it.code()) {
+                        400 -> throw NotRequestParamException("gauth code가 이미 사용되었습니다")
+                        500 -> throw ServerException("서버 에러")
+                    }
+                } else throw OtherException(it.message)
+            }.collect { response ->
+                setTokenUseCase(
+                    accessToken = response.accessToken,
+                    refreshToken = response.refreshToken,
+                    accessTokenExp = response.accessTokenExp.toString(),
+                    refreshTokenExp = response.refreshTokenExp.toString()
+                )
+                _signIn.value = response
+            }
         }
     }
 

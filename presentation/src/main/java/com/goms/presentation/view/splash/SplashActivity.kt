@@ -26,43 +26,26 @@ class SplashActivity : AppCompatActivity() {
     private val splashViewModel by viewModels<SplashViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var tokenSf: SharedPreferences
+    private lateinit var userOutingSP: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        tokenSf = getSharedPreferences("token", MODE_PRIVATE)
-        val refreshToken = tokenSf.getString("refreshToken", "")
-
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
-                if (refreshToken.isNullOrEmpty()) {
-                    splashViewModel.checkIsLogin()
-                    observeLogin()
-                } else {
-                    splashViewModel.checkIsLogin()
-                    saveRole()
-                    observeLogin()
-                }
+                splashViewModel.checkIsLogin()
+                observeLogin()
+
+                userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
+                if (!userOutingSP.contains("outingStatus"))
+                    initSharedPreference()
             } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
         }, 1000)
-
-        if (!refreshToken.isNullOrEmpty()) {
-            splashViewModel.refreshToken(refreshToken)
-            saveToken()
-
-            profileViewModel.getProfileLogic()
-        }
-
-        sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
-        if (!sharedPreferences.contains("outingStatus"))
-            initSharedPreference()
     }
 
     private fun initSharedPreference() {
-        sharedPreferences.edit()
+        userOutingSP.edit()
             .putBoolean("outingStatus", false)
             .apply()
     }
@@ -72,8 +55,9 @@ class SplashActivity : AppCompatActivity() {
             if (it != null) {
                 when(it) {
                     true -> {
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        val intent = Intent(this, MainActivity::class.java)
+                        profileViewModel.getProfileLogic()
+                        saveRole(intent)
                     }
                     false -> {
                         startActivity(Intent(this, SignInActivity::class.java))
@@ -84,29 +68,20 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveRole() {
+    private fun saveRole(intent: Intent) {
         lifecycleScope.launch {
             profileViewModel.profile.collect { profile ->
-                val authSf = getSharedPreferences("authority", MODE_PRIVATE)
-                authSf.edit().let {
-                    it.putString("role", profile?.authority)
-                    it.apply()
-                }
-            }
-        }
-    }
+                if (profile != null) {
+                    intent.putExtra("profile", profile)
 
-    private fun saveToken() {
-        lifecycleScope.launch {
-            splashViewModel.token.collect { token ->
-                if (token != null) {
-                    tokenSf.edit().let {
-                        it.putString("accessToken", token.accessToken)
-                        it.putString("refreshToken", token.refreshToken)
-                        it.putString("accessTokenExp", token.accessTokenExpiredAt)
-                        it.putString("refreshTokenExp", token.refreshTokenExpiredAt)
+                    val authSf = getSharedPreferences("authority", MODE_PRIVATE)
+                    authSf.edit().let {
+                        it.putString("role", profile.authority)
                         it.apply()
                     }
+
+                    startActivity(intent)
+                    finish()
                 }
             }
         }

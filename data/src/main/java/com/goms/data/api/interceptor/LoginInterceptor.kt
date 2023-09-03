@@ -21,14 +21,13 @@ class LoginInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        // 토큰 갱신 요청인지, 로그인 요청인지 확인해 따로 리턴한다.
-        if ("/api/v1/auth" == request.url.encodedPath && "PATCH" == request.method)
+        if ("/api/v2/auth" == request.url.encodedPath && "PATCH" == request.method)
             return chain.proceed(request)
-        if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method)
+        if ("/api/v2/auth/signin" == request.url.encodedPath && "POST" == request.method)
             return chain.proceed(request)
 
         val currentTime = LocalDateTime.now()
-        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH-mm-ss")
+        val parsePattern = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
         val accessTokenExp = authTokenDataSource.getAccessTokenExp()
         val refreshTokenExp = authTokenDataSource.getRefreshTokenExp()
         val accessTokenExpireDate = LocalDateTime.parse(accessTokenExp, parsePattern)
@@ -36,23 +35,7 @@ class LoginInterceptor @Inject constructor(
 
         if (currentTime.isAfter(refreshTokenExpireDate)) throw NeedLoginException()
         if (currentTime.isAfter(accessTokenExpireDate)) {
-            val currentRefreshToken = authTokenDataSource.getRefreshToken()
-            val refreshRequest = chain.request().newBuilder()
-                .url(BuildConfig.BASE_URL+"auth")
-                .addHeader("refreshToken", "Bearer $currentRefreshToken")
-                .patch("".toRequestBody(null))
-                .build()
-            val refreshResponse = chain.proceed(refreshRequest)
-            if (refreshResponse.isSuccessful) {
-                val jsonParser = JsonParser()
-                val token = jsonParser.parse(refreshResponse.body?.string()) as JsonObject
-                authTokenDataSource.setToken(
-                    accessToken = token["accessToken"].toString().deleteDot(),
-                    refreshToken = token["refreshToken"].toString().deleteDot(),
-                    accessTokenExp = token["accessTokenExp"].toString().deleteDot(),
-                    refreshTokenExp = token["refreshTokenExp"].toString().deleteDot()
-                )
-            } else throw NeedLoginException()
+            tokenRefresh(chain)
         }
 
         // 이 부분이 기존 요청에 token header를 붙여 return 하는 곳
@@ -62,6 +45,26 @@ class LoginInterceptor @Inject constructor(
                 .addHeader("Authorization", "Bearer $accessToken")
                 .build()
         )
+    }
+
+    private fun tokenRefresh(chain: Interceptor.Chain) {
+        val currentRefreshToken = authTokenDataSource.getRefreshToken()
+        val refreshRequest = chain.request().newBuilder()
+            .url(BuildConfig.BASE_URL+"auth")
+            .addHeader("refreshToken", "Bearer $currentRefreshToken")
+            .patch("".toRequestBody(null))
+            .build()
+        val refreshResponse = chain.proceed(refreshRequest)
+        if (refreshResponse.isSuccessful) {
+            val jsonParser = JsonParser()
+            val token = jsonParser.parse(refreshResponse.body?.string()) as JsonObject
+            authTokenDataSource.setToken(
+                accessToken = token["accessToken"].toString().deleteDot(),
+                refreshToken = token["refreshToken"].toString().deleteDot(),
+                accessTokenExp = token["accessTokenExp"].toString().deleteDot(),
+                refreshTokenExp = token["refreshTokenExp"].toString().deleteDot()
+            )
+        } else throw NeedLoginException()
     }
 
     private fun String.deleteDot(): String {

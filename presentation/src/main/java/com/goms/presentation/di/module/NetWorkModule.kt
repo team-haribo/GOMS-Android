@@ -1,8 +1,10 @@
 package com.goms.presentation.di.module
 
+import android.util.Log
 import com.goms.data.api.AuthApi
 import com.goms.data.api.CouncilApi
 import com.goms.data.api.LateApi
+import com.goms.data.api.NotificationApi
 import com.goms.data.api.OutingApi
 import com.goms.data.api.ProfileApi
 import com.goms.data.api.interceptor.LoginInterceptor
@@ -13,6 +15,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -24,14 +27,23 @@ object NetWorkModule {
     @Provides
     @Singleton
     fun provideOkhttpClient(
+        httpLoggingInterceptor: HttpLoggingInterceptor,
         loginInterceptor: LoginInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loginInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor { message -> Log.v("HTTP", message) }
+            .setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     @Provides
@@ -85,5 +97,11 @@ object NetWorkModule {
     @Singleton
     fun provideCouncilService(retrofit: Retrofit): CouncilApi {
         return retrofit.create(CouncilApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationApi(retrofit: Retrofit): NotificationApi {
+        return retrofit.create(NotificationApi::class.java)
     }
 }

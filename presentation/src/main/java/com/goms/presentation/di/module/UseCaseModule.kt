@@ -3,6 +3,7 @@ package com.goms.presentation.di.module
 import com.goms.domain.repository.AuthRepository
 import com.goms.domain.repository.CouncilRepository
 import com.goms.domain.repository.LateRepository
+import com.goms.domain.repository.NotificationRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
 import com.goms.domain.usecase.admin.CancelBlackListUseCase
@@ -16,6 +17,7 @@ import com.goms.domain.usecase.auth.RefreshTokenUseCase
 import com.goms.domain.usecase.auth.SetTokenUseCase
 import com.goms.domain.usecase.auth.SignInUseCase
 import com.goms.domain.usecase.late.LateUseCase
+import com.goms.domain.usecase.notification.SetNotificationUseCase
 import com.goms.domain.usecase.outing.OutingCountUseCase
 import com.goms.domain.usecase.outing.OutingListUseCase
 import com.goms.domain.usecase.outing.OutingUseCase
@@ -118,5 +120,11 @@ object UseCaseModule {
     @Singleton
     fun provideMakeQrCodeUseCase(councilRepository: CouncilRepository): MakeQrCodeUseCase {
         return MakeQrCodeUseCase(councilRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSetNotificationUseCase(notificationRepository: NotificationRepository): SetNotificationUseCase {
+        return SetNotificationUseCase(notificationRepository)
     }
 }

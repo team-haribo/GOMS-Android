@@ -15,8 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.R
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.sign_in.SignInActivity
+import com.goms.presentation.viewmodel.NotificationViewModel
 import com.goms.presentation.viewmodel.ProfileViewModel
 import com.goms.presentation.viewmodel.SplashViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,6 +27,7 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity() {
     private val splashViewModel by viewModels<SplashViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
+    private val notificationViewModel by viewModels<NotificationViewModel>()
 
     private lateinit var userOutingSP: SharedPreferences
 
@@ -58,6 +61,7 @@ class SplashActivity : AppCompatActivity() {
                         val intent = Intent(this, MainActivity::class.java)
                         profileViewModel.getProfileLogic()
                         saveRole(intent)
+                        initNotification()
                     }
                     false -> {
                         startActivity(Intent(this, SignInActivity::class.java))
@@ -101,5 +105,29 @@ class SplashActivity : AppCompatActivity() {
         }
 
         return result
+    }
+
+    private fun initNotification() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                val token = task.result
+                if (deviceTokenSF.getString("device", "") == token) {
+                    notificationViewModel.setNotification(token)
+                    setNotificationLogic(token)
+                }
+
+                Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setNotificationLogic(token: String) {
+        lifecycleScope.launch {
+            notificationViewModel.setNotification.collect {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                deviceTokenSF.edit().putString("device", token).apply()
+            }
+        }
     }
 }

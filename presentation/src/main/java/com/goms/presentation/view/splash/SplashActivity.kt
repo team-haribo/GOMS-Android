@@ -18,6 +18,10 @@ import com.goms.presentation.view.sign_in.SignInActivity
 import com.goms.presentation.viewmodel.NotificationViewModel
 import com.goms.presentation.viewmodel.ProfileViewModel
 import com.goms.presentation.viewmodel.SplashViewModel
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
+import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -31,14 +35,19 @@ class SplashActivity : AppCompatActivity() {
 
     private lateinit var userOutingSP: SharedPreferences
 
+    private lateinit var appUpdateManager: AppUpdateManager
+    companion object {
+        const val REQUEST_CODE = 12
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        appUpdateManager = AppUpdateManagerFactory.create(this)
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
-                splashViewModel.checkIsLogin()
-                observeLogin()
+                setInAppUpdate()
 
                 userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
                 if (!userOutingSP.contains("outingStatus"))
@@ -125,6 +134,42 @@ class SplashActivity : AppCompatActivity() {
             notificationViewModel.setNotification.collect {
                 val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
                 deviceTokenSF.edit().putString("device", token).apply()
+            }
+        }
+    }
+
+    private fun setInAppUpdate() {
+        val appUpdateTask = appUpdateManager.appUpdateInfo
+
+        appUpdateTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, this, REQUEST_CODE)
+            } else {
+                splashViewModel.checkIsLogin()
+                observeLogin()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                // app 종료
+                moveTaskToBack(true)
+                finishAndRemoveTask()
+                android.os.Process.killProcess(0)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, this, REQUEST_CODE)
             }
         }
     }

@@ -57,12 +57,6 @@ dependencies {
     implementation(project(":data"))
     implementation(project(":domain"))
 
-    // firebase
-    platform("com.google.firebase:firebase-bom:32.2.3")
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
-    implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
-    implementation("com.google.firebase:firebase-messaging-ktx:23.2.1")
-
     // gauth
     implementation(Dependency.Libraries.GAUTH)
     // code scanner
@@ -124,6 +118,8 @@ dependencies {
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
     implementation(Dependency.Libraries.SWIPE_REFRESH)
 
+    // firebase
     implementation(platform(Dependency.Google.FIREBASE_BOM))
     implementation(Dependency.Google.FIREBASE_ANALYTICS)
+    implementation(Dependency.Google.FIREBASE_MESSAGING)
 }

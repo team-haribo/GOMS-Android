@@ -21,9 +21,9 @@ class LoginInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        if ("/api/v2/auth" == request.url.encodedPath && "PATCH" == request.method)
+        if ("/api/v1/auth" == request.url.encodedPath && "PATCH" == request.method)
             return chain.proceed(request)
-        if ("/api/v2/auth/signin" == request.url.encodedPath && "POST" == request.method)
+        if ("/api/v1/auth/signin" == request.url.encodedPath && "POST" == request.method)
             return chain.proceed(request)
 
         val currentTime = LocalDateTime.now()

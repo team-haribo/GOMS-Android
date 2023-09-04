@@ -88,6 +88,9 @@ dependencies {
     implementation(Dependency.Retrofit.OKHTTP)
     implementation(Dependency.Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
+    // in app update
+    implementation(Dependency.Google.IN_APP_UPDATE)
+
     // compose
     implementation(Dependency.Compose.ACTIVITY_COMPOSE)
     implementation(Dependency.Compose.COMPOSE)

@@ -47,4 +47,6 @@ object Versions {
     const val FirebaseBom = "32.2.3"
     const val FirebaseAnalytics = "21.3.0"
     const val FirebaseMessaging = "23.2.1"
+
+    const val InAppUpdate = "1.8.1"
 }

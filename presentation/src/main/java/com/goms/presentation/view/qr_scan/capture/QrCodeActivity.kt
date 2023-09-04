@@ -101,7 +101,7 @@ class QrCodeActivity : AppCompatActivity() {
                     startActivity(Intent(this@QrCodeActivity, MainActivity::class.java))
                 }
             })
-            .setDeniedMessage("권한이 거부되었습니다. 앱 정보 > 권한에서 권한을 설정해주세요.")
+            .setDeniedMessage("카메라 권한이 거부되었습니다.\n권한을 설정하려면\n\n[앱 정보] > [권한]에서 설정하세요.")
             .setPermissions(Manifest.permission.CAMERA)
             .check()
     }

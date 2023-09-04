@@ -1,5 +1,6 @@
 package com.goms.presentation.view.main
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -17,6 +18,8 @@ import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.normal.TedPermission
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -48,6 +51,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        requestNotificationPermission()
         if (checkUserIsAdmin(this)) {
             binding.gomsBottomNavigationView.menu.findItem(R.id.qrScanFragment).title = "생성하기"
             binding.gomsBottomNavigationView.menu.findItem(R.id.qrScanFragment).setIcon(R.drawable.qr_code_icon)
@@ -65,6 +69,17 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ProfileActivity::class.java)
                 .putExtra("profile", response))
         }
+    }
+
+    private fun requestNotificationPermission() {
+        TedPermission.create()
+            .setPermissionListener(object: PermissionListener {
+                override fun onPermissionGranted() {}
+                override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {}
+            })
+            .setDeniedMessage("알림 권한이 거부되었습니다.\n권한을 설정하려면\n\n[앱 정보] > [권한]에서 설정하세요.")
+            .setPermissions(Manifest.permission.POST_NOTIFICATIONS)
+            .check()
     }
 
     private fun setProfile() {

@@ -116,8 +116,6 @@ class SplashActivity : AppCompatActivity() {
                     notificationViewModel.setNotification(token)
                     setNotificationLogic(token)
                 }
-
-                Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
             }
         }
     }

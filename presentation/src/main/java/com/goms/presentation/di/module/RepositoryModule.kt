@@ -3,11 +3,13 @@ package com.goms.presentation.di.module
 import com.goms.data.repository.AuthRepositoryImpl
 import com.goms.data.repository.CouncilRepositoryImpl
 import com.goms.data.repository.LateRepositoryImpl
+import com.goms.data.repository.NotificationRepositoryImpl
 import com.goms.data.repository.OutingRepositoryImpl
 import com.goms.data.repository.ProfileRepositoryImpl
 import com.goms.domain.repository.AuthRepository
 import com.goms.domain.repository.CouncilRepository
 import com.goms.domain.repository.LateRepository
+import com.goms.domain.repository.NotificationRepository
 import com.goms.domain.repository.OutingRepository
 import com.goms.domain.repository.ProfileRepository
 import dagger.Binds
@@ -42,4 +44,9 @@ abstract class RepositoryModule {
     abstract fun bindCouncilRepository(
         councilRepositoryImpl: CouncilRepositoryImpl
     ): CouncilRepository
+
+    @Binds
+    abstract fun bindNotificationRepository(
+        notificationRepositoryImpl: NotificationRepositoryImpl
+    ): NotificationRepository
 }

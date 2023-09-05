@@ -21,7 +21,9 @@ import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivitySignInBinding
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
+import com.goms.presentation.viewmodel.NotificationViewModel
 import com.goms.presentation.viewmodel.SignInViewModel
+import com.google.firebase.messaging.FirebaseMessaging
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
@@ -33,6 +35,7 @@ import kotlin.system.exitProcess
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
     private val signInViewModel by viewModels<SignInViewModel>()
+    private val notificationViewModel by viewModels<NotificationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,8 +109,31 @@ class SignInActivity : AppCompatActivity() {
     private suspend fun signInLogic() {
         signInViewModel.signIn.collect { signInResponse ->
             if (signInResponse != null) {
+                initNotification()
                 startActivity(Intent(this@SignInActivity, MainActivity::class.java))
                 signInViewModel.setAuthority(signInResponse.authority)
+            }
+        }
+    }
+
+    private fun initNotification() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                val token = task.result
+                if (deviceTokenSF.getString("device", "") == token) {
+                    notificationViewModel.setNotification(token)
+                    setNotificationLogic(token)
+                }
+            }
+        }
+    }
+
+    private fun setNotificationLogic(token: String) {
+        lifecycleScope.launch {
+            notificationViewModel.setNotification.collect {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                deviceTokenSF.edit().putString("device", token).apply()
             }
         }
     }

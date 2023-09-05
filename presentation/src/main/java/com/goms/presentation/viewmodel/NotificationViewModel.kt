@@ -2,38 +2,29 @@ package com.goms.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.domain.exception.FailAccessTokenException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
-import com.goms.domain.usecase.profile.ProfileUseCase
+import com.goms.domain.usecase.notification.SetNotificationUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
-class ProfileViewModel @Inject constructor(
-    private val profileUseCase: ProfileUseCase
+class NotificationViewModel @Inject constructor(
+    private val setNotificationUseCase: SetNotificationUseCase
 ): ViewModel() {
-    private val _profile: MutableStateFlow<ProfileResponseData?> = MutableStateFlow(null)
-    val profile: StateFlow<ProfileResponseData?> = _profile
+    private val _setNotification = MutableStateFlow<Response<Unit>?>(null)
+    val setNotification: StateFlow<Response<Unit>?> = _setNotification
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading
-
-    fun getProfileLogic() {
+    fun setNotification(deviceToken: String) {
         viewModelScope.launch {
-            profileUseCase().onStart {
-                _isLoading.value = true
-            }.onCompletion {
-                _isLoading.value = false
-            }.catch {
+            setNotificationUseCase(deviceToken).catch {
                 if (it is HttpException) {
                     when (it.code()) {
                         401 -> throw FailAccessTokenException("access token이 유효하지 않습니다")
@@ -41,7 +32,7 @@ class ProfileViewModel @Inject constructor(
                     }
                 } else throw OtherException(it.message)
             }.collect {
-                _profile.value = it
+                _setNotification.value = it
             }
         }
     }

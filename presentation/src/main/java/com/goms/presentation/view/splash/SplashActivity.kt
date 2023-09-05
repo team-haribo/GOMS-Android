@@ -15,8 +15,14 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.R
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.sign_in.SignInActivity
+import com.goms.presentation.viewmodel.NotificationViewModel
 import com.goms.presentation.viewmodel.ProfileViewModel
 import com.goms.presentation.viewmodel.SplashViewModel
+import com.google.android.play.core.appupdate.AppUpdateManager
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.model.AppUpdateType.IMMEDIATE
+import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -25,44 +31,33 @@ import kotlinx.coroutines.launch
 class SplashActivity : AppCompatActivity() {
     private val splashViewModel by viewModels<SplashViewModel>()
     private val profileViewModel by viewModels<ProfileViewModel>()
+    private val notificationViewModel by viewModels<NotificationViewModel>()
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private lateinit var tokenSf: SharedPreferences
+    private lateinit var userOutingSP: SharedPreferences
+
+    private lateinit var appUpdateManager: AppUpdateManager
+    companion object {
+        const val REQUEST_CODE = 12
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        tokenSf = getSharedPreferences("token", MODE_PRIVATE)
-        val refreshToken = tokenSf.getString("refreshToken", "")
-
+        appUpdateManager = AppUpdateManagerFactory.create(this)
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
-                if (refreshToken.isNullOrEmpty()) {
-                    splashViewModel.checkIsLogin()
-                    observeLogin()
-                } else {
-                    splashViewModel.checkIsLogin()
-                    saveRole()
-                    observeLogin()
-                }
+                setInAppUpdate()
+
+                userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
+                if (!userOutingSP.contains("outingStatus"))
+                    initSharedPreference()
             } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
         }, 1000)
-
-        if (!refreshToken.isNullOrEmpty()) {
-            splashViewModel.refreshToken(refreshToken)
-            saveToken()
-
-            profileViewModel.getProfileLogic()
-        }
-
-        sharedPreferences = getSharedPreferences("userOuting", MODE_PRIVATE)
-        if (!sharedPreferences.contains("outingStatus"))
-            initSharedPreference()
     }
 
     private fun initSharedPreference() {
-        sharedPreferences.edit()
+        userOutingSP.edit()
             .putBoolean("outingStatus", false)
             .apply()
     }
@@ -72,8 +67,10 @@ class SplashActivity : AppCompatActivity() {
             if (it != null) {
                 when(it) {
                     true -> {
-                        startActivity(Intent(this, MainActivity::class.java))
-                        finish()
+                        val intent = Intent(this, MainActivity::class.java)
+                        profileViewModel.getProfileLogic()
+                        saveRole(intent)
+                        initNotification()
                     }
                     false -> {
                         startActivity(Intent(this, SignInActivity::class.java))
@@ -84,29 +81,20 @@ class SplashActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveRole() {
+    private fun saveRole(intent: Intent) {
         lifecycleScope.launch {
             profileViewModel.profile.collect { profile ->
-                val authSf = getSharedPreferences("authority", MODE_PRIVATE)
-                authSf.edit().let {
-                    it.putString("role", profile?.authority)
-                    it.apply()
-                }
-            }
-        }
-    }
+                if (profile != null) {
+                    intent.putExtra("profile", profile)
 
-    private fun saveToken() {
-        lifecycleScope.launch {
-            splashViewModel.token.collect { token ->
-                if (token != null) {
-                    tokenSf.edit().let {
-                        it.putString("accessToken", token.accessToken)
-                        it.putString("refreshToken", token.refreshToken)
-                        it.putString("accessTokenExp", token.accessTokenExpiredAt)
-                        it.putString("refreshTokenExp", token.refreshTokenExpiredAt)
+                    val authSf = getSharedPreferences("authority", MODE_PRIVATE)
+                    authSf.edit().let {
+                        it.putString("role", profile.authority)
                         it.apply()
                     }
+
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
@@ -126,5 +114,63 @@ class SplashActivity : AppCompatActivity() {
         }
 
         return result
+    }
+
+    private fun initNotification() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                val token = task.result
+                if (deviceTokenSF.getString("device", "") == token) {
+                    notificationViewModel.setNotification(token)
+                    setNotificationLogic(token)
+                }
+            }
+        }
+    }
+
+    private fun setNotificationLogic(token: String) {
+        lifecycleScope.launch {
+            notificationViewModel.setNotification.collect {
+                val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
+                deviceTokenSF.edit().putString("device", token).apply()
+            }
+        }
+    }
+
+    private fun setInAppUpdate() {
+        val appUpdateTask = appUpdateManager.appUpdateInfo
+
+        appUpdateTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, this, REQUEST_CODE)
+            } else {
+                splashViewModel.checkIsLogin()
+                observeLogin()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                // app 종료
+                moveTaskToBack(true)
+                finishAndRemoveTask()
+                android.os.Process.killProcess(0)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, IMMEDIATE, this, REQUEST_CODE)
+            }
+        }
     }
 }

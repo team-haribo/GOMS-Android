@@ -65,8 +65,10 @@ object Dependency {
 
     object Google {
         const val MATERIAL = "com.google.android.material:material:${Versions.Material}"
-        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
-        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+        const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FirebaseBom}"
+        const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx:${Versions.FirebaseAnalytics}"
+        const val FIREBASE_MESSAGING = "com.google.firebase:firebase-messaging-ktx:${Versions.FirebaseMessaging}"
+        const val IN_APP_UPDATE = "com.google.android.play:core-ktx:${Versions.InAppUpdate}"
     }
 
     object Test {

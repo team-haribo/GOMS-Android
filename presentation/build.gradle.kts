@@ -17,8 +17,8 @@ android {
         applicationId = "com.goms.presentation"
         minSdk = 26
         targetSdk = 33
-        versionCode = 7
-        versionName = "1.1.1"
+        versionCode = 8
+        versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -88,6 +88,9 @@ dependencies {
     implementation(Dependency.Retrofit.OKHTTP)
     implementation(Dependency.Retrofit.OKHTTP_LOGGING_INTERCEPTOR)
 
+    // in app update
+    implementation(Dependency.Google.IN_APP_UPDATE)
+
     // compose
     implementation(Dependency.Compose.ACTIVITY_COMPOSE)
     implementation(Dependency.Compose.COMPOSE)
@@ -118,6 +121,8 @@ dependencies {
     implementation(Dependency.AndroidX.SWIPE_REFRESH_LAYOUT)
     implementation(Dependency.Libraries.SWIPE_REFRESH)
 
+    // firebase
     implementation(platform(Dependency.Google.FIREBASE_BOM))
     implementation(Dependency.Google.FIREBASE_ANALYTICS)
+    implementation(Dependency.Google.FIREBASE_MESSAGING)
 }

@@ -23,7 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivityStudentManageBinding
-import com.goms.presentation.utils.GomsDialog
+import com.goms.presentation.utils.dialog.GomsDialog
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog

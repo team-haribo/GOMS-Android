@@ -10,6 +10,7 @@ import com.goms.domain.exception.QrCodeExpiredException
 import com.goms.domain.exception.ServerException
 import com.goms.domain.exception.UserIsBlackListException
 import com.goms.domain.exception.UserNotFoundException
+import com.goms.presentation.view.home.dialog.GomsBlackListDialog
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
 

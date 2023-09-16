@@ -12,7 +12,7 @@ import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.BottomSheetModifyRoleBinding
-import com.goms.presentation.utils.GomsDialog
+import com.goms.presentation.utils.dialog.GomsDialog
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

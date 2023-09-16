@@ -38,7 +38,7 @@ import com.goms.domain.data.late.LateUserResponseData
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.FragmentHomeBinding
-import com.goms.presentation.utils.GomsBlackListDialog
+import com.goms.presentation.view.home.dialog.GomsBlackListDialog
 import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard

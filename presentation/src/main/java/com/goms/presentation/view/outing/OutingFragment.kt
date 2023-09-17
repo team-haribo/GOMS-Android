@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,7 +13,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -27,15 +25,16 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.domain.data.user.UserResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.FragmentOutingBinding
-import com.goms.presentation.utils.apiErrorHandling
+import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.outing.component.EmptyScreen
 import com.goms.presentation.view.outing.component.OutingStudentCard
 import com.goms.presentation.viewmodel.OutingViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.UUID
 
 @AndroidEntryPoint
 class OutingFragment : Fragment() {
@@ -49,8 +48,8 @@ class OutingFragment : Fragment() {
     ): View {
         binding = FragmentOutingBinding.inflate(layoutInflater)
 
-        binding.outingStudentSearchButton.setOnClickListener { view ->
-            var inputText = binding.outingStudentSearch.text.toString()
+        binding.outingStudentSearchButton.setOnClickListener {
+            val inputText = binding.outingStudentSearch.text.toString()
             searchOutingStudentLogic(name = inputText)
         }
         outingLogic()
@@ -60,21 +59,18 @@ class OutingFragment : Fragment() {
 
     private fun outingLogic() {
         setLoading()
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { getOutingList() }
-            )
-        }
+        getOutingList()
     }
 
     private fun getOutingList() {
         lifecycleScope.launch {
-            outingViewModel.outingListLogic()
+            outingViewModel.outingListLogic(activity as MainActivity)
             outingViewModel.outingList.collect { list ->
                 binding.outingStudentListLazyColumn.setContent {
-                    if (list!!.isEmpty()) EmptyScreen()
-                    else OutingLazyColumn(list)
+                    if (list != null) {
+                        if (list.isEmpty()) EmptyScreen()
+                        else OutingLazyColumn(list)
+                    }
                 }
             }
         }
@@ -82,7 +78,10 @@ class OutingFragment : Fragment() {
 
     private fun searchOutingStudentLogic(name: String) {
         lifecycleScope.launch {
-            outingViewModel.searchOutingStudent(name)
+            outingViewModel.searchOutingStudent(
+                name = name,
+                activity = activity as MainActivity
+            )
             outingViewModel.outingList.collect { list ->
                 binding.outingStudentListLazyColumn.setContent {
                     if (list!!.isEmpty()) EmptyScreen()
@@ -104,9 +103,9 @@ class OutingFragment : Fragment() {
 
     private fun deleteOuting(accountIdx: UUID) {
         lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { outingViewModel.deleteOuting(accountIdx) }
+            outingViewModel.deleteOuting(
+                accountIdx = accountIdx,
+                activity = activity as MainActivity
             )
             getOutingList()
         }

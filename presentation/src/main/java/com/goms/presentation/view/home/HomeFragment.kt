@@ -38,11 +38,10 @@ import com.goms.domain.data.late.LateUserResponseData
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.FragmentHomeBinding
-import com.goms.presentation.view.home.dialog.GomsBlackListDialog
-import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.home.component.HomeItemCard
 import com.goms.presentation.view.home.component.LateRankEmptyScreen
+import com.goms.presentation.view.home.dialog.GomsBlackListDialog
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.manage.StudentManageActivity
 import com.goms.presentation.view.profile.ProfileActivity
@@ -111,26 +110,11 @@ class HomeFragment : Fragment() {
 
     private fun homeLogic() {
         setLoading()
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { setProfile() }
-            )
-        }
+        lifecycleScope.launch { setProfile() }
 
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { getOutingCount() }
-            )
-        }
+        lifecycleScope.launch { getOutingCount() }
 
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { setLateRankList() }
-            )
-        }
+        lifecycleScope.launch { setLateRankList() }
     }
 
     private fun setLoading() {
@@ -153,7 +137,7 @@ class HomeFragment : Fragment() {
     }
 
     private suspend fun getOutingCount() {
-        outingViewModel.outingCount()
+        outingViewModel.outingCount(activity = activity as MainActivity)
         outingViewModel.outingCount.collect { people ->
             binding.currentStudentOutingText.setContent {
                 StudentOutingText(people!!.outingCount)
@@ -162,7 +146,7 @@ class HomeFragment : Fragment() {
     }
 
     private suspend fun setLateRankList() {
-        lateViewModel.getLateRanking()
+        lateViewModel.getLateRanking(activity = activity as MainActivity)
         lateViewModel.lateRanking.collect { list ->
             binding.lateRankingLazyRow.setContent {
                 if (list != null) {
@@ -174,7 +158,7 @@ class HomeFragment : Fragment() {
     }
 
     private suspend fun setProfile() {
-        profileViewModel.getProfileLogic()
+        profileViewModel.getProfileLogic(activity = activity as MainActivity)
         profileViewModel.profile.collect { data ->
             if (data != null) {
                 response = data

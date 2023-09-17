@@ -13,6 +13,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.databinding.GomsDialogBinding
+import com.goms.presentation.view.manage.StudentManageActivity
 import com.goms.presentation.view.sign_in.SignInActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,7 +68,10 @@ class GomsDialog(
     }
 
     private suspend fun setBlackListLogic(accountIdx: UUID) {
-        councilViewModel.setBlackList(accountIdx)
+        councilViewModel.setBlackList(
+            accountIdx = accountIdx,
+            activity = activity as StudentManageActivity
+        )
         councilViewModel.setBlackList.collect { isSuccess ->
             if (isSuccess) {
                 Toast.makeText(context, "외출 금지로 설정되었습니다.", Toast.LENGTH_SHORT).show()
@@ -77,7 +81,10 @@ class GomsDialog(
     }
 
     private suspend fun cancelBlackListLogic(accountIdx: UUID) {
-        councilViewModel.cancelBlackList(accountIdx)
+        councilViewModel.cancelBlackList(
+            accountIdx = accountIdx,
+            activity = activity as StudentManageActivity
+        )
         councilViewModel.cancelBlackList.collect { isSuccess ->
             if (isSuccess) {
                 Toast.makeText(context, "외출 금지를 해제했습니다.", Toast.LENGTH_SHORT).show()

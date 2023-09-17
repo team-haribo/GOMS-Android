@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.databinding.GomsNetworkDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class GomsNetworkDialog(private val retryLogic: () -> Unit): DialogFragment() {
+class GomsNetworkDialog(private val retryLogic: suspend () -> Unit): DialogFragment() {
     private lateinit var binding: GomsNetworkDialogBinding
 
     override fun onCreateView(
@@ -25,8 +27,10 @@ class GomsNetworkDialog(private val retryLogic: () -> Unit): DialogFragment() {
         dialog?.setCanceledOnTouchOutside(false)
 
         binding.dialogRetryButton.setOnClickListener {
-            retryLogic()
-            dismiss()
+            lifecycleScope.launch {
+                retryLogic()
+                dismiss()
+            }
         }
 
         return binding.root

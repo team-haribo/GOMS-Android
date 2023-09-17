@@ -1,10 +1,12 @@
 package com.goms.presentation.viewmodel
 
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.MakeQrCodeResponseData
 import com.goms.domain.data.council.response.UserInfoResponseData
+import com.goms.domain.exception.InternetConnectException
 import com.goms.domain.exception.NotCouncilException
 import com.goms.domain.exception.OtherException
 import com.goms.domain.exception.ServerException
@@ -15,6 +17,7 @@ import com.goms.domain.usecase.admin.ModifyRoleUseCase
 import com.goms.domain.usecase.admin.SearchStudentUseCase
 import com.goms.domain.usecase.admin.SetBlackListUseCase
 import com.goms.domain.usecase.admin.UserListUseCase
+import com.goms.presentation.utils.apiErrorHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +26,8 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.util.Timer
 import java.util.TimerTask
 import java.util.UUID
@@ -61,69 +66,102 @@ class CouncilViewModel @Inject constructor(
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    fun getUserList() {
+    fun getUserList(activity: AppCompatActivity) {
         viewModelScope.launch {
-            userListUseCase().onStart {
-                _isLoading.value = true
-            }.onCompletion {
-                _isLoading.value = false
-            }.catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        500 -> throw ServerException("서버 에러")
+            apiErrorHandling(activity = activity) {
+                userListUseCase().onStart {
+                    _isLoading.value = true
+                }.onCompletion {
+                    _isLoading.value = false
+                }.catch {
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect { list ->
-                _userList.value = list
+                }.collect { list ->
+                    _userList.value = list
+                }
             }
         }
     }
 
-    fun modifyRole(body: ModifyRoleRequestData) {
+    fun modifyRole(
+        body: ModifyRoleRequestData,
+        activity: AppCompatActivity
+    ) {
         viewModelScope.launch {
-            modifyRoleUseCase(body).catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
-                        500 -> throw ServerException("서버 에러")
+            apiErrorHandling(activity = activity) {
+                modifyRoleUseCase(body).catch {
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect {
-                _modifyRole.value = true
+                }.collect {
+                    _modifyRole.value = true
+                }
             }
         }
     }
 
-    fun setBlackList(accountIdx: UUID) {
+    fun setBlackList(
+        accountIdx: UUID,
+        activity: AppCompatActivity
+    ) {
         viewModelScope.launch {
-            setBlackListUseCase(accountIdx).catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
-                        500 -> throw ServerException("서버 에러")
+            apiErrorHandling(activity = activity) {
+                setBlackListUseCase(accountIdx).catch {
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect {
-                _setBlackList.value = true
+                }.collect {
+                    _setBlackList.value = true
+                }
             }
         }
     }
 
-    fun cancelBlackList(accountIdx: UUID) {
+    fun cancelBlackList(
+        accountIdx: UUID,
+        activity: AppCompatActivity
+    ) {
         viewModelScope.launch {
-            cancelBlackListUseCase(accountIdx).catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
-                        500 -> throw ServerException("서버 에러")
+            apiErrorHandling(activity = activity) {
+                cancelBlackListUseCase(accountIdx).catch {
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                404 -> throw UserNotFoundException("계정을 찾을 수 없습니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect {
-                _cancelBlackList.value = true
+                }.collect {
+                    _cancelBlackList.value = true
+                }
             }
         }
     }
@@ -133,41 +171,54 @@ class CouncilViewModel @Inject constructor(
         classNum: Int?,
         name: String?,
         isBlackList: Boolean?,
-        authority: String?
+        authority: String?,
+        activity: AppCompatActivity
     ) {
         viewModelScope.launch {
-            searchStudentUseCase(grade, classNum, name, isBlackList, authority).onStart {
+            apiErrorHandling(activity = activity) {
+                searchStudentUseCase(grade, classNum, name, isBlackList, authority).onStart {
                     _isLoading.value = true
                 }.onCompletion {
                     _isLoading.value = false
                 }.catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        500 -> throw ServerException("서버 에러")
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect {
-                _searchStudent.value = it
+                }.collect {
+                    _searchStudent.value = it
+                }
             }
         }
     }
 
-    fun makeQrCode() {
+    fun makeQrCode(activity: AppCompatActivity) {
         viewModelScope.launch {
-            makeQrCodeUseCase().onStart {
-                _isLoading.value = true
-            }.onCompletion {
-                _isLoading.value = false
-            }.catch {
-                if (it is HttpException) {
-                    when (it.code()) {
-                        403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
-                        500 -> throw ServerException("서버 에러")
+            apiErrorHandling(activity = activity) {
+                makeQrCodeUseCase().onStart {
+                    _isLoading.value = true
+                }.onCompletion {
+                    _isLoading.value = false
+                }.catch {
+                    when (it) {
+                        is HttpException -> {
+                            when (it.code()) {
+                                403 -> throw NotCouncilException("학생회 계정이 아닙니다.")
+                                500 -> throw ServerException("서버 에러")
+                            }
+                        }
+                        is UnknownHostException, is SocketTimeoutException -> throw InternetConnectException()
+                        else -> throw OtherException(it.message)
                     }
-                } else throw OtherException(it.message)
-            }.collect {
-                _makeQr.value = it
+                }.collect {
+                    _makeQr.value = it
+                }
             }
         }
     }

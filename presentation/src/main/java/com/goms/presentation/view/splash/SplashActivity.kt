@@ -8,7 +8,6 @@ import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -34,8 +33,6 @@ class SplashActivity : AppCompatActivity() {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val notificationViewModel by viewModels<NotificationViewModel>()
 
-    private lateinit var userOutingSP: SharedPreferences
-
     private lateinit var appUpdateManager: AppUpdateManager
     companion object {
         const val REQUEST_CODE = 12
@@ -54,9 +51,9 @@ class SplashActivity : AppCompatActivity() {
             if (checkIsInterConnected()) {
                 setInAppUpdate()
 
-                userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
+                val userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
                 if (!userOutingSP.contains("outingStatus"))
-                    initSharedPreference()
+                    initSharedPreference(userOutingSP = userOutingSP)
             } else {
                 val dialog = GomsNetworkDialog(retryLogic = { checkInternet() })
                 if (!dialog.isAdded) dialog.show(supportFragmentManager, "network")
@@ -64,7 +61,7 @@ class SplashActivity : AppCompatActivity() {
         }, 1000)
     }
 
-    private fun initSharedPreference() {
+    private fun initSharedPreference(userOutingSP: SharedPreferences) {
         userOutingSP.edit()
             .putBoolean("outingStatus", false)
             .apply()

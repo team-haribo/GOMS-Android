@@ -12,7 +12,8 @@ import com.goms.domain.data.council.request.ModifyRoleRequestData
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.BottomSheetModifyRoleBinding
-import com.goms.presentation.utils.GomsDialog
+import com.goms.presentation.utils.dialog.GomsDialog
+import com.goms.presentation.view.manage.StudentManageActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,10 +58,11 @@ class ModifyRoleBottomSheetDialog(private val uuid: UUID, private val  user: Use
 
     private suspend fun modifyRoleLogic(accountIdx: UUID) {
         councilViewModel.modifyRole(
-            ModifyRoleRequestData(
+            body = ModifyRoleRequestData(
                 accountIdx = accountIdx,
-                authority = changeModifyRole
-            )
+                authority = changeModifyRole,
+            ),
+            activity = activity as StudentManageActivity
         )
 
         councilViewModel.modifyRole.collect { checkAble ->

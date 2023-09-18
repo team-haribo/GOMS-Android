@@ -1,4 +1,4 @@
-package com.goms.presentation.utils
+package com.goms.presentation.view.home.dialog
 
 import android.content.Intent
 import android.graphics.Color

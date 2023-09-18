@@ -19,7 +19,6 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.BuildConfig
 import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivitySignInBinding
-import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.NotificationViewModel
 import com.goms.presentation.viewmodel.SignInViewModel
@@ -87,7 +86,10 @@ class SignInActivity : AppCompatActivity() {
             ) { code ->
                 binding.gauthWebView.visibility = View.INVISIBLE
 
-                signInViewModel.signInLogic(code)
+                signInViewModel.signInLogic(
+                    code = code,
+                    activity = this
+                )
                 lifecycleScope.launch {
                     signInViewModel.isLoading.collect { loading ->
                         if (loading) {
@@ -95,10 +97,7 @@ class SignInActivity : AppCompatActivity() {
                             binding.signInProgressBar.visibility = View.VISIBLE
                         } else {
                             binding.signInProgressBar.visibility = View.GONE
-                            apiErrorHandling(
-                                context = this@SignInActivity,
-                                logic = { signInLogic() }
-                            )
+                            signInLogic()
                         }
                     }
                 }
@@ -122,7 +121,10 @@ class SignInActivity : AppCompatActivity() {
                 val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
                 val token = task.result
                 if (deviceTokenSF.getString("device", "") == token) {
-                    notificationViewModel.setNotification(token)
+                    notificationViewModel.setNotification(
+                        deviceToken = token,
+                        activity = this
+                    )
                     setNotificationLogic(token)
                 }
             }

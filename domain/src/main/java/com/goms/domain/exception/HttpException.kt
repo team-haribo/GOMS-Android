@@ -49,3 +49,10 @@ class QrCodeExpiredException(
 class ServerException(
     override val message: String?
 ): RuntimeException()
+
+/**
+ * 네트워크 에러에 사용
+ */
+class InternetConnectException(
+    override val message: String? = "네트워크 연결이 불안정합니다."
+): RuntimeException()

@@ -23,8 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import com.goms.domain.data.council.response.UserInfoResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivityStudentManageBinding
-import com.goms.presentation.utils.GomsDialog
-import com.goms.presentation.utils.apiErrorHandling
+import com.goms.presentation.utils.dialog.GomsDialog
 import com.goms.presentation.view.manage.bottomsheet.ModifyRoleBottomSheetDialog
 import com.goms.presentation.view.manage.bottomsheet.SearchFilterBottomSheetDialog
 import com.goms.presentation.view.manage.component.SearchResultEmptyScreen
@@ -65,13 +64,8 @@ class StudentManageActivity : AppCompatActivity() {
     private fun studentManageLogic() {
         setLoading()
         lifecycleScope.launch {
-            apiErrorHandling(
-                context = this@StudentManageActivity,
-                logic = {
-                    if (userFilterOptions != null) refreshSearchUser(userFilterOptions!!)
-                    else getUserList()
-                }
-            )
+            if (userFilterOptions != null) refreshSearchUser(userFilterOptions!!)
+            else getUserList()
         }
     }
 
@@ -85,7 +79,7 @@ class StudentManageActivity : AppCompatActivity() {
     }
 
     private suspend fun getUserList() {
-        councilViewModel.getUserList()
+        councilViewModel.getUserList(activity = this)
         councilViewModel.userList.collect { list ->
             if (list != null) initUserList(list)
         }
@@ -194,18 +188,20 @@ class StudentManageActivity : AppCompatActivity() {
 
     private fun refreshSearchUser(options: UserFilterOptions) {
         lifecycleScope.launch {
-            apiErrorHandling(
-                context = this@StudentManageActivity,
-                logic = {
-                    options.apply {
-                        councilViewModel.searchStudent(grade, classNum, name, isBlackList, authority)
-                    }
+            options.apply {
+                councilViewModel.searchStudent(
+                    grade = grade,
+                    classNum = classNum,
+                    name = name,
+                    isBlackList = isBlackList,
+                    authority = authority,
+                    activity = this@StudentManageActivity
+                )
+            }
 
-                    councilViewModel.searchStudent.collect { list ->
-                        if (list != null) searchUserList(list)
-                    }
-                }
-            )
+            councilViewModel.searchStudent.collect { list ->
+                if (list != null) searchUserList(list)
+            }
         }
     }
 

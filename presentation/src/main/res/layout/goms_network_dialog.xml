@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/goms_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="네트워크가 불안정합니다."
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:fontFamily="@font/sf_pro_text_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="인터넷 연결 후 다시 시도해주세요."
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/sf_pro_text_regular"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_retry_button"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="재시도"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/dialog_button_bg_yes"
+            android:layout_marginBottom="20dp" />
+    </LinearLayout>
+</FrameLayout>

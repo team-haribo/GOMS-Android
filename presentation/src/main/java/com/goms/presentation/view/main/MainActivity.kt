@@ -14,7 +14,6 @@ import coil.load
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivityMainBinding
-import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
 import com.goms.presentation.view.profile.ProfileActivity
 import com.goms.presentation.viewmodel.ProfileViewModel
@@ -58,7 +57,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         val intentExtra = intent.getSerializableExtra("profile") as ProfileResponseData?
-        if (intentExtra == null) setProfile()
+        if (intentExtra == null) {
+            lifecycleScope.launch {
+                getProfile()
+            }
+        }
         else {
             response = intentExtra
             binding.mainCircleProfileIcon.load(intentExtra.profileUrl ?: R.drawable.user_profile)
@@ -82,17 +85,8 @@ class MainActivity : AppCompatActivity() {
             .check()
     }
 
-    private fun setProfile() {
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = this@MainActivity,
-                logic = { getProfile() }
-            )
-        }
-    }
-
     private suspend fun getProfile() {
-        profileViewModel.getProfileLogic()
+        profileViewModel.getProfileLogic(activity = this)
         profileViewModel.profile.collect { data ->
             if (data != null) {
                 response = data

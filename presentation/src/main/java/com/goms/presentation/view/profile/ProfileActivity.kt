@@ -8,7 +8,7 @@ import coil.load
 import com.goms.domain.data.profile.ProfileResponseData
 import com.goms.presentation.R
 import com.goms.presentation.databinding.ActivityProfileBinding
-import com.goms.presentation.utils.GomsDialog
+import com.goms.presentation.utils.dialog.GomsDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

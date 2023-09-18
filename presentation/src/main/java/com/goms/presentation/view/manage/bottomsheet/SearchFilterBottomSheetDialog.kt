@@ -41,7 +41,8 @@ class SearchFilterBottomSheetDialog: BottomSheetDialogFragment() {
                     classNum = changeClassNum,
                     name = name.ifEmpty { null },
                     isBlackList = setIsBlackList(),
-                    authority = setAuthority()
+                    authority = setAuthority(),
+                    activity = activity as StudentManageActivity
                 )
 
                 val activity = activity as StudentManageActivity

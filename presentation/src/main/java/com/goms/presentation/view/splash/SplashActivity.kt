@@ -8,11 +8,11 @@ import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.R
+import com.goms.presentation.utils.dialog.GomsNetworkDialog
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.sign_in.SignInActivity
 import com.goms.presentation.viewmodel.NotificationViewModel
@@ -33,8 +33,6 @@ class SplashActivity : AppCompatActivity() {
     private val profileViewModel by viewModels<ProfileViewModel>()
     private val notificationViewModel by viewModels<NotificationViewModel>()
 
-    private lateinit var userOutingSP: SharedPreferences
-
     private lateinit var appUpdateManager: AppUpdateManager
     companion object {
         const val REQUEST_CODE = 12
@@ -45,18 +43,25 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         appUpdateManager = AppUpdateManagerFactory.create(this)
+        checkInternet()
+    }
+
+    private fun checkInternet() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (checkIsInterConnected()) {
                 setInAppUpdate()
 
-                userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
+                val userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
                 if (!userOutingSP.contains("outingStatus"))
-                    initSharedPreference()
-            } else Toast.makeText(this, "인터넷 없음", Toast.LENGTH_SHORT).show()
+                    initSharedPreference(userOutingSP = userOutingSP)
+            } else {
+                val dialog = GomsNetworkDialog(retryLogic = { checkInternet() })
+                if (!dialog.isAdded) dialog.show(supportFragmentManager, "network")
+            }
         }, 1000)
     }
 
-    private fun initSharedPreference() {
+    private fun initSharedPreference(userOutingSP: SharedPreferences) {
         userOutingSP.edit()
             .putBoolean("outingStatus", false)
             .apply()
@@ -68,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
                 when(it) {
                     true -> {
                         val intent = Intent(this, MainActivity::class.java)
-                        profileViewModel.getProfileLogic()
+                        profileViewModel.getProfileLogic(activity = this)
                         saveRole(intent)
                         initNotification()
                     }
@@ -122,7 +127,10 @@ class SplashActivity : AppCompatActivity() {
                 val deviceTokenSF = getSharedPreferences("deviceToken", MODE_PRIVATE)
                 val token = task.result
                 if (deviceTokenSF.getString("device", "") == token) {
-                    notificationViewModel.setNotification(token)
+                    notificationViewModel.setNotification(
+                        deviceToken = token,
+                        activity = this
+                    )
                     setNotificationLogic(token)
                 }
             }

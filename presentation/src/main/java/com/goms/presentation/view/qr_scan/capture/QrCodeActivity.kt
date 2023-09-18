@@ -13,7 +13,6 @@ import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.budiyev.android.codescanner.ScanMode
 import com.goms.presentation.databinding.ActivityQrCodeBinding
-import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.viewmodel.OutingViewModel
 import com.gun0912.tedpermission.PermissionListener
@@ -58,10 +57,7 @@ class QrCodeActivity : AppCompatActivity() {
         codeScanner.decodeCallback = DecodeCallback { resultUrl ->
             runOnUiThread {
                 lifecycleScope.launch {
-                    apiErrorHandling(
-                        context = this@QrCodeActivity,
-                        logic = { outingLogic(resultUrl.text) }
-                    )
+                    outingLogic(resultUrl.text)
                 }
             }
         }
@@ -81,7 +77,10 @@ class QrCodeActivity : AppCompatActivity() {
         val qrUUID = text.split("/")
         val resultUUID = UUID.fromString(qrUUID[qrUUID.lastIndex])
 
-        outingViewModel.outingLogic(resultUUID)
+        outingViewModel.outingLogic(
+            outingUUID = resultUUID,
+            activity = this
+        )
         outingViewModel.isOuting.collect { outAble ->
             if (outAble == true) {
                 MainActivity.getInstance().navigateComplete()

@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.goms.presentation.BuildConfig
 import com.goms.presentation.databinding.FragmentQrScanBinding
-import com.goms.presentation.utils.apiErrorHandling
 import com.goms.presentation.utils.checkUserIsAdmin
+import com.goms.presentation.view.main.MainActivity
 import com.goms.presentation.view.qr_scan.capture.QrCodeActivity
 import com.goms.presentation.viewmodel.CouncilViewModel
 import com.google.zxing.BarcodeFormat
@@ -23,7 +23,8 @@ import java.util.UUID
 
 @AndroidEntryPoint
 class QrScanFragment : Fragment() {
-    private val councilViewModel by viewModels<CouncilViewModel>()
+    private
+    val councilViewModel by viewModels<CouncilViewModel>()
     private lateinit var binding: FragmentQrScanBinding
     private var outingUUID = UUID.randomUUID()
 
@@ -40,7 +41,7 @@ class QrScanFragment : Fragment() {
         } else {
             setLoading()
             lifecycleScope.launch {
-                makeQr()
+                qrLogic()
             }
         }
 
@@ -64,17 +65,8 @@ class QrScanFragment : Fragment() {
         }
     }
 
-    private suspend fun makeQr() {
-        lifecycleScope.launch {
-            apiErrorHandling(
-                context = context,
-                logic = { qrLogic() }
-            )
-        }
-    }
-
     private suspend fun qrLogic() {
-        councilViewModel.makeQrCode()
+        councilViewModel.makeQrCode(activity = activity as MainActivity)
         councilViewModel.makeQr.collect { uuid ->
             kotlin.runCatching {
                 if (uuid!!.outingUUID != null) {

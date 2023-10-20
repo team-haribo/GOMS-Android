@@ -17,8 +17,8 @@ android {
         applicationId = "com.goms.presentation"
         minSdk = 26
         targetSdk = 33
-        versionCode = 10
-        versionName = "1.2.2"
+        versionCode = 11
+        versionName = "1.2.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 

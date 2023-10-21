@@ -6,8 +6,6 @@ import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -47,18 +45,16 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkInternet() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (checkIsInterConnected()) {
-                setInAppUpdate()
+        if (checkIsInterConnected()) {
+            setInAppUpdate()
 
-                val userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
-                if (!userOutingSP.contains("outingStatus"))
-                    initSharedPreference(userOutingSP = userOutingSP)
-            } else {
-                val dialog = GomsNetworkDialog(retryLogic = { checkInternet() })
-                if (!dialog.isAdded) dialog.show(supportFragmentManager, "network")
-            }
-        }, 1000)
+            val userOutingSP = getSharedPreferences("userOuting", MODE_PRIVATE)
+            if (!userOutingSP.contains("outingStatus"))
+                initSharedPreference(userOutingSP = userOutingSP)
+        } else {
+            val dialog = GomsNetworkDialog(retryLogic = { checkInternet() })
+            if (!dialog.isAdded) dialog.show(supportFragmentManager, "network")
+        }
     }
 
     private fun initSharedPreference(userOutingSP: SharedPreferences) {
